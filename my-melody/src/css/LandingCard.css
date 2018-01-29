@@ -1,0 +1,86 @@
+.centerContainer {
+    height: inherit;
+}
+
+.cardHolder {
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 100px;
+    width: 397px;
+    height: 500px;
+    border: solid 1px #FFFFFF;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+}
+
+.musicNoteLogo {
+    margin-top: 30px;
+    padding: 4px;
+    padding-right: 8px;
+    color: #FFFFFF;
+    background: #EC407A;
+    border: solid 1px #EC407A;
+    border-radius: 8px;
+}
+
+.welcomeMessage {
+    margin-top: 10px;
+    font-weight: 700;
+    font-size: 26px;
+    color: #616161;
+}
+
+.describeMessage {
+    font-weight: 600;
+    color: #BDBDBD;
+    margin-bottom: 20px;
+}
+
+.username, .password, .confirmPassword {
+    margin-top: 5px;
+    padding: 10px 20px;
+    background: #EEEEEE;
+    border: 0 none;
+    border-radius: 5px;
+    width: 240px;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.username:focus, .password:focus, .confirmPassword:focus {
+    outline: 0;
+}
+
+.signUpButton {
+    margin-top: 5px;
+    padding: 10px 106px;
+    background: #F06292;
+    color: #FFFFFF;
+    font-size: 15px;
+    font-weight: 700;
+    border: 0 none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.signUpButton:focus {
+    outline: 0;
+}
+
+.orDivider {
+    margin-top: 20px;
+    font-weight: 600;
+    font-size: 15px;
+    color: #616161;
+}
+
+.facebookButton {
+    margin-top: 20px;
+    padding: 10px 52px;
+    background: #3B5998;
+    color: #FFFFFF;
+    font-size: 15px;
+    font-weight: 700;
+    border: 0 none;
+    border-radius: 5px;
+}

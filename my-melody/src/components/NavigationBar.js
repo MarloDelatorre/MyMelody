@@ -24,12 +24,15 @@ class NavigationBar extends Component {
 
                 <div className="navBarWide">
                     <div className="wideMenu">
-                        Menu Area
+                        <a href="#">Login</a>
                     </div>
                 </div>
 
                 <div className="navBarNarrow">
                     <FontAwesome name="bars" size="2x" className="burgerNavIcon" onClick={this.hamburgerMenuToggle}/>
+                    <div className="dropdownMenu">
+
+                    </div>
                 </div>
             </nav>
         );
