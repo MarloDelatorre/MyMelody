@@ -16,7 +16,7 @@ class LandingCard2 extends Component {
                     <br/>
 
                     <input type="checkbox" className="rememberCheck"/>
-                    <span>Remember Me</span>
+                    <span className="rememberMeCheck">Remember Me</span>
                     <br/>
                     <input type="submit" className="loginSubmit" value="Login"/>
                     <button type="button" className="signUpSubmit">Sign Up</button>

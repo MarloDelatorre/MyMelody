@@ -7,11 +7,11 @@ html, body {
 }
 
 body {
-    background-image: url(./assets/MusicBackground.jpg);
+    background-image: url(./assets/PurpleNotes.png);
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
-    background: #000000;
+    /* background: #000000; */
 }
 
 .root {
