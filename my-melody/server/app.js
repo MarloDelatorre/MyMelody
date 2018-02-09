@@ -4,13 +4,18 @@ var path = require('path');
 
 const users = require('./routes/users');
 
+const port = process.env.PORT || 4000;
+
+// console.log(path.join(__dirname, '../client/build/', '/index.html'));
+app.use(express.static(path.join(__dirname, '../client/build')));
+
 app.get('/', function(req, res) {
-  res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+  res.sendFile(path.join(__dirname, '../client/build/', '/index.html'));
 });
 
 app.use('/users', users);
 
-app.listen(process.env.PORT || 4000, function() {
+app.listen(port, function() {
   console.log('App listening');
 });
 
