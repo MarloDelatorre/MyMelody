@@ -4,7 +4,7 @@ var app = express();
 const users = require('./routes/users');
 
 app.get('/', function(req, res) {
-  res.send('Hello World');
+  res.sendFile(`${__dirname}/../client/build/index.html`);
 });
 
 app.use('/users', users);
