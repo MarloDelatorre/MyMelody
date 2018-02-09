@@ -1,10 +1,11 @@
 var express = require('express');
 var app = express();
+var path = require('path');
 
 const users = require('./routes/users');
 
 app.get('/', function(req, res) {
-  res.sendFile(`${__dirname}/../client/build/index.html`);
+  res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
 });
 
 app.use('/users', users);
