@@ -9,7 +9,7 @@ app.get('/', function(req, res) {
 
 app.use('/users', users);
 
-app.listen(4000, function() {
+app.listen(process.env.PORT || 4000, function() {
   console.log('App listening');
 });
 
