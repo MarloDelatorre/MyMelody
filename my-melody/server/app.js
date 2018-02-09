@@ -1,9 +1,13 @@
 var express = require('express');
 var app = express();
 
-app.get('/test', function (req, res) {
+const users = require('./routes/users');
+
+app.get('/', function(req, res) {
   res.send('Hello World');
 });
+
+app.use('/users', users);
 
 app.listen(4000, function() {
   console.log('App listening');
