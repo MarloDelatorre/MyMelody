@@ -5,12 +5,13 @@ import LandingCard2 from './LandingCard2';
 import LandingCardFinal from './LandingCardFinal';
 import './../css/LandingPage.css';
 import PersonMusic from './../assets/PersonMusic.png';
+import LandingPerson from './../assets/LandingPerson.png';
 
 class LandingPage extends Component {
     render() {
         return(
             <div className="landingPageContainer">
-                <img src={PersonMusic} className="landingPageBackground"/>
+                <img src={LandingPerson} className="landingPageBackground"/>
 
                 <LandingCardFinal />
             </div>

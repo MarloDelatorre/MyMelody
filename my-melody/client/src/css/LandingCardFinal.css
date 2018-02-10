@@ -42,7 +42,7 @@
 }
 
 .landingCardBody {
-    width: 600px;
+    width: 510px;
     margin-left: 90px;
 }
 
@@ -64,7 +64,7 @@
 .landingCardSignUp {
     margin-top: 80px;
     padding: 20px 0;
-    border: none;
+    border: 2px solid #D34084;
     border-radius: 35px;
     background-color: #D34084;
     width: 400px;
@@ -72,6 +72,13 @@
     font-weight: 700;
     letter-spacing: 1px;
     color: #FFFFFF;
+    transition-duration: 0.5s;
+    cursor: pointer;
+}
+
+.landingCardSignUp:hover {
+    background-color: #F50057;
+    border: 2px solid #F50057;
 }
 
 .landingCardDivider {
@@ -104,4 +111,42 @@
     font-weight: 700;
     letter-spacing: 1px;
     color: #D34084;
+    transition-duration: 0.5s;
+    cursor: pointer;
+}
+
+.landingCardLogIn:hover {
+    background-color: #F50057;
+    border: 2px solid #F50057;
+    color: #FFFFFF;
+}
+
+.landingCardSignUp:focus, .landingCardLogIn:focus {
+    outline: none;
+}
+
+@media (min-width:511px) and (max-width:600px) {
+    .landingCardBody {
+        margin-left: auto;
+    }
+}
+
+@media (max-width:510px) {
+    .landingCardBody {
+        width: 100%;
+        margin-left: 0;
+        text-align: center;
+    }
+
+    .landingCardListenMessage {
+        width: 100%;
+    }
+
+    .landingCardDivider {
+        width: 100%;
+    }
+}
+
+@media () {
+
 }
