@@ -1,0 +1,46 @@
+header {
+  font-size: 18pt;
+  font-weight: bold;
+  color: #D34084;
+  margin-top: 10px;
+}
+p {
+  font-size: 14pt;
+  font-weight: lighter;
+  color: #D34084;
+  margin-top: 0px;
+}
+img {
+  width: 350px;
+  height: 350px;
+}
+#topHeader {
+  font-size: 30pt;
+  font-weight: bold;
+  color: #D34084;
+  margin-bottom: 50px;
+  padding-left: 6%;
+}
+#topParagraph {
+  font-size: 13pt;
+  font-weight: lighter;
+  color: #D34084;
+  letter-spacing: 2px;
+  margin-bottom: 50px;
+  padding-left: 6%;
+  padding-right: 6%;
+}
+
+.profileCards{
+  display: inline-block;
+  text-align: center;
+  width: 33%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+#row1 {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
