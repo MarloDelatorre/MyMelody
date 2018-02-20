@@ -3,5 +3,8 @@
     "version": "0.0.0",
     "scripts": {
         "postinstall": "npm install --prefix my-melody/server && npm install --prefix my-melody/client && npm run build --prefix my-melody/client"
+    },
+    "dependencies": {
+        "mongoose": "^5.0.4"
     }
 }
