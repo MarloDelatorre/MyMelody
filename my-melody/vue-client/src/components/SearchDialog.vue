@@ -37,7 +37,7 @@ export default {
     methods: {
         search() {
             this.selectedTrack = null;
-            var token = 'BQAVq8xAfAbZ-4NitDryolWNhoxFjJHuO0y8gUxJZJ5VUw4gDnMcpjvtG1Ueuu4mbXVD3w3vX3Ya47hk0F5BICJwAZ-LOnyBG7A8Jobg387SjTTfpF4iv3NIvsEBlWA4bl9q9jyAoT-1fa6Y';
+            var token = 'BQB5GSPqv7FgunxGnMngtq2xxrJ085eeuCTCSrucraDqy1IJUTwWntpLibIoAUtN06q1fcKP4oQqjTLMTQ0lEmldG7N-1JAjmbMFhjinoG8LGNgM4hQou0XoX9UUrkta2h-bTmHfyTmRUz6U';
             axios.get(`https://api.spotify.com/v1/search?q=${this.query}&type=track` , {
                 headers: {
                     'Accept': 'application/json',
