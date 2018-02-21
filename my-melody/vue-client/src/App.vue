@@ -69,7 +69,12 @@ table {
   color: #2c3e50;
 }
 
+body {
+	font-family: 'Open Sans', sans-serif;
+}
+
 .container {
   margin: 0 90px;
 }
+
 </style>

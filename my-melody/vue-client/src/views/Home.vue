@@ -1,16 +1,17 @@
 <template>
   <div class="home">
-    <LandingCard/>
+    <search-dialog></search-dialog>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import LandingCard from '@/components/LandingCard.vue'
+import SearchDialog from '@/components/SearchDialog.vue'
+
 export default {
   name: 'home',
   components: {
-    LandingCard
+    SearchDialog
   }
 }
 </script>

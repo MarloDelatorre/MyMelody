@@ -19,7 +19,7 @@
 
 <script>
 export default {
-  name: 'LandingCard',
+  name: 'landing',
   data: function() {
       return {
           headline: 'Discover and share music with your friends.',
@@ -56,6 +56,7 @@ export default {
         font-weight: 700;
         border-radius: 35px;
         letter-spacing: 1px;
+        text-transform: uppercase;
     }
 
     .signup {

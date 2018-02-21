@@ -36,6 +36,7 @@ h1 {
 
 a {
     border: none;
+    box-sizing: border-box;
     font-size: 20px;
     cursor: pointer;
     letter-spacing: 2px;
