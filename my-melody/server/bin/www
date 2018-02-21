@@ -23,7 +23,8 @@ let server = http.createServer(app);
  * Connect to database
  */
  let dbURI = process.env.MONGODB_URI || 'mongodb://localhost/mymelody';
- let db = mongoose.connect(dbURI, {useMongoClient: true});
+ mongoose.connect(dbURI);
+ let db = mongoose.connection;
  db.on('error', console.error.bind(console, 'connection error:'));
  db.once('open', () => {
     console.log('Connected to ${dbURI}');
