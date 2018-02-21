@@ -15,7 +15,7 @@
                 <button class="select" v-on:click="select(track)">Select</button>
             </div>
         </div>
-        <button class="continue" v-if="selectedTrack">Continue</button>
+        <button class="continue" v-on:click="commit" v-if="selectedTrack">Continue</button>
     </div>
 </template>
 
@@ -42,7 +42,7 @@ export default {
             axios.get(`https://api.spotify.com/v1/search?q=${this.query}&type=track` , {
                 headers: {
                     'Accept': 'application/json',
-                    'Authorization': 'Bearer BQDZkB9FaWJv1Bb9Rn-IC-y1K3LmxJN8j8M-6gOxpR2Q8L4uFftEaOZNJNz-0cNe9EopGB9lY86bJ3HiYd6GgKLiO2srGBc-mCkieWZkOgESmyiB7Fo99aHFaMNw562eMIfXGkV1iyl45mUl'
+                    'Authorization': 'Bearer BQD7WZLv67Y0gV4-iaVjQx5X1MnCH2RwKaTDZVhCNoV5MvUOI9carWOgAFw7FUGmQBn5EvGtrNebc_NR1lZbowxFm2G8WO4giB4hNBg7FRJeMX-9lZ4zi88saO-pbKqWbvgnhLxDKOSQf1Ey'
                 }
             })
             .then(res => {
@@ -64,6 +64,9 @@ export default {
         },
         select(track) {
             this.selectedTrack = track;
+        },
+        commit() {
+            this.$store.commit('selectTrack', this.selectedTrack);
         }
     }
 }

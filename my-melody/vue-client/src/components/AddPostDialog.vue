@@ -1,9 +1,9 @@
 <template>
         <div class="container">
             <track-card :title="track.title" :artist="track.artist" :albumArt="track.albumArt"/>
-            <div class="caption" >
-                <textarea placeholder="Add a caption..."></textarea>
-                <button>Add Post</button>
+            <div class="caption">
+                <textarea v-model="caption" placeholder="Add a caption..."></textarea>
+                <button v-on:click="post">Add Post</button>
             </div>
         </div>
 </template>
@@ -15,10 +15,17 @@ export default {
     name: 'add-post-dialog',
     data: function() {
         return {
-            track: {
-                title: 'selectedTrack',
-                artist: 'selectedTrackArtist'
-            }
+            caption: null
+        }
+    },
+    computed: {
+        track() {
+            return this.$store.getters.selectedTrack;
+        }
+    },
+    methods: {
+        post() {
+            console.log({track: this.$store.getters.selectedTrack, caption: this.caption})
         }
     },
     components: {
