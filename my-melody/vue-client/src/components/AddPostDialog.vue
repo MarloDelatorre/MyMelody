@@ -3,7 +3,10 @@
             <track-card :title="track.title" :artist="track.artist" :albumArt="track.albumArt"/>
             <div class="caption">
                 <textarea v-model="caption" placeholder="Add a caption..."></textarea>
-                <button v-on:click="post">Add Post</button>
+                <div>
+                    <button v-on:click="back">Back</button>
+                    <button v-on:click="post">Add Post</button>
+                </div>
             </div>
         </div>
 </template>
@@ -26,6 +29,10 @@ export default {
     methods: {
         post() {
             console.log({track: this.$store.getters.selectedTrack, caption: this.caption})
+            this.$store.commit('postModalState', null);
+        },
+        back() {
+            this.$store.commit('postModalState', 'search');
         }
     },
     components: {
@@ -38,6 +45,9 @@ export default {
     .container {
         display: flex;
         flex-direction: row;
+        padding: 30px;
+        max-width: 700px;
+        margin: 0 auto;
     }
 
     .caption {
@@ -52,13 +62,12 @@ export default {
 
     .caption button {
         box-sizing: border-box;
-        display: block;
-        width: 305px;
+        width: 150px;
         padding: 7px 0; 
         border: 1px solid #d34084;
         border-radius: 25px;
         background-color: #d34084;
         color: #fff;
-        margin: 5px 0;
+        margin: 5px 1px;
     }
 </style>

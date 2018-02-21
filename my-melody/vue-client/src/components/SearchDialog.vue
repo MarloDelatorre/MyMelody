@@ -2,20 +2,18 @@
     <div class="container">
         <input class="search-box" v-model="query" placeholder="Search"/><button class="search-btn" v-on:click="search"><icon name="search"></icon></button>
         <div class="results">
-            <!-- TODO: center this -->
             <p v-if="!tracks">Search for a song or artist.</p>
-            <!-- TODO: center this -->
             <div v-if="noResults" class="noresults">
                 <p>No results found.</p>
-                <!-- TODO: style this -->
-                <button>Add manual post</button>
             </div>
+            <transition-group name="fade" class="transition">
             <div v-for="track in tracks" :key="track.id" class="result">
                 <track-card :title="track.title" :artist="track.artist" :albumArt="track.albumArt"/>
                 <button class="select" v-on:click="select(track)">Select</button>
             </div>
+            </transition-group>
         </div>
-        <button class="continue" v-on:click="commit" v-if="selectedTrack">Continue</button>
+        <button class="continue" v-on:click="commit" :disabled="!selectedTrack">Continue</button>
     </div>
 </template>
 
@@ -39,14 +37,13 @@ export default {
     methods: {
         search() {
             this.selectedTrack = null;
+            var token = 'BQAVq8xAfAbZ-4NitDryolWNhoxFjJHuO0y8gUxJZJ5VUw4gDnMcpjvtG1Ueuu4mbXVD3w3vX3Ya47hk0F5BICJwAZ-LOnyBG7A8Jobg387SjTTfpF4iv3NIvsEBlWA4bl9q9jyAoT-1fa6Y';
             axios.get(`https://api.spotify.com/v1/search?q=${this.query}&type=track` , {
                 headers: {
                     'Accept': 'application/json',
-                    'Authorization': 'Bearer BQD7WZLv67Y0gV4-iaVjQx5X1MnCH2RwKaTDZVhCNoV5MvUOI9carWOgAFw7FUGmQBn5EvGtrNebc_NR1lZbowxFm2G8WO4giB4hNBg7FRJeMX-9lZ4zi88saO-pbKqWbvgnhLxDKOSQf1Ey'
-                }
-            })
-            .then(res => {
-                const tracks = res.data.tracks.items;
+                    'Authorization': `Bearer ${token}`
+                } }) .then(res => {
+                           const tracks = res.data.tracks.items;
                 this.noResults = tracks.length > 0 ? false : true;
                 this.tracks = tracks.map(item => {
                     return {
@@ -67,6 +64,7 @@ export default {
         },
         commit() {
             this.$store.commit('selectTrack', this.selectedTrack);
+            this.$store.commit('postModalState', 'add');
         }
     }
 }
@@ -75,6 +73,7 @@ export default {
 <style scoped>
     .container {
         width: 1000px;
+        margin: 30px auto;
     }
     .search-box {
         border: 1px solid #d34084; 
@@ -104,6 +103,12 @@ export default {
         width: 100%;
         overflow-x: hidden;
         overflow-y: auto;
+    }
+
+    .transition {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
     }
 
     .results::-webkit-scrollbar {
