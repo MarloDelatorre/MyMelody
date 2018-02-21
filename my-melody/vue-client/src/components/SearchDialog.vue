@@ -2,8 +2,12 @@
     <div class="container">
         <input class="search-box" v-model="query" placeholder="Search"/><button class="search-btn" v-on:click="search"><icon name="search"></icon></button>
         <div class="results">
+            <!-- TODO: center this -->
+            <p v-if="!tracks">Search for a song or artist.</p>
+            <!-- TODO: center this -->
             <div v-if="noResults" class="noresults">
                 <p>No results found.</p>
+                <!-- TODO: style this -->
                 <button>Add manual post</button>
             </div>
             <div v-for="track in tracks" :key="track.id" class="result">
@@ -11,7 +15,6 @@
                 <button class="select" v-on:click="select(track)">Select</button>
             </div>
         </div>
-        
         <button class="continue" v-if="selectedTrack">Continue</button>
     </div>
 </template>
@@ -66,7 +69,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
     .container {
         width: 1000px;
     }
@@ -93,6 +96,7 @@ export default {
     .results {
         display: flex;
         flex-wrap: wrap;
+        justify-content: flex-start;
         height: 600px;
         width: 100%;
         overflow-x: hidden;
@@ -112,7 +116,7 @@ export default {
     }
 
     .result {
-        margin: 5px;
+        margin: 15px;
     }
     
     .select {

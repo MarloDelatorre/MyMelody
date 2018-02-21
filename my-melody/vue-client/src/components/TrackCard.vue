@@ -12,7 +12,10 @@ export default {
     props: {
         title: String,
         artist: String,
-        albumArt: String
+        albumArt: {
+            default: require('../assets/blank-album-art.png'),
+            type: String
+        }
     }
 }
 </script>
@@ -23,6 +26,7 @@ export default {
     }
     img {
         width: 100%;
+        margin-bottom: 10px;
     }
     h1 {
         font-size: 1.2em;
