@@ -3,7 +3,6 @@ var axios = require('axios');
 
 var router = express.Router();
 
-var CLIENT_AUTH = 'YWI2MWQwNDA3ZDU1NGQzY2IzN2VhMzliYThjOWJlODY6YWIwMTM1YjNhNDNlNDI0N2JhZjZiNjBiNWJlMTFhZTk=';
 var TOKEN = null;
 
 function refreshToken() {
@@ -13,7 +12,7 @@ function refreshToken() {
         {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
-                'Authorization': `Basic ${CLIENT_AUTH}`,
+                'Authorization': `Basic ${process.env.CLIENT_AUTH}`,
             }
         } 
     ).then(res => TOKEN = res.data.access_token);
@@ -32,7 +31,7 @@ router.route('/search')
                 var tracks = result.data.tracks.items;
                 tracks = tracks.map(item => {
                     return {
-                        service: 'Spotify',
+                        service: 'spotify',
                         title: item.name,
                         artist: item.artists.map(artist => {
                                     return artist.name
