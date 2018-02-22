@@ -1,15 +1,15 @@
 <template>
     <nav class="container">
         <h1>{{ projectName }}</h1>
-        <router-link to="/about">About</router-link>
-        <router-link to="/team">Team</router-link>
+        <!-- <router-link to="/about">About</router-link>
+        <router-link to="/team">Team</router-link> -->
     </nav>
 </template>
 
 <script>
 export default {
     name: 'NavBar',
-    data: function() { 
+    data: function() {
         return {
             projectName: 'MyMelody'
         }
@@ -42,7 +42,7 @@ a {
     letter-spacing: 2px;
     text-decoration: none;
     color: inherit;
-    background-color: buttonface; 
+    background-color: buttonface;
     padding: 10px 5px;
     margin: 0 12px;
 }

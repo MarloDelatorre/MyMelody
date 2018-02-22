@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import About from './views/About.vue'
 import Team from './views/Team.vue'
-import Landing from './views/Landing.vue'
+import LandingPage from './views/LandingPage.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -11,8 +11,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'landing',
-      component: Landing 
+      name: 'landingPage',
+      component: LandingPage
     },
     {
       path: '/home',
@@ -27,7 +27,7 @@ export default new Router({
     {
       path: '/team',
       name: 'team',
-      component: Team 
+      component: Team
     }
   ]
 })
