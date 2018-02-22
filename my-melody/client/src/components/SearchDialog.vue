@@ -7,10 +7,10 @@
                 <p>No results found.</p>
             </div>
             <transition-group name="fade" class="transition">
-            <div v-for="track in tracks" :key="track.id" class="result">
-                <track-card :title="track.title" :artist="track.artist" :albumArt="track.albumArt"/>
-                <button class="select" v-on:click="select(track)">Select</button>
-            </div>
+                <div v-for="track in tracks" :key="track.id" class="result">
+                    <track-card :title="track.title" :artist="track.artist" :albumArt="track.albumArt"/>
+                    <button class="select" v-on:click="select(track)">Select</button>
+                </div>
             </transition-group>
         </div>
         <button class="continue" v-on:click="commit" :disabled="!selectedTrack">Continue</button>
@@ -37,34 +37,14 @@ export default {
     methods: {
         search() {
             this.selectedTrack = null;
-            var token = null;
-            axios.get(`https://api.spotify.com/v1/search?q=${this.query}&type=track`, {
-                headers: {
-                    'Accept': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                } 
-            })
-            .then(res => {
-                const tracks = res.data.tracks.items;
-                this.noResults = tracks.length > 0 ? false : true;
-                this.tracks = tracks.map(item => {
-                    return {
-                        service: 'Spotify',
-                        title: item.name,
-                        artist: item.artists.map(artist => {
-                                    return artist.name
-                                }).join(', '),
-                        albumArt: item.album.images ? item.album.images[0].url : null,
-                        id: item.id
+            axios.get(`http://localhost:8888/api/spotify/search?q=${this.query}`)
+                .then(res => {
+                    if (res.data.length < 1) {
+                        this.noResults = true;
                     }
+                    this.tracks = res.data
                 })
-            })
-            .catch(err => { 
-                console.error(err);
-                if (err.response.status === 401) {
-                    // Dispatch to get and set new token and then make a recursive call to re-search
-                }
-            });
+                .catch(err =>  console.error(err));
         },
         select(track) {
             this.selectedTrack = track;

@@ -7,6 +7,7 @@ var router = express.Router();
 
 router.route('/')
     // get all all posts 
+    // TODO: JOIN on trackId
     .get((req, res) => {
         Post.find({}, (err, posts) => {
             if (err) res.send(err);
@@ -19,7 +20,7 @@ router.route('/')
         track = Object.assign(req.body.track.id, track);
 
         Track.findOneAndUpdate(
-
+            
         )
         .then(track => {
             var post = new Post();
