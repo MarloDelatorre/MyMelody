@@ -4,8 +4,5 @@
     "scripts": {
         "preinstall": "cd my-melody/server && npm install && cd ../client && npm install --only=dev && npm run build",
         "postinstall": "mv my-melody/client/dist/ my-melody/server/public/dist"
-    },
-    "dependencies": {
-        "mongojs": "^2.5.0"
     }
 }
