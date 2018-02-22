@@ -1,0 +1,118 @@
+<template>
+    <div class="landingPageContainer">
+        <header>
+            <header class="navLogo">{{ projectNameMessage }}</header>
+            <h1 class="headline">{{ headlineMessage }}</h1>
+            <h2 class="subhead">{{ subheadMessage }}</h2>
+        </header>
+
+        <div class="auth">
+            <button class="signup">{{ signupMessage }}</button>
+            <div class="divider">
+                <hr/>
+                <p class="alreadyHaveAccount">{{ alreadyHaveAccountMessage }}</p>
+                <hr/>
+            </div>
+            <button class="login">{{ loginMessage }}</button>
+        </div>
+        <img class="background" src="../assets/RedMusicClean.jpg"/>
+    </div>
+</template>
+
+<script>
+    export default {
+        name: 'landingPage',
+        data: function() {
+            return {
+                projectNameMessage: 'Vibe',
+                headlineMessage: 'Discover and share music with your friends.',
+                subheadMessage: 'The easiest way to search for your favorite melodies.',
+                signupMessage: "Sign Up",
+                alreadyHaveAccountMessage: "Already have an account?",
+                loginMessage: "Log In"
+            }
+        }
+    }
+</script>
+
+<style scoped>
+
+
+    hr {
+        margin: 60px 0;
+        width: 75px;
+        color: #FFFFFF;
+    }
+
+    button {
+        box-sizing: border-box;
+        width: 400px;
+        padding: 20px 0;
+        border: none;
+        font-size: 17px;
+        font-weight: 700;
+        border-radius: 5px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+
+    .landingPageContainer {
+        margin-left: 250px;
+        width: 400px;
+    }
+
+    .navLogo {
+        color: #D34084;
+        font-size: 60px;
+        font-weight: 600;
+        margin-top: 60px;
+    }
+
+    .headline {
+        color: #FFFFFF;
+        font-size: 35px;
+        margin-top: 120px;
+    }
+
+    .subhead {
+        color: #FFFFFF;
+        font-size: 28px;
+        margin-top: 50px;
+    }
+
+    .auth {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-top: 50px;
+        width: 400px;
+    }
+
+    .signup {
+        color: #fff;
+        background-color: #D34084;
+    }
+
+    .divider {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 600px;
+        color: #FFFFFF;
+    }
+
+    .alreadyHaveAccount {
+        margin: 0 30px;
+    }
+
+    .background {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+    }
+
+</style>
