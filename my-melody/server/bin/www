@@ -22,14 +22,14 @@ let server = http.createServer(app);
 /**
  * Connect to database
  */
- let dbURI = process.env.MONGODB_URI || 'mongodb://localhost/mymelody';
- mongoose.connect(dbURI);
- let db = mongoose.connection;
- db.on('error', console.error.bind(console, 'connection error:'));
- db.once('open', () => {
-    console.log(`Connected to ${dbURI}`);
- });
-
+//  let dbURI = process.env.MONGODB_URI || 'mongodb://localhost/mymelody';
+//  mongoose.connect(dbURI);
+//  let db = mongoose.connection;
+//  db.on('error', console.error.bind(console, 'connection error:'));
+//  db.once('open', () => {
+//     console.log(`Connected to ${dbURI}`);
+//  });
+console.log(port);
 
 /**
  * Listen on provided port, on all network interfaces.

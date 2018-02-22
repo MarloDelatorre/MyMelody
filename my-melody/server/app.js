@@ -19,7 +19,11 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public/dist')));
+
+app.get('/', function(req, res) {
+  res.sendFile(path.join(__dirname, 'public/dist/', '/index.html'));
+});
 
 // Route Registration
 app.use('/api/users', users);
@@ -39,7 +43,7 @@ if (app.get('env') === 'development') {
     res.status(err.status || 500);
     res.jsonp({
       message: err.message,
-      error: err 
+      error: err
     });
   });
 }
@@ -50,7 +54,7 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500);
   res.jsonp({
     message: err.message,
-    error: err 
+    error: err
   });
 });
 
