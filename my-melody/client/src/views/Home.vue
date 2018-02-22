@@ -66,7 +66,7 @@ export default {
     max-width: 1200px;
     border: 1px solid #d34084;
     background-color: #fff;
-    top: -25%;
+    top: 50px;
   }
   .close {
     margin: 20px 20px 0 0;
