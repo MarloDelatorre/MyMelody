@@ -1,0 +1,15 @@
+html, body {
+    height: 100%;
+    width: 100%;
+    min-width: 350px;
+    margin: 0;
+    font-family: 'Open Sans', sans-serif;
+}
+
+body {
+    /* background: #80D8FF; */
+}
+
+.root {
+    height: 100%;
+}

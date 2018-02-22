@@ -1,0 +1,152 @@
+.landingCardTopBar {
+    width: auto;
+    margin-top: 60px;
+    margin-right: 90px;
+    margin-left: 90px;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+}
+/*
+.landingPageTopBar > div {
+    flex-grow: 1;
+} */
+
+.landingCardWebName {
+    font-weight: 500;
+    font-size: 30px;
+    color: #2BB38B;
+    flex-grow: 5;
+    letter-spacing: 2px;
+}
+
+.landingCardAbout {
+    margin-right: 30px;
+}
+
+.landingCardAbout, .landingCardTeam {
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #2BB38B;
+    letter-spacing: 2px;
+}
+
+.landingCardAbout:focus, .landingCardTeam:focus {
+    outline: none;
+    border-bottom: 2px solid #2BB38B;
+}
+
+.landingCardAbout:hover, .landingCardTeam:hover {
+    border-bottom: 2px solid #2BB38B;
+}
+
+.landingCardBody {
+    width: 510px;
+    margin-left: 90px;
+}
+
+.landingCardDiscoverMessage {
+    margin-top: 60px;
+    font-weight: 700;
+    font-size: 40px;
+    color: #FF8B51;
+}
+
+.landingCardListenMessage {
+    margin-top: 40px;
+    width: 400px;
+    font-weight: 200;
+    font-size: 27px;
+    color: #FF8B51;
+}
+
+.landingCardSignUp {
+    margin-top: 80px;
+    padding: 20px 0;
+    border: 2px solid #D34084;
+    border-radius: 35px;
+    background-color: #D34084;
+    width: 400px;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #FFFFFF;
+    transition-duration: 0.5s;
+    cursor: pointer;
+}
+
+.landingCardSignUp:hover {
+    background-color: #F50057;
+    border: 2px solid #F50057;
+}
+
+.landingCardDivider {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    width: 400px;
+}
+
+.landingCardDivider > hr {
+    margin-left: 0px;
+    margin-right: 0px;
+    width: 30px;
+    display: block;
+}
+
+.landingCardDividerMessage {
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+.landingCardLogIn {
+    margin-top: 50px;
+    padding: 20px 0;
+    border: 2px solid #D34084;
+    border-radius: 35px;
+    width: 400px;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #D34084;
+    transition-duration: 0.5s;
+    cursor: pointer;
+}
+
+.landingCardLogIn:hover {
+    background-color: #F50057;
+    border: 2px solid #F50057;
+    color: #FFFFFF;
+}
+
+.landingCardSignUp:focus, .landingCardLogIn:focus {
+    outline: none;
+}
+
+@media (min-width:511px) and (max-width:600px) {
+    .landingCardBody {
+        margin-left: auto;
+    }
+}
+
+@media (max-width:510px) {
+    .landingCardBody {
+        width: 100%;
+        margin-left: 0;
+        text-align: center;
+    }
+
+    .landingCardListenMessage {
+        width: 100%;
+    }
+
+    .landingCardDivider {
+        width: 100%;
+    }
+}
+
+@media () {
+
+}
