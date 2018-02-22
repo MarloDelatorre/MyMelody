@@ -3,6 +3,6 @@
     "version": "0.0.0",
     "scripts": {
         "preinstall": "cd my-melody/server && npm install && cd ../client && npm install",
-        "postinstall": "mv my-melody/client/dist/ my-melody/server/public/"
+        "postinstall": "mv my-melody/client/dist/ my-melody/server/public/dist"
     }
 }
