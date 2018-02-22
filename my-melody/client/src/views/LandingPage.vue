@@ -54,6 +54,11 @@
         border-radius: 5px;
         letter-spacing: 1px;
         text-transform: uppercase;
+        cursor: pointer;
+    }
+
+    button:focus {
+        outline: none;
     }
 
     .landingPageContainer {
@@ -90,8 +95,12 @@
     }
 
     .signup {
-        color: #fff;
+        color: #FFFFFF;
         background-color: #D34084;
+    }
+
+    .login {
+        color: #D34084;
     }
 
     .divider {
@@ -109,10 +118,22 @@
     .background {
         position: absolute;
         top: 0;
-        right: 0;
+        left: 0;
         width: 100%;
-        height: 100%;
         z-index: -1;
+    }
+
+    @media (max-width: 1400px) {
+        .background {
+            height: 100%;
+            width: 1400px;
+        }
+    }
+
+    @media (max-width: 900px) {
+        .landingPageContainer {
+            margin: 0 auto;
+        }
     }
 
 </style>
