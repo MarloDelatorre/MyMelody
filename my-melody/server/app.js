@@ -10,6 +10,8 @@ var cors = require('cors');
 // Route Imports
 var users = require('./routes/users');
 var spotify = require('./routes/spotify')
+var posts = require('./routes/posts');
+
 let app = express();
 
 // Middleware
@@ -28,6 +30,7 @@ app.get('/', function(req, res) {
 // Route Registration
 app.use('/api/users', users);
 app.use('/api/spotify', spotify);
+app.use('/api/posts', posts)
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

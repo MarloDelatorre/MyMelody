@@ -14,27 +14,30 @@ router.route('/')
     })
     // save new user
     .post((req, res) => {
-        var user = new User();
-        user = Object.assign(req.body, user);
+        var newUser = new User();
+        Object.assign(newUser, req.body);
         
-        user.save((err, u) => {
-            if (err) res.send(err);
-            else res.jsonp(u)
-        })
-    });
-
-router.route('/:id')
-    // get one user (by _id)
-    .get((req, res) => {
-        User.findOne({_id: mongoose.Types.ObjectId(req.params.id)}, (err, user) => {
+        user.save((err, user) => {
             if (err) res.send(err);
             else res.jsonp(user)
         })
+    });
+
+router.route('/:username')
+    // get one user
+    .get((req, res) => {
+        User.findOne(
+            {username: req.params.username},
+            (err, user) => {
+                if (err) res.send(err);
+                else res.jsonp(user)
+            }
+        )
     })
-    // find and update a user (by _id)
+    // find and update a user
     .put((req, res) => {
         User.findOneAndUpdate(
-            {_id: mongoose.Types.ObjectId(req.params.id)},
+            {username: req.params.username},
             {$set: req.body},
             (err, user) => {
                 if (err) res.jsonp(err);
