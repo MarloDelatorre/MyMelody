@@ -24,12 +24,14 @@ router.route('/')
     });
 
 router.route('/:id')
+    // get one user (by _id)
     .get((req, res) => {
         User.findOne({_id: mongoose.Types.ObjectId(req.params.id)}, (err, user) => {
             if (err) res.send(err);
             else res.jsonp(user)
         })
     })
+    // find and update a user (by _id)
     .put((req, res) => {
         User.findOneAndUpdate(
             {_id: mongoose.Types.ObjectId(req.params.id)},
