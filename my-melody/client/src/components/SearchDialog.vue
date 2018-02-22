@@ -37,13 +37,15 @@ export default {
     methods: {
         search() {
             this.selectedTrack = null;
-            var token = 'BQB5GSPqv7FgunxGnMngtq2xxrJ085eeuCTCSrucraDqy1IJUTwWntpLibIoAUtN06q1fcKP4oQqjTLMTQ0lEmldG7N-1JAjmbMFhjinoG8LGNgM4hQou0XoX9UUrkta2h-bTmHfyTmRUz6U';
-            axios.get(`https://api.spotify.com/v1/search?q=${this.query}&type=track` , {
+            var token = null;
+            axios.get(`https://api.spotify.com/v1/search?q=${this.query}&type=track`, {
                 headers: {
                     'Accept': 'application/json',
                     'Authorization': `Bearer ${token}`
-                } }) .then(res => {
-                           const tracks = res.data.tracks.items;
+                } 
+            })
+            .then(res => {
+                const tracks = res.data.tracks.items;
                 this.noResults = tracks.length > 0 ? false : true;
                 this.tracks = tracks.map(item => {
                     return {
@@ -57,7 +59,12 @@ export default {
                     }
                 })
             })
-            .catch(err => console.error(err));
+            .catch(err => { 
+                console.error(err);
+                if (err.response.status === 401) {
+                    // Dispatch to get and set new token and then make a recursive call to re-search
+                }
+            });
         },
         select(track) {
             this.selectedTrack = track;

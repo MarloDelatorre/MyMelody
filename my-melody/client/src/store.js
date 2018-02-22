@@ -1,10 +1,12 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import axios from 'axios';
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    spotifyToken: null,
     selectedTrack: { title: null, artist: null },
     postModalState: null,
     postModalOpen: false
@@ -15,10 +17,12 @@ export default new Vuex.Store({
     },
     postModalState(state, dialog) {
       state.postModalState = dialog;
+    },
+    spotifyToken(state, token) {
+      state.spotifyToken = token;  
     }
   },
   actions: {
-
   },
   getters: {
     selectedTrack(state) {
@@ -26,6 +30,9 @@ export default new Vuex.Store({
     },
     postModalState(state) {
       return state.postModalState;
+    },
+    spotifyToken(state) {
+      return state.spotifyToken;
     }
   }
 })
