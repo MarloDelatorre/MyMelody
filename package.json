@@ -2,6 +2,7 @@
     "name": "mymelody",
     "version": "0.0.0",
     "scripts": {
-        "postinstall": "(cd my-melody/client; yarn install) && (cd my-melody/server; npm install)"
+        "preinstall": "cd my-melody/server && npm install && cd ../client && yarn install && yarn build",
+        "postinstall": "mv my-melody/client/dist/ my-melody/server/public/dist"
     }
 }
