@@ -2,9 +2,8 @@ var express = require('express');
 var app = express();
 var path = require('path');
 
-const users = require('./routes/users');
 
-const port = process.env.PORT || 4000;
+const users = require('./routes/users');
 
 // console.log(path.join(__dirname, '../client/build/', '/index.html'));
 app.use(express.static(path.join(__dirname, '../client/build')));
@@ -14,10 +13,6 @@ app.get('/', function(req, res) {
 });
 
 app.use('/users', users);
-
-app.listen(port, function() {
-  console.log('App listening');
-});
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
