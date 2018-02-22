@@ -53,5 +53,8 @@ router.route('/:postid')
     .put((req, res) => {
 
     })
+    .delete((req, res) => {
+
+    })
 */
 module.exports = router;

@@ -37,7 +37,7 @@ router.route('/search')
                                     return artist.name
                                 }).join(', '),
                         albumArt: item.album.images ? item.album.images[0].url : null,
-                        id: item.id
+                        trackId: item.id
                     }
                 });
                 res.jsonp(tracks);

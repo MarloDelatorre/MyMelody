@@ -7,7 +7,7 @@
                 <p>No results found.</p>
             </div>
             <transition-group name="fade" class="transition">
-                <div v-for="track in tracks" :key="track.id" class="result">
+                <div v-for="track in tracks" :key="track.trackId" class="result">
                     <track-card :title="track.title" :artist="track.artist" :albumArt="track.albumArt"/>
                     <button class="select" v-on:click="select(track)">Select</button>
                 </div>

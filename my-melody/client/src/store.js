@@ -9,7 +9,9 @@ export default new Vuex.Store({
     spotifyToken: null,
     selectedTrack: { title: null, artist: null },
     postModalState: null,
-    postModalOpen: false
+    postModalOpen: false,
+    currentUser: 'pshekar',
+    posts: []
   },
   mutations: {
     selectTrack(state, track) {
@@ -20,9 +22,19 @@ export default new Vuex.Store({
     },
     spotifyToken(state, token) {
       state.spotifyToken = token;  
+    },
+    setPosts(state, posts) {
+      state.posts = posts; 
     }
   },
   actions: {
+    getPosts(context) {
+      return axios.get(`http://localhost:8888/api/posts/${context.getters.currentUser}`)
+        .then(res => {
+          context.commit('setPosts', res.data);
+        })
+        .catch(err => console.error(err));
+    }
   },
   getters: {
     selectedTrack(state) {
@@ -33,6 +45,12 @@ export default new Vuex.Store({
     },
     spotifyToken(state) {
       return state.spotifyToken;
+    },
+    currentUser(state) {
+      return state.currentUser;
+    },
+    posts(state) {
+      return state.posts;
     }
   }
 })
