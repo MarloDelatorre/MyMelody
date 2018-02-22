@@ -2,8 +2,8 @@
     "name": "mymelody",
     "version": "0.0.0",
     "scripts": {
-        "preinstall": "cd my-melody/server && npm install && cd ../client && npm install && yarn build",
-        "postinstall": "mv my-melody/client/dist/ my-melody/server/public/dist"
+        "preinstall": "cd my-melody/server && npm install && cd ../client && npm install",
+        "postinstall": "npm run build && mv my-melody/client/dist/ my-melody/server/public/dist"
     },
     "dependencies": {
         "mongojs": "^2.5.0"
