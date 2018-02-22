@@ -2,8 +2,7 @@
     "name": "mymelody",
     "version": "0.0.0",
     "scripts": {
-        "preinstall": "cd my-melody/server && npm install && cd ../client && npm install",
-        "heroku-postbuild": "cd my-melody/client && npm run build",
+        "preinstall": "cd my-melody/server && npm install && cd ../client && npm install --only=dev && npm run build",
         "postinstall": "mv my-melody/client/dist/ my-melody/server/public/dist"
     },
     "dependencies": {
