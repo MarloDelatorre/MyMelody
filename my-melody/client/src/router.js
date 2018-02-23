@@ -6,6 +6,7 @@ import Team from './views/Team.vue'
 import LandingPage from './views/LandingPage.vue'
 import Login from './views/Login.vue'
 import Register from './views/Register.vue'
+import Profile from './views/Profile.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -40,6 +41,11 @@ export default new Router({
       path: '/register',
       name: 'register',
       component: Register
+    },
+    {
+      path: '/profile',
+      name: 'profile',
+      component: Profile
     }
   ]
 })
