@@ -46,7 +46,12 @@ export default {
         }
         else {
           this.$store.dispatch('getUser', [this.$data.message, this.$data.password]);
+        }
+        if (this.$store.getters.loggedIn) {
           this.$router.push('profile');
+        }
+        else {
+          alert('Incorrect username/password combination');
         }
       },
       facebook() {

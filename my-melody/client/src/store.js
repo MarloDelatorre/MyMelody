@@ -14,6 +14,7 @@ export default new Vuex.Store({
     baseApiUrl: 'https://mymelody.herokuapp.com',
     posts: [],
     user: '',
+    loggedIn: false
   },
   mutations: {
     selectTrack(state, track) {
@@ -30,6 +31,7 @@ export default new Vuex.Store({
     },
     setUser(state, user) {
       state.user = user;
+      state.loggedIn = true;
     }
   },
   actions: {
@@ -80,6 +82,9 @@ export default new Vuex.Store({
     },
     baseApiUrl(state) {
       return state.baseApiUrl;
+    },
+    loggedIn(state) {
+      return state.loggedIn;
     }
   }
 })
