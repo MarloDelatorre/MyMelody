@@ -2,15 +2,18 @@
   <div id="app">
     <!-- <NavBar/> -->
     <router-view/>
+    <botNavBar></botNavBar>
   </div>
 </template>
 
 <script>
 import NavBar from '@/components/NavBar.vue'
+import botNavBar from '@/components/BotNavBar.vue'
 
 export default {
   components: {
-    NavBar
+    NavBar,
+    botNavBar
   }
 }
 </script>
