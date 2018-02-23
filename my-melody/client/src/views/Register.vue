@@ -53,6 +53,7 @@
             }
             else {
               this.$store.dispatch('addUser', [this.$data.fName, this.$data.lName, this.$data.username, this.$data.password]);
+              alert('User created!');
               this.$router.push('profile');
             }
           }

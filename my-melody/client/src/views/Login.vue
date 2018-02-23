@@ -41,7 +41,13 @@ export default {
     },
     methods: {
       login() {
-        this.$router.push('profile');
+        if (this.$data.message === '' || this.$data.password === '') {
+          alert('Fields should not be empty!');
+        }
+        else {
+          this.$store.dispatch('getUser', [this.$data.message, this.$data.password]);
+          this.$router.push('profile');
+        }
       },
       facebook() {
         console.log('this is username: ' + this.$data.message + ', this is password: ' + this.$data.password);

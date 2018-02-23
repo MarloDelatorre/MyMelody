@@ -42,8 +42,6 @@ export default new Vuex.Store({
         .catch(err => console.error(err));
     },
     addUser(context, data) {
-      console.log(context);
-      console.log(data);
       return axios.post(`/api/users/`, {
           firstName: data[0],
           lastName: data[1],
@@ -51,9 +49,16 @@ export default new Vuex.Store({
           password: data[3]
         })
         .then(res => {
-          console.log(res);
          context.commit('setUser', res.data);
        })
+        .catch(err => console.error(err));
+    },
+    getUser(context, data) {
+      console.log(data);
+      return axios.get(`/api/users/${data[0]}`)
+        .then(res => {
+          context.commit('setUser', res.data);
+        })
         .catch(err => console.error(err));
     }
   },
