@@ -7,13 +7,13 @@
         </header>
 
         <div class="auth">
-            <button class="signup">{{ signupMessage }}</button>
+            <button class="signup" v-on:click="register">{{ signupMessage }}</button>
             <div class="divider">
                 <hr/>
                 <p class="alreadyHaveAccount">{{ alreadyHaveAccountMessage }}</p>
                 <hr/>
             </div>
-            <button class="login">{{ loginMessage }}</button>
+            <button class="login" v-on:click="login">{{ loginMessage }}</button>
         </div>
         <img class="background" src="../assets/RedMusicClean.jpg"/>
     </div>
@@ -31,6 +31,14 @@
                 alreadyHaveAccountMessage: "Already have an account?",
                 loginMessage: "Log In"
             }
+        },
+        methods: {
+          login() {
+            this.$router.push('login');
+          },
+          register() {
+            this.$router.push('register');
+          }
         }
     }
 </script>
