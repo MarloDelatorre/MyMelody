@@ -7,6 +7,7 @@ import LandingPage from './views/LandingPage.vue'
 import Login from './views/Login.vue'
 import Register from './views/Register.vue'
 import Profile from './views/Profile.vue'
+import Experiment from './views/Experiment.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -46,6 +47,11 @@ export default new Router({
       path: '/profile',
       name: 'profile',
       component: Profile
+    },
+    {
+      path: '/experiment',
+      name: 'experiment',
+      component: Experiment    
     }
   ]
 })

@@ -1,32 +1,49 @@
 <template>
   <div class="container-fluid" style="margin-top: 10px">
-  <div class="table-row header">
+<div class="table-row">
 
     <div class="wrapper attributes">
       <div class="wrapper title-comment-module-reporter">
         <div class="wrapper title-comment">
-          <div class="column title">TITLE</div>
-          <div class="column comment">ARTIST</div>
+              <div class="card">
+                <img src="../assets/zedd.jpg">
+                <p>DAISY</p>
+              </div>
+          <div class="card">
+                <img src="../assets/albumart/Damn.jpg">
+                <p>HUMBLE</p>
+              </div>
         </div>
         <div class="wrapper module-reporter">
-          <div class="column module">ALBUM</div>
-          <div class="column reporter">USER</div>
+          <div class="card">
+                <img src="../assets/albumart/illenium.jpg">
+                <p>CRAWL OUTTA LOVE</p>
+              </div>
         </div>
       </div>
     </div>
   </div>
+
 
   <div class="table-row">
 
     <div class="wrapper attributes">
       <div class="wrapper title-comment-module-reporter">
         <div class="wrapper title-comment">
-          <div class="column title">Daisy</div>
-          <div class="column comment">Zedd</div>
+              <div class="card">
+                <img src="../assets/albumart/love.jpg">
+                <p>IN THE NAME OF LOVE</p>
+              </div>
+          <div class="card">
+                <img src="../assets/albumart/khalid.jpg">
+                <p>SILENCE</p>
+              </div>
         </div>
         <div class="wrapper module-reporter">
-          <div class="column module">True Colors </div>
-          <div class="column reporter">Avempaty</div>
+          <div class="card">
+                <img src="../assets/albumart/Starboy.jpeg">
+                <p>STARBOY</p>
+              </div>
         </div>
       </div>
     </div>
@@ -36,31 +53,26 @@
     <div class="wrapper attributes">
       <div class="wrapper title-comment-module-reporter">
         <div class="wrapper title-comment">
-          <div class="column title">Everyday, Everyday (feat. Nevve)</div>
-          <div class="column comment">Manilla Killa, Nevve</div>
+          <div class="card">
+                <img src="../assets/albumart/reputation.jpeg">
+                <p>GETAWAY CAR</p>
+              </div>
+          <div class="card">
+                <img src="../assets/albumart/g-eazy.jpg">
+                <p>NO LIMIT</p>
+              </div>
         </div>
         <div class="wrapper module-reporter">
-          <div class="column module">Everyday, Everyday (feat. Nevve) </div>
-          <div class="column reporter">petertfarmer</div>
+          <div class="card">
+                <img src="../assets/albumart/chance.jpg">
+                <p>MIXTAPE</p>
+              </div>
+
         </div>
       </div>
     </div>
   </div>
 
-  <div class="table-row">
-    <div class="wrapper attributes">
-      <div class="wrapper title-comment-module-reporter">
-        <div class="wrapper title-comment">
-          <div class="column title">Getaway Car</div>
-          <div class="column comment">Taylor Swift</div>
-        </div>
-        <div class="wrapper module-reporter">
-          <div class="column module">Reputation</div>
-          <div class="column reporter">MarloD</div>
-        </div>
-      </div>
-    </div>
-  </div>
 
 </div>
 </template>
@@ -74,6 +86,25 @@
  * Basic styles, good for a large display. Everything fits in
  * one row, no wrapping. All text based cells grow equally.
  */
+.card { 
+  width: 300px;
+  height: 350px;
+  background-color: #1A2226;
+  text-align: center;
+   
+
+}
+.card img {
+  width: 300px;
+  height: 300px;
+  
+}
+.card p {
+  color: white;
+  margin-top: 14px;
+    font-size: 18px;
+  font-weight: bold;
+}
 .table-row {
   display: flex;
   display: -webkit-flex;
