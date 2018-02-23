@@ -51,8 +51,10 @@ export default new Vuex.Store({
           password: data[3]
         })
         .then(res => {
+          console.log(res);
          context.commit('setUser', res.data);
        })
+        .catch(err => console.error(err));
     }
   },
   getters: {

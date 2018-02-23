@@ -52,7 +52,6 @@
               alert('Fields cannot be empty!');
             }
             else {
-              console.log(this.$state);
               this.$store.dispatch('addUser', [this.$data.fName, this.$data.lName, this.$data.username, this.$data.password]);
               this.$router.push('profile');
             }
