@@ -11,7 +11,7 @@ export default new Vuex.Store({
     postModalState: null,
     postModalOpen: false,
     currentUser: 'avempaty',
-    baseApiUrl: 'https://mymelody.herokuapp.com',
+    baseApiUrl: 'http://localhost:8888',
     posts: [],
     user: '',
     loggedIn: false
@@ -37,14 +37,14 @@ export default new Vuex.Store({
   actions: {
     getPosts(context) {
       console.log(context);
-      return axios.get(`/api/posts/${context.getters.currentUser}`)
+      return axios.get(`${context.getters.baseApiUrl}/api/posts/${context.getters.currentUser}`)
         .then(res => {
           context.commit('setPosts', res.data);
         })
         .catch(err => console.error(err));
     },
     addUser(context, data) {
-      return axios.post(`/api/users/`, {
+      return axios.post(`${context.getters.baseApiUrl}/api/users/`, {
           firstName: data[0],
           lastName: data[1],
           username: data[2],
@@ -57,9 +57,14 @@ export default new Vuex.Store({
     },
     getUser(context, data) {
       console.log(data);
-      return axios.get(`/api/users/${data[0]}`)
+      return axios.get(`${context.getters.baseApiUrl}/api/users/${data.username}`)
         .then(res => {
-          context.commit('setUser', res.data);
+          if (res.data.password === data.password) {
+            context.commit('setUser', res.data);
+            return res.data.username;
+          } else {
+            return null;
+          }
         })
         .catch(err => console.error(err));
     }

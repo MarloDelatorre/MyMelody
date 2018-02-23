@@ -43,16 +43,17 @@ export default {
       login() {
         if (this.$data.message === '' || this.$data.password === '') {
           alert('Fields should not be empty!');
+          return;
         }
-        else {
-          this.$store.dispatch('getUser', [this.$data.message, this.$data.password]);
-        }
-        if (this.$store.getters.loggedIn) {
-          this.$router.push('profile');
-        }
-        else {
-          alert('Incorrect username/password combination');
-        }
+
+        this.$store.dispatch('getUser', {username: this.message, password: this.password})
+        .then(res => {
+            if (res) {
+                this.$router.push('profile');
+            } else {
+                alert('Incorrect username/password combination');
+            }
+        });
       },
       facebook() {
         console.log('this is username: ' + this.$data.message + ', this is password: ' + this.$data.password);
