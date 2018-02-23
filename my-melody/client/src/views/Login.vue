@@ -1,19 +1,22 @@
 <template>
     <div>
-        <!-- <navBarLogin/> -->
+        <navBarLogin/>
         <div id="full">
-            <div class="projectNameContainer">
+            <!-- <div class="projectNameContainer">
                 <header class="projectName">{{ loginMessage.projectName }}</header>
+            </div> -->
+            <div class="loginForm">
+                  <div>
+                      <input type="text" v-model="message" :placeholder="loginMessage.usernameField"/>
+                  </div>
+                  <div>
+                      <input type="password" v-model="password" :placeholder="loginMessage.passwordField"/>
+                  </div>
+                  <div>
+                      <button v-on:click="login" class="loginButton">{{ loginMessage.login }}</button>
+                      <!-- <router-link to="/home">Login</router-link> -->
+                  </div>
             </div>
-              <div>
-                  <input type="text" v-model="message" placeholder="Enter email"/>
-              </div>
-              <div>
-                  <input type="password" v-model="password" placeholder="Password"/>
-              </div>
-              <div>
-                  <button v-on:click="login" class="login">Login</button>
-              </div>
         </div>
         <div class="background">
         </div>
@@ -48,6 +51,54 @@ export default {
 </script>
 
 <style scoped>
+    input {
+        width: 340px;
+        margin-top: 50px;
+        padding: 30px 30px 10px 30px;
+        background: none;
+        font-size: 24px;
+        border: none;
+        border-bottom: 4px solid #D34084;
+        color: #FFFFFF;
+    }
+
+    input:focus {
+        outline: none;
+    }
+
+    .fill {
+        display: flex;
+        width: 400px;
+        margin: 0 auto;
+    }
+
+    .projectName {
+        font-size: 60px;
+        font-weight: 600;
+        color: #D34084;
+        margin-top: 50px;
+    }
+
+    .loginForm {
+        margin-top: 50px;
+    }
+
+    .loginButton {
+        margin-top: 100px;
+        box-sizing: border-box;
+        width: 400px;
+        padding: 20px 0;
+        border: none;
+        font-size: 17px;
+        font-weight: 700;
+        border-radius: 5px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        cursor: pointer;
+        background: #D34084;
+        color: #FFFFFF;
+    }
+
     .background {
         position: absolute;
         top: 0;

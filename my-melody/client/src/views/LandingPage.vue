@@ -1,35 +1,32 @@
 <template>
     <div class="landingPageContainer">
         <header>
-            <header class="navLogo">{{ projectNameMessage }}</header>
-            <h1 class="headline">{{ headlineMessage }}</h1>
-            <h2 class="subhead">{{ subheadMessage }}</h2>
+            <header class="navLogo">{{ landingMessage.projectNameMessage }}</header>
+            <h1 class="headline">{{ landingMessage.headlineMessage }}</h1>
+            <h2 class="subhead">{{ landingMessage.subheadMessage }}</h2>
         </header>
 
         <div class="auth">
-            <button class="signup" v-on:click="register">{{ signupMessage }}</button>
+            <button class="signup" v-on:click="register">{{ landingMessage.signupMessage }}</button>
             <div class="divider">
                 <hr/>
-                <p class="alreadyHaveAccount">{{ alreadyHaveAccountMessage }}</p>
+                <p class="alreadyHaveAccount">{{ landingMessage.alreadyHaveAccountMessage }}</p>
                 <hr/>
             </div>
-            <button class="login" v-on:click="login">{{ loginMessage }}</button>
+            <button class="login" v-on:click="login">{{ landingMessage.loginMessage }}</button>
         </div>
         <img class="background" src="../assets/RedMusicClean.jpg"/>
     </div>
 </template>
 
 <script>
+    import landingMessages from '../messages/LandingMessages.json';
+
     export default {
         name: 'landingPage',
         data: function() {
             return {
-                projectNameMessage: 'Vibe',
-                headlineMessage: 'Discover and share music with your friends.',
-                subheadMessage: 'The easiest way to search for your favorite melodies.',
-                signupMessage: "Sign Up",
-                alreadyHaveAccountMessage: "Already have an account?",
-                loginMessage: "Log In"
+                landingMessage: landingMessages
             }
         },
         methods: {

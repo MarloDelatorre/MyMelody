@@ -76,6 +76,14 @@ body {
 	font-family: 'Open Sans', sans-serif;
 }
 
+input:focus {
+    outline: none;
+}
+
+button:focus {
+    outline: none;
+}
+
 .container {
   margin: 0 90px;
 }

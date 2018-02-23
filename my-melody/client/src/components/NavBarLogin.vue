@@ -21,13 +21,13 @@
         color: #FFFFFF;
         height: 120px;
         text-align: center;
+        margin-top: 30px;
     }
 
     .projectLogo {
         font-size: 60px;
         vertical-align: middle;
         line-height: 120px;
-        margin-left: 50px;
         font-weight: 600;
         color: #D34084;
     }
