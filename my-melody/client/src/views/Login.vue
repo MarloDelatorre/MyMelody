@@ -1,9 +1,5 @@
 <template>
 <div id="full">
-  <div class="login">
-    <button class="login">Login with Facebook</button>
-    <p> -------- OR ---------</p>
-  </div>
   <div>
     <input type="text" v-model="message" placeholder="Enter email"/>
   </div>
@@ -22,9 +18,18 @@ export default {
     components: {
 
     },
+    data: function () {
+      return {
+        message: '',
+        password: ''
+      }
+    },
     methods: {
       login() {
         this.$router.push('home');
+      },
+      facebook() {
+        console.log('this is username: ' + this.$data.message + ', this is password: ' + this.$data.password);
       }
     }
 }
