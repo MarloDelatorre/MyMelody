@@ -1,19 +1,42 @@
+// Imports
 var express = require('express');
-var app = express();
 var path = require('path');
+var favicon = require('serve-favicon');
+var logger = require('morgan');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+var cors = require('cors');
+var history = require('connect-history-api-fallback');
 
-var port = 3000;
+// Route Imports
+var users = require('./routes/users');
+var spotify = require('./routes/spotify')
+var posts = require('./routes/posts');
 
-const users = require('./routes/users');
+let app = express();
 
-console.log(path.join(__dirname, '../client/public/', '/index.html'));
-app.use(express.static(path.join(__dirname, '../client/public')));
+// Middleware
+app.use(cors());
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(history({
+  disableDotRule: true,
+  verbose: true
+}));
+app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/', function(req, res) {
-  res.sendFile(path.join(__dirname, '../client/public/', '/index.html'));
+// Route Registration
+app.use('/api/users', users);
+app.use('/api/spotify', spotify);
+app.use('/api/posts', posts)
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/index.html'));
 });
-
-app.use('/users', users);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
@@ -21,8 +44,6 @@ app.use((req, res, next) => {
   err.status = 404;
   next(err);
 });
-
-// error handlers
 
 // development error handler
 // will print stacktrace
@@ -44,10 +65,6 @@ app.use((err, req, res, next) => {
     message: err.message,
     error: err
   });
-});
-
-app.listen(port, function() {
-   console.log("Started on port " + port); 
 });
 
 module.exports = app;

@@ -1,57 +1,49 @@
 var express = require('express');
+var mongoose = require('mongoose');
+var User = require('../models/user');
+
 var router = express.Router();
-var mongojs = require('mongojs');
 
-var db = mongojs('mongodb://avempaty:kirklan1@ds143738.mlab.com:43738/mymelody', ['users'])
-//const mongoose = require('mongoose');
-
-//Get all users
-router.get('/', function(req, res, next) {
-    db.users.find(function(err, users) {
-       if(err) {
-           res.send(err);
-       } 
-       res.json(users);
+router.route('/')
+    // get all users
+    .get((req, res) => {
+        User.find({}, (err, users) => {
+            if (err) res.send(err);
+            else res.jsonp(users);
+        })
+    })
+    // save new user
+    .post((req, res) => {
+        var newUser = new User();
+        Object.assign(newUser, req.body);
+        
+        user.save((err, user) => {
+            if (err) res.send(err);
+            else res.jsonp(user)
+        })
     });
-});
 
-//Get 1 user
-router.get('/:id', function(req, res, next) {
-   db.users.findOne({_id: mongojs.ObjectId(req.params.id)}, function(err, user) {
-      if(err) {
-          res.send(err);
-      }
-       res.json(user);
-   });
-});
-
-//Save 1 user
-router.post('/', function(req, res, next) {
-    var user = req.body;
-    if(!user.username || !user.password || !user.firstName || !user.lastName) {
-        res.status(400);
-        res.json({
-            "error" : "Bad Data"
-        });
-    } else {
-        db.users.save(user, function(err, task) {
-           if(err) {
-               res.send(err);
-           } 
-            res.json(user);
-        });
-    }
-});
-
-//Update user
-router.put('/:id', function(req, res, next) {
-    var user = req.body;
-    var updUser = {};
-    db.users.update({_id: mongojs.ObjectId(req.params.id)}, function(err, user) {
-       if(err) {
-           res.send(err);
-       } 
-        res.json(user);
+router.route('/:username')
+    // get one user
+    .get((req, res) => {
+        User.findOne(
+            {username: req.params.username},
+            (err, user) => {
+                if (err) res.send(err);
+                else res.jsonp(user)
+            }
+        )
+    })
+    // find and update a user
+    .put((req, res) => {
+        User.findOneAndUpdate(
+            {username: req.params.username},
+            {$set: req.body},
+            (err, user) => {
+                if (err) res.jsonp(err);
+                else res.jsonp(user)
+            }
+        )
     });
-});
+
 module.exports = router;

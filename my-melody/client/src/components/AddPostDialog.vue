@@ -5,7 +5,7 @@
                 <textarea v-model="caption" placeholder="Add a caption..."></textarea>
                 <div>
                     <button v-on:click="back">Back</button>
-                    <button v-on:click="post">Add Post</button>
+                    <button v-on:click="addPost">Add Post</button>
                 </div>
             </div>
         </div>
@@ -13,6 +13,7 @@
 
 <script>
 import TrackCard from './TrackCard.vue';
+import axios from 'axios';
 
 export default {
     name: 'add-post-dialog',
@@ -27,13 +28,21 @@ export default {
         }
     },
     methods: {
-        post() {
+        addPost() {
             console.log({track: this.$store.getters.selectedTrack, caption: this.caption})
-            this.$store.commit('postModalState', null);
+            axios.post('https://mymelody.herokuapp.com/api/posts/', {
+                username: this.$store.getters.currentUser,
+                caption: this.caption,
+                track: this.track
+            }).then(res => {
+                console.log(res);
+                this.$store.dispatch('getPosts');
+                this.$store.commit('postModalState', null);
+            }).catch(err => console.error(err));
         },
         back() {
             this.$store.commit('postModalState', 'search');
-        }
+        },
     },
     components: {
         TrackCard

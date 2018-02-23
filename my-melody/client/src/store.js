@@ -1,13 +1,17 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import axios from 'axios';
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    spotifyToken: null,
     selectedTrack: { title: null, artist: null },
     postModalState: null,
-    postModalOpen: false
+    postModalOpen: false,
+    currentUser: 'avempaty',
+    posts: []
   },
   mutations: {
     selectTrack(state, track) {
@@ -15,10 +19,22 @@ export default new Vuex.Store({
     },
     postModalState(state, dialog) {
       state.postModalState = dialog;
+    },
+    spotifyToken(state, token) {
+      state.spotifyToken = token;  
+    },
+    setPosts(state, posts) {
+      state.posts = posts; 
     }
   },
   actions: {
-
+    getPosts(context) {
+      return axios.get(`https://mymelody.herokuapp.com/api/posts/${context.getters.currentUser}`)
+        .then(res => {
+          context.commit('setPosts', res.data);
+        })
+        .catch(err => console.error(err));
+    }
   },
   getters: {
     selectedTrack(state) {
@@ -26,6 +42,15 @@ export default new Vuex.Store({
     },
     postModalState(state) {
       return state.postModalState;
+    },
+    spotifyToken(state) {
+      return state.spotifyToken;
+    },
+    currentUser(state) {
+      return state.currentUser;
+    },
+    posts(state) {
+      return state.posts;
     }
   }
 })

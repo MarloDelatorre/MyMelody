@@ -7,10 +7,10 @@
                 <p>No results found.</p>
             </div>
             <transition-group name="fade" class="transition">
-            <div v-for="track in tracks" :key="track.id" class="result">
-                <track-card :title="track.title" :artist="track.artist" :albumArt="track.albumArt"/>
-                <button class="select" v-on:click="select(track)">Select</button>
-            </div>
+                <div v-for="track in tracks" :key="track.trackId" class="result">
+                    <track-card :title="track.title" :artist="track.artist" :albumArt="track.albumArt"/>
+                    <button class="select" v-on:click="select(track)">Select</button>
+                </div>
             </transition-group>
         </div>
         <button class="continue" v-on:click="commit" :disabled="!selectedTrack">Continue</button>
@@ -37,27 +37,14 @@ export default {
     methods: {
         search() {
             this.selectedTrack = null;
-            var token = 'BQB5GSPqv7FgunxGnMngtq2xxrJ085eeuCTCSrucraDqy1IJUTwWntpLibIoAUtN06q1fcKP4oQqjTLMTQ0lEmldG7N-1JAjmbMFhjinoG8LGNgM4hQou0XoX9UUrkta2h-bTmHfyTmRUz6U';
-            axios.get(`https://api.spotify.com/v1/search?q=${this.query}&type=track` , {
-                headers: {
-                    'Accept': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                } }) .then(res => {
-                           const tracks = res.data.tracks.items;
-                this.noResults = tracks.length > 0 ? false : true;
-                this.tracks = tracks.map(item => {
-                    return {
-                        service: 'Spotify',
-                        title: item.name,
-                        artist: item.artists.map(artist => {
-                                    return artist.name
-                                }).join(', '),
-                        albumArt: item.album.images ? item.album.images[0].url : null,
-                        id: item.id
+            axios.get(`https://mymelody.herokuapp.com/api/spotify/search?q=${this.query}`)
+                .then(res => {
+                    if (res.data.length < 1) {
+                        this.noResults = true;
                     }
+                    this.tracks = res.data
                 })
-            })
-            .catch(err => console.error(err));
+                .catch(err =>  console.error(err));
         },
         select(track) {
             this.selectedTrack = track;
