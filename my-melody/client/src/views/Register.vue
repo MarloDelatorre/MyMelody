@@ -3,19 +3,19 @@
         <navBarLogin />
         <div class="signupForm">
             <div>
-                <input type="text" placeholder="First name"> </input>
+                <input type="text" v-model="fName" placeholder="First name"> </input>
             </div>
             <div>
-                <input type="text" placeholder="Last name"> </input>
+                <input type="text" v-model="lName" placeholder="Last name"> </input>
             </div>
             <div>
-                <input type="text" placeholder="Username"> </input>
+                <input type="text" v-model="username" placeholder="Username"> </input>
             </div>
             <div>
-                <input type="password" placeholder="Password"></input>
+                <input type="password" v-model="password" placeholder="Password"></input>
             </div>
             <div>
-                <input type="password" placeholder="Confirm password"></input>
+                <input type="password" v-model="password2" placeholder="Confirm password"></input>
             </div>
 
             <button v-on:click="register" class="registerButton">Register</button>
@@ -34,9 +34,28 @@
         components: {
             navBarLogin
         },
+        data: function () {
+          return {
+            fName: '',
+            lName: '',
+            username: '',
+            password: '',
+            password2: '',
+          }
+        },
         methods: {
           register() {
-            this.$router.push('profile');
+            if (this.$data.password !== this.$data.password2) {
+              alert('Passwords do not match!');
+            }
+            else if (this.$data.fName === '' || this.$data.lName === '' || this.$data.username === '' || this.$data.password === '' || this.$data.password2 === '') {
+              alert('Fields cannot be empty!');
+            }
+            else {
+              console.log(this.$state);
+              this.$store.dispatch('addUser', [this.$data.fName, this.$data.lName, this.$data.username, this.$data.password]);
+              this.$router.push('profile');
+            }
           }
         }
     }

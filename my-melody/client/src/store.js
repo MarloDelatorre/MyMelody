@@ -11,8 +11,9 @@ export default new Vuex.Store({
     postModalState: null,
     postModalOpen: false,
     currentUser: 'avempaty',
-    baseApiUrl: 'https://mymelody.herokuapp.com/api',
-    posts: []
+    baseApiUrl: 'https://mymelody.herokuapp.com',
+    posts: [],
+    user: '',
   },
   mutations: {
     selectTrack(state, track) {
@@ -22,19 +23,36 @@ export default new Vuex.Store({
       state.postModalState = dialog;
     },
     spotifyToken(state, token) {
-      state.spotifyToken = token;  
+      state.spotifyToken = token;
     },
     setPosts(state, posts) {
-      state.posts = posts; 
+      state.posts = posts;
+    },
+    setUser(state, user) {
+      state.user = user;
     }
   },
   actions: {
     getPosts(context) {
-      return axios.get(`${context.getters.currentUser}/posts/${context.getters.currentUser}`)
+      console.log(context);
+      return axios.get(`/api/posts/${context.getters.currentUser}`)
         .then(res => {
           context.commit('setPosts', res.data);
         })
         .catch(err => console.error(err));
+    },
+    addUser(context, data) {
+      console.log(context);
+      console.log(data);
+      return axios.post(`/api/users/`, {
+          firstName: data[0],
+          lastName: data[1],
+          username: data[2],
+          password: data[3]
+        })
+        .then(res => {
+         context.commit('setUser', res.data);
+       })
     }
   },
   getters: {
