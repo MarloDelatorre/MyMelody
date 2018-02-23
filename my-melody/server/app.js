@@ -6,6 +6,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var cors = require('cors');
+var history = require('connect-history-api-fallback');
 
 // Route Imports
 var users = require('./routes/users');
@@ -22,10 +23,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public/dist')));
-
-app.get('/', function(req, res) {
-  res.sendFile(path.join(__dirname, 'public/dist/', '/index.html'));
-});
+app.use(history({
+  disableDotRule: true,
+  verbose: true
+}));
+app.use(express.static(path.join(__dirname, 'public/dist')));
 
 // Route Registration
 app.use('/api/users', users);
