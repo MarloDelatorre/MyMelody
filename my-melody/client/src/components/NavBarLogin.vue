@@ -1,6 +1,6 @@
 <template>
     <div class="navBarLoginContainer">
-        <header class="projectLogo">{{ projectNameMessage }}</header>
+        <router-link to="/" class="projectLogo">{{ projectNameMessage }}</router-link>
     </div>
 </template>
 
@@ -30,5 +30,6 @@
         line-height: 120px;
         font-weight: 600;
         color: #D34084;
+        text-decoration: none;
     }
 </style>
