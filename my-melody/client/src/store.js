@@ -10,10 +10,9 @@ export default new Vuex.Store({
     selectedTrack: { title: null, artist: null },
     postModalState: null,
     postModalOpen: false,
-    currentUser: 'avempaty',
+    currentUser: null,
     baseApiUrl: 'http://localhost:8888',
     posts: [],
-    user: '',
     loggedIn: false
   },
   mutations: {
@@ -30,14 +29,13 @@ export default new Vuex.Store({
       state.posts = posts;
     },
     setUser(state, user) {
-      state.user = user;
+      state.currentUser = user;
       state.loggedIn = true;
     }
   },
   actions: {
-    getPosts(context) {
-      console.log(context);
-      return axios.get(`${context.getters.baseApiUrl}/api/posts/${context.getters.currentUser}`)
+    getPosts(context, username) {
+      return axios.get(`${context.getters.baseApiUrl}/api/posts/${username}`)
         .then(res => {
           context.commit('setPosts', res.data);
         })
@@ -60,7 +58,7 @@ export default new Vuex.Store({
       return axios.get(`${context.getters.baseApiUrl}/api/users/${data.username}`)
         .then(res => {
           if (res.data.password === data.password) {
-            context.commit('setUser', res.data);
+            context.commit('setUser', res.data.username);
             return res.data.username;
           } else {
             return null;

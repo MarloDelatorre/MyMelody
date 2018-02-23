@@ -49,7 +49,8 @@ export default {
         this.$store.dispatch('getUser', {username: this.message, password: this.password})
         .then(res => {
             if (res) {
-                this.$router.push('profile');
+                console.log(this.$store.getters.currentUser);
+                this.$router.push('home');
             } else {
                 alert('Incorrect username/password combination');
             }

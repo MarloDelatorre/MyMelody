@@ -37,7 +37,8 @@ export default {
     }
   },
   created: function() {
-    this.$store.dispatch('getPosts');
+    console.log(this.$store.getters.currentUser);
+    this.$store.dispatch('getPosts', this.$store.getters.currentUser);
   },
   components: {
     SearchDialog,
