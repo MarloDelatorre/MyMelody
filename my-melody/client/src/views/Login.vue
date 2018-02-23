@@ -41,7 +41,7 @@ export default {
     },
     methods: {
       login() {
-        this.$router.push('home');
+        this.$router.push('profile');
       },
       facebook() {
         console.log('this is username: ' + this.$data.message + ', this is password: ' + this.$data.password);

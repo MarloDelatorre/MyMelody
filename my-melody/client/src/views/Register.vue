@@ -36,7 +36,7 @@
         },
         methods: {
           register() {
-            this.$router.push('home');
+            this.$router.push('profile');
           }
         }
     }

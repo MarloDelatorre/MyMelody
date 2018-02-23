@@ -8,11 +8,10 @@
       <header>Aneesh Vempaty</header>
     </div>
     <div class="tabs">
+        <button class="button">{{homeMessage.posts}}</button>
       <button class="button">{{homeMessage.savedSongs}}</button>
-      <button class="button">{{homeMessage.posts}}</button>
-      <button class="button">{{homeMessage.profile}}</button>
     </div>
-    <div class="under">
+    <div class="background">
     </div>
   </div>
 </template>
@@ -55,6 +54,16 @@ export default {
     justify-content: center;
     align-items: center;
     align-content: flex-end;
+  }
+  .background {
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: -1;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #0C1012;
   }
   .button {
     background-color: #0C1012;
