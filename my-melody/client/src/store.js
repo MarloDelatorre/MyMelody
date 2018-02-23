@@ -10,7 +10,7 @@ export default new Vuex.Store({
     selectedTrack: { title: null, artist: null },
     postModalState: null,
     postModalOpen: false,
-    currentUser: 'pshekar',
+    currentUser: 'avempaty',
     posts: []
   },
   mutations: {
@@ -29,7 +29,7 @@ export default new Vuex.Store({
   },
   actions: {
     getPosts(context) {
-      return axios.get(`http://localhost:8888/api/posts/${context.getters.currentUser}`)
+      return axios.get(`https://mymelody.herokuapp.com/api/posts/${context.getters.currentUser}`)
         .then(res => {
           context.commit('setPosts', res.data);
         })

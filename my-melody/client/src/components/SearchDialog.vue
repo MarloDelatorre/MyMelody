@@ -37,7 +37,7 @@ export default {
     methods: {
         search() {
             this.selectedTrack = null;
-            axios.get(`http://localhost:8888/api/spotify/search?q=${this.query}`)
+            axios.get(`https://mymelody.herokuapp.com/api/spotify/search?q=${this.query}`)
                 .then(res => {
                     if (res.data.length < 1) {
                         this.noResults = true;
