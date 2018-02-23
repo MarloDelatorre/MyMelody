@@ -15,11 +15,15 @@ router.route('/')
     // save new user
     .post((req, res) => {
         var newUser = new User();
-        Object.assign(newUser, req.body);
-        
-        user.save((err, user) => {
+        console.log(req);
+        newUser.username = req.body.username;
+        newUser.password = req.body.password;
+        newUser.firstName = req.body.firstName;
+        newUser.lastName = req.body.lastName;
+
+        newUser.save(err => {
             if (err) res.send(err);
-            else res.jsonp(user)
+            else res.jsonp({ message: `User "${newUser.username}" created!`});
         })
     });
 
