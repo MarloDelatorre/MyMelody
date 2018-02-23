@@ -77,6 +77,16 @@
 </div>
 </template>
 
+<script>
+    export default {
+        name: 'PostWall',
+        data: function() {
+            return {
+            }
+        }
+    }
+</script>
+
 <style scoped>
     /*
  * Define the widths: play around with these
@@ -107,7 +117,7 @@
 }
 .container-fluid {
     margin: 0 auto;
-    width: 77%;
+    width: 930px;
 }
 .table-row {
   display: flex;

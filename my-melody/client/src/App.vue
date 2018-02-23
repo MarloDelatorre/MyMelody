@@ -2,7 +2,7 @@
   <div id="app">
     <!-- <NavBar/> -->
     <router-view/>
-    <botNavBar></botNavBar>
+    <!-- <botNavBar/> -->
   </div>
 </template>
 

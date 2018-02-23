@@ -1,5 +1,5 @@
 <template>
-  <div class="background">
+  <div class="profileContainer">
     <div class="nav">
       <NavBarHome/>
     </div>
@@ -8,8 +8,16 @@
       <header>Aneesh Vempaty</header>
     </div>
     <div class="tabs">
-        <button class="button">{{homeMessage.posts}}</button>
-      <button class="button">{{homeMessage.savedSongs}}</button>
+        <button class="button" v-on:click="openTab = 'posts'">{{homeMessage.posts}}</button>
+        <button class="button" v-on:click="openTab = 'savedSongs'">{{homeMessage.savedSongs}}</button>
+    </div>
+    <div v-if="openTab === 'posts'">
+        <PostWall />
+    </div>
+    <div v-else-if="openTab === 'savedSongs'">
+
+    </div>
+    <div v-else>
     </div>
     <div class="background">
     </div>
@@ -17,27 +25,32 @@
 </template>
 
 <script>
-
+import PostWall from '../components/PostWall.vue'
 import NavBarHome from '../components/NavBarHome.vue'
+
 import homeMessages from '../messages/HomeMessages.json'
 
 export default {
     name: 'profile',
     components: {
-      NavBarHome
+      NavBarHome,
+      PostWall
     },
     data: function() {
       return {
-        homeMessage: homeMessages
+          openTab: '',
+          homeMessage: homeMessages
       }
     }
 }
 </script>
 
 <style scoped>
-  .background {
-    background-color: #0C1012;
-  }
+    .profileContainer {
+        overflow-y: scroll;
+        background: #0C1012;
+    }
+
   .nav {
     height: 80px;
   }
@@ -62,7 +75,6 @@ export default {
       z-index: -1;
       width: 100%;
       height: 100%;
-      overflow: hidden;
       background: #0C1012;
   }
   .button {
