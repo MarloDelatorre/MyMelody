@@ -15,7 +15,7 @@
         <PostWall />
     </div>
     <div v-else-if="openTab === 'savedSongs'">
-
+        <SavedSongs />
     </div>
     <div v-else>
     </div>
@@ -27,6 +27,7 @@
 <script>
 import PostWall from '../components/PostWall.vue'
 import NavBarHome from '../components/NavBarHome.vue'
+import SavedSongs from '../components/SavedSongs.vue'
 
 import homeMessages from '../messages/HomeMessages.json'
 
@@ -34,7 +35,8 @@ export default {
     name: 'profile',
     components: {
       NavBarHome,
-      PostWall
+      PostWall,
+      SavedSongs
     },
     data: function() {
       return {

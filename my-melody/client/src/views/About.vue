@@ -1,73 +1,12 @@
 <template>
-  <div class="container-fluid" style="margin-top: 10px">
-  <div class="table-row header">
-
-    <div class="wrapper attributes">
-      <div class="wrapper title-comment-module-reporter">
-        <div class="wrapper title-comment">
-          <div class="column title">TITLE</div>
-          <div class="column comment">ARTIST</div>
-        </div>
-        <div class="wrapper module-reporter">
-          <div class="column module">ALBUM</div>
-          <div class="column reporter">USER</div>
-        </div>
-      </div>
-    </div>
+  <div>
+    This is a team that is dedicated to music.
   </div>
-
-  <div class="table-row">
-
-    <div class="wrapper attributes">
-      <div class="wrapper title-comment-module-reporter">
-        <div class="wrapper title-comment">
-          <div class="column title">Daisy</div>
-          <div class="column comment">Zedd</div>
-        </div>
-        <div class="wrapper module-reporter">
-          <div class="column module">True Colors </div>
-          <div class="column reporter">Avempaty</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="table-row">
-    <div class="wrapper attributes">
-      <div class="wrapper title-comment-module-reporter">
-        <div class="wrapper title-comment">
-          <div class="column title">Everyday, Everyday (feat. Nevve)</div>
-          <div class="column comment">Manilla Killa, Nevve</div>
-        </div>
-        <div class="wrapper module-reporter">
-          <div class="column module">Everyday, Everyday (feat. Nevve) </div>
-          <div class="column reporter">petertfarmer</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="table-row">
-    <div class="wrapper attributes">
-      <div class="wrapper title-comment-module-reporter">
-        <div class="wrapper title-comment">
-          <div class="column title">Getaway Car</div>
-          <div class="column comment">Taylor Swift</div>
-        </div>
-        <div class="wrapper module-reporter">
-          <div class="column module">Reputation</div>
-          <div class="column reporter">MarloD</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</div>
 </template>
 
 <style scoped>
     /*
- * Define the widths: play around with these 
+ * Define the widths: play around with these
  * to get a best fit.
  */
 /*
@@ -94,7 +33,7 @@
 .column {
   flex-grow: 0;
   overflow: hidden;
-  text-overflow: ellipsis;    
+  text-overflow: ellipsis;
   -webkit-flex-grow: 0;
   flex-shrink: 0;
   -webkit-flex-shrink: 0;

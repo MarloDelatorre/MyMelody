@@ -34,7 +34,7 @@ router.route('/:username')
             {username: req.params.username},
             (err, user) => {
                 if (err) res.send(err);
-                else res.jsonp(user)
+                else res.jsonp(user);
             }
         )
     })
@@ -45,7 +45,7 @@ router.route('/:username')
             {$set: req.body},
             (err, user) => {
                 if (err) res.jsonp(err);
-                else res.jsonp(user)
+                else res.jsonp(user);
             }
         )
     });

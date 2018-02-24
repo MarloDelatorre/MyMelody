@@ -30,6 +30,8 @@ export default new Vuex.Store({
     },
     setUser(state, user) {
       state.currentUser = user;
+    },
+    setLoggedIn(state) {
       state.loggedIn = true;
     }
   },
@@ -50,6 +52,7 @@ export default new Vuex.Store({
         })
         .then(res => {
          context.commit('setUser', res.data);
+         context.commit('setLoggedIn');
        })
         .catch(err => console.error(err));
     },
@@ -58,6 +61,7 @@ export default new Vuex.Store({
         .then(res => {
           if (res.data.password === data.password) {
             context.commit('setUser', res.data.username);
+            context.commit('setLoggedIn');
             return res.data;
           } else {
             return null;
