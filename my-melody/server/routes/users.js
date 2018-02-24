@@ -15,7 +15,6 @@ router.route('/')
     // save new user
     .post((req, res) => {
         var newUser = new User();
-        console.log(req);
         newUser.username = req.body.username;
         newUser.password = req.body.password;
         newUser.firstName = req.body.firstName;
