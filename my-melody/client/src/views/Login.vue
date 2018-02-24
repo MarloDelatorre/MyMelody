@@ -45,16 +45,18 @@ export default {
           alert('Fields should not be empty!');
           return;
         }
-
-        this.$store.dispatch('getUser', {username: this.message, password: this.password})
-        .then(res => {
-            if (res) {
-                console.log(this.$store.getters.currentUser);
-                this.$router.push('home');
-            } else {
-                alert('Incorrect username/password combination');
-            }
-        });
+        else {
+          this.$store.dispatch('getUser', {username: this.message, password: this.password})
+          .then(res => {
+              if (res) {
+                  console.log(res);
+                  console.log(this.$store.getters.currentUser);
+                  this.$router.push('profile');
+              } else {
+                  alert('Incorrect username/password combination');
+              }
+          });
+        }
       },
       facebook() {
         console.log('this is username: ' + this.$data.message + ', this is password: ' + this.$data.password);
