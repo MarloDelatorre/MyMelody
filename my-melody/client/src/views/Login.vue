@@ -50,7 +50,12 @@ export default {
           .then(res => {
             console.log(res);
               if (res) {
-                  this.$router.push('profile');
+                  this.$router.push({
+                      name: 'profile',
+                      params: {
+                        user: res,
+                      }
+                  });
               } else {
                   alert('Incorrect username/password combination');
               }

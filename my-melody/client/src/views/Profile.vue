@@ -5,7 +5,7 @@
     </div>
     <div class="personalInfo">
       <img src="https://scontent.ford1-1.fna.fbcdn.net/v/t1.0-9/20258149_1762883797059979_2271180749826725740_n.jpg?oh=862e49b11d09b483ee51d9ea6fb21226&oe=5B0CDCE7"/>
-      <header>Aneesh Vempaty</header>
+      <header>{{fullName}}</header>
     </div>
     <div class="tabs">
         <button class="button" v-on:click="openTab = 'posts'" autofocus>{{homeMessage.posts}}</button>
@@ -34,6 +34,7 @@ import homeMessages from '../messages/HomeMessages.json'
 
 export default {
     name: 'profile',
+    props: ['user'],
     components: {
       NavBarHome,
       PostWall,
@@ -42,7 +43,8 @@ export default {
     data: function() {
       return {
           openTab: 'posts',
-          homeMessage: homeMessages
+          homeMessage: homeMessages,
+          fullName: this.user.firstName + ' ' + this.user.lastName,
       }
     }
 }

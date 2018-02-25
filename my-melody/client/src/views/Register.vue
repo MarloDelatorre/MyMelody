@@ -53,8 +53,22 @@
             }
             else {
               this.$store.dispatch('addUser', [this.$data.fName, this.$data.lName, this.$data.username, this.$data.password]);
-              alert('User created!');
-              this.$router.push('profile');
+              var user = {
+                firstName: this.$data.fName,
+                lastName: this.$data.lName,
+              }
+              if (this.$store.getters.loggedIn) {
+                alert('User created!');
+                this.$router.push({
+                    name: 'profile',
+                    params: {
+                      user: user,
+                    }
+                });
+              }
+              else {
+                alert('Username already exists!');
+              }
             }
           }
         }
