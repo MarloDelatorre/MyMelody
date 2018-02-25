@@ -1,5 +1,5 @@
 <template>
-  <div class="profileContainer">
+  <div v-if="this.$store.getters.loggedIn" class="profileContainer">
     <div class="nav">
       <NavBarHome/>
     </div>
@@ -8,7 +8,7 @@
       <header>Aneesh Vempaty</header>
     </div>
     <div class="tabs">
-        <button class="button" v-on:click="openTab = 'posts'">{{homeMessage.posts}}</button>
+        <button class="button" v-on:click="openTab = 'posts'" autofocus>{{homeMessage.posts}}</button>
         <button class="button" v-on:click="openTab = 'savedSongs'">{{homeMessage.savedSongs}}</button>
     </div>
     <div v-if="openTab === 'posts'">
@@ -17,10 +17,11 @@
     <div v-else-if="openTab === 'savedSongs'">
         <SavedSongs />
     </div>
-    <div v-else>
-    </div>
     <div class="background">
     </div>
+  </div>
+  <div v-else>
+    Please log in to view this page
   </div>
 </template>
 
@@ -40,7 +41,7 @@ export default {
     },
     data: function() {
       return {
-          openTab: '',
+          openTab: 'posts',
           homeMessage: homeMessages
       }
     }
@@ -48,11 +49,13 @@ export default {
 </script>
 
 <style scoped>
-    .profileContainer {
-        background: #0C1012;
-        margin-top: 95px;
-    }
+  #startActive {
 
+  }
+  .profileContainer {
+      background: #0C1012;
+      margin-top: 95px;
+  }
   .nav {
     height: 80px;
     position: fixed;

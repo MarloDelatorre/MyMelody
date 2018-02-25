@@ -8,7 +8,7 @@
             <img src="../assets/logout.png"/>
         </router-link>
         <router-link to="login" class="pictures middle">
-            <img src="../assets/Profile.png"/>
+            <img v-on:click="logout" src="../assets/Profile.png"/>
         </router-link>
         <router-link to="login" class="pictures left">
             <img src="../assets/upload.png"/>
@@ -27,6 +27,11 @@ export default {
         return {
             homeMessage: homeMessages
         }
+    },
+    methods: {
+      logout() {
+        this.$store.dispatch('logout', null);
+      }
     }
 }
 </script>
