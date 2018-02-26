@@ -1,7 +1,7 @@
 <template>
   <div v-if="this.$store.getters.loggedIn" class="profileContainer">
     <div class="nav">
-      <NavBarHome/>
+      <NavBarStandard />
     </div>
     <div class="personalInfo">
       <img src="https://scontent.ford1-1.fna.fbcdn.net/v/t1.0-9/20258149_1762883797059979_2271180749826725740_n.jpg?oh=862e49b11d09b483ee51d9ea6fb21226&oe=5B0CDCE7"/>
@@ -27,7 +27,7 @@
 
 <script>
 import PostWall from '../components/PostWall.vue'
-import NavBarHome from '../components/NavBarHome.vue'
+import NavBarStandard from '../components/NavBarStandard.vue'
 import SavedSongs from '../components/SavedSongs.vue'
 
 import homeMessages from '../messages/HomeMessages.json'
@@ -36,9 +36,9 @@ export default {
     name: 'profile',
     props: ['user'],
     components: {
-      NavBarHome,
-      PostWall,
-      SavedSongs
+        NavBarStandard,
+        PostWall,
+        SavedSongs
     },
     data: function() {
       return {
