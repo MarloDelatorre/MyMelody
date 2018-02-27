@@ -3,7 +3,7 @@
         <navBarLogin />
         <div class="signupForm">
             <div>
-                <input type="text" v-model="fName" placeholder="First name"> </input>
+                <input type="text" v-model="fName" placeholder="First name" autofocus> </input>
             </div>
             <div>
                 <input type="text" v-model="lName" placeholder="Last name"> </input>

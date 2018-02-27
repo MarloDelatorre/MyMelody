@@ -71,6 +71,13 @@ export default new Vuex.Store({
         })
         .catch(err => console.error(err));
     },
+    editUser(context, data) {
+      return axios.put(`${context.getters.baseApiUrl}/api/users/${data.username}`)
+        .then(res => {
+          return res.data;
+        })
+        .catch(err => console.error(err));
+    }
     logout(context, username) {
       context.commit('setLoggedIn', false);
     }

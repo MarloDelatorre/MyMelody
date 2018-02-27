@@ -7,7 +7,7 @@
             </div> -->
             <div class="loginForm">
                   <div>
-                      <input type="text" v-model="message" :placeholder="loginMessage.usernameField"/>
+                      <input type="text" v-model="message" :placeholder="loginMessage.usernameField" autofocus/>
                   </div>
                   <div>
                       <input type="password" v-model="password" :placeholder="loginMessage.passwordField"/>
