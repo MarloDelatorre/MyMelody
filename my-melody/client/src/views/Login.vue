@@ -57,7 +57,7 @@ export default {
                       }
                   });
               } else {
-                  alert('Incorrect username/password combination');
+                  console.log('Incorrect username/password combination');
               }
           });
         }
