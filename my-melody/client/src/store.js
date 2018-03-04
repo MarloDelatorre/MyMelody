@@ -59,7 +59,7 @@ export default new Vuex.Store({
         .catch(err => console.error(err));
     },
     getUser(context, data) {
-      return axios.post(`${context.getters.baseApiUrl}/api/auth/login/${data.username}`)
+      return axios.get(`${context.getters.baseApiUrl}/api/users/${data.username}`)
         .then(res => {
           if (res.data.password === data.password) {
             context.commit('setUser', res.data.username);
