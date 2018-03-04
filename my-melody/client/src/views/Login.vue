@@ -46,7 +46,7 @@ export default {
           return;
         }
         else {
-          this.$store.dispatch('getUser', {username: this.message, password: this.password})
+          this.$store.dispatch('getUser', [this.$data.message, this.$data.password])
           .then(res => {
             console.log(res);
               if (res) {
