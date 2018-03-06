@@ -82,7 +82,7 @@ export default new Vuex.Store({
             context.commit('setLoggedIn', false);
         },
         editFollowers(context, data) {
-            return axios.put(`${context.getters.baseApiUrl}/api/users/${data.username}`, 
+            return axios.put(`${context.getters.baseApiUrl}/api/users/${data.username}`,
                 {
                     following: data,
                     followers: data
@@ -91,8 +91,14 @@ export default new Vuex.Store({
                     return res.data;
                 })
                 .catch(err => console.error(err));
+        },
+        searchUsers(context, data) {
+            return axios.get(`${context.getters.baseApiUrl}/api/users/search/${data.query}`)
+            .then(res => {
+                return res.data;
+            })
+            .catch(err => console.error(err));
         }
-    }
     },
     getters: {
         selectedTrack(state) {
@@ -117,5 +123,5 @@ export default new Vuex.Store({
             return state.loggedIn;
         }
     }
-        
+
     })

@@ -48,7 +48,15 @@ router.route('/:username')
             }
         )
     });
-   
-    
+
+router.route('/search/:string')
+    .get((req, res) => {
+        User.find({'username': new RegExp(req.params.string, 'i')}, 'username', (err, users) => {
+            if (err) res.send(err);
+            res.jsonp(users);
+        });
+    });
+
+
 
 module.exports = router;
