@@ -81,18 +81,16 @@ export default new Vuex.Store({
         logout(context, username) {
             context.commit('setLoggedIn', false);
         },
-        followUser(context, data) {
+        editFollowers(context, data) {
             return axios.put(`${context.getters.baseApiUrl}/api/users/${data.username}`, 
                 {
-                    following: data
+                    following: data,
+                    followers: data
                 })
                 .then(res => {
                     return res.data;
                 })
                 .catch(err => console.error(err));
-        },
-        unfollowUser(context,data) {
-            
         }
     }
     },

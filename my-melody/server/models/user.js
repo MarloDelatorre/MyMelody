@@ -7,8 +7,8 @@ let userSchema = new Schema({
     firstName: {type: String, required: true},
     lastName: {type: String, required: true},
     description: {type: String, default: 'This is your description.'},
-    followers: {type: [ {'username': Schema.Types.String}] },
-    following: {type: [ {'username': Schema.Types.String}] }
+    followers: [{'username': Schema.Types.String}],
+    following: [{'username': Schema.Types.String}]
 
 }, {versionKey: false});
 
