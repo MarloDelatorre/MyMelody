@@ -70,39 +70,54 @@ export default new Vuex.Store({
                     return res.data;
                 })
                 .catch(err => console.error(err));
-            },
-            editUser(context, data) {
-                return axios.put(`${context.getters.baseApiUrl}/api/users/${data.username}`)
+        },
+        editUser(context, data) {
+            return axios.put(`${context.getters.baseApiUrl}/api/users/${data.username}`)
+            .then(res => {
+                return res.data;
+            })
+            .catch(err => console.error(err));
+        },
+        logout(context, username) {
+            context.commit('setLoggedIn', false);
+        },
+        followUser(context, data) {
+            return axios.put(`${context.getters.baseApiUrl}/api/users/${data.username}`, 
+                {
+                    following: data
+                })
                 .then(res => {
                     return res.data;
                 })
                 .catch(err => console.error(err));
-            },
-            logout(context, username) {
-                context.commit('setLoggedIn', false);
-            }
         },
-        getters: {
-            selectedTrack(state) {
-                return state.selectedTrack;
-            },
-            postModalState(state) {
-                return state.postModalState;
-            },
-            spotifyToken(state) {
-                return state.spotifyToken;
-            },
-            currentUser(state) {
-                return state.currentUser;
-            },
-            posts(state) {
-                return state.posts;
-            },
-            baseApiUrl(state) {
-                return state.baseApiUrl;
-            },
-            loggedIn(state) {
-                return state.loggedIn;
-            }
+        unfollowUser(context,data) {
+            
         }
+    }
+    },
+    getters: {
+        selectedTrack(state) {
+            return state.selectedTrack;
+        },
+        postModalState(state) {
+            return state.postModalState;
+        },
+        spotifyToken(state) {
+            return state.spotifyToken;
+        },
+        currentUser(state) {
+            return state.currentUser;
+        },
+        posts(state) {
+            return state.posts;
+        },
+        baseApiUrl(state) {
+            return state.baseApiUrl;
+        },
+        loggedIn(state) {
+            return state.loggedIn;
+        }
+    }
+        
     })
