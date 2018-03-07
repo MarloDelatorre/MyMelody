@@ -9,7 +9,7 @@ Vue.use(Vuex)
 const devMode = true;
 
 // DEFAULT TEST USER
-const testUsername = "test";
+const testUsername = "default";
 const testPassword = "user";
 
 export default new Vuex.Store({
@@ -68,7 +68,9 @@ export default new Vuex.Store({
         },
         getUser(context, data) {
             var uname = devMode ? testUsername : data[0];
-            var pword = devMode ? testUsername : data[1];
+            var pword = devMode ? testPassword : data[1];
+            console.log(uname);
+            console.log(pword);
             return axios.post(`${context.getters.baseApiUrl}/api/auth/login`,
                 {
                     username: uname,
