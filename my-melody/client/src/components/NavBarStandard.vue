@@ -3,8 +3,11 @@
         <header class="projectName">{{ homeMessage.projectName }}</header>
 
         <div class="searchBarContainer">
-            <input class="searchBar" type="text" placeholder="Search" />
+            <input v-model="searchText" v-on:keyup.enter="search" class="searchBar" type="text" placeholder="Search" />
         </div>
+        <modal v-if="showModal" @close="toggleModal = false">
+            <SearchResults/>
+        </modal>
         <div class="iconMenuContainer">
             <router-link class="iconMenu" to="home">
                 <icon class="icons" name="home"></icon>
@@ -28,6 +31,7 @@
 
 <script>
 import homeMessages from '../messages/HomeMessages.json'
+import SearchResults from  './SearchResults.vue'
 
 import Icon from 'vue-awesome/components/Icon'
 
@@ -38,7 +42,19 @@ export default {
     },
     data: function() {
         return {
-            homeMessage: homeMessages
+            homeMessage: homeMessages,
+            searchText: searchText,
+            toggleModal: false
+        }
+    },
+    methods: {
+        search() {
+            if (this.searchText.length > 0) {
+                this.$store.dispatch('searchUsers', this.searchText)
+                    .then(res => {
+                        this.toggleModal = true;
+                    })
+            }
         }
     }
 }

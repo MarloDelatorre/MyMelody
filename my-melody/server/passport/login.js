@@ -26,6 +26,7 @@ module.exports = function(passport){
                     }
                     // User and password both match, return user from done method
                     // which will be treated like success
+					console.log('Loggin in...');
                     return done(null, user);
                 }
             );
@@ -35,6 +36,7 @@ module.exports = function(passport){
 
 
     var isValidPassword = function(user, password){
+		console.log(user.password);
         return bCrypt.compareSync(password, user.password);
     }
 

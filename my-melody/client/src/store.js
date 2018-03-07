@@ -10,7 +10,7 @@ const devMode = true;
 
 // DEFAULT TEST USER
 const testUsername = "test";
-const testPassword = "$2a$10$5OLHx79m8WaszBx6igPxLumA5Tggu42kTRyYc80ZfzDBB9CTAZK9a"
+const testPassword = "user";
 
 export default new Vuex.Store({
     state: {
@@ -67,10 +67,12 @@ export default new Vuex.Store({
             .catch(err => console.error(err));
         },
         getUser(context, data) {
+            var uname = devMode ? testUsername : data[0];
+            var pword = devMode ? testUsername : data[1];
             return axios.post(`${context.getters.baseApiUrl}/api/auth/login`,
                 {
-                    username: data[0],
-                    password: data[1],
+                    username: uname,
+                    password: pword,
                 })
                 .then(res => {
                     context.commit('setUser', res.data.username);
