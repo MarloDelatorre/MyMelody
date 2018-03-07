@@ -67,7 +67,14 @@
     textarea:focus {
         outline: none;
     }
-
+    button {
+        padding: 10px 20px;
+        font-size: 14px;
+        border: 2px solid #D34084;
+        border-radius: 5px;
+        background: #D34084;
+        color: #FFFFFF;
+    }
     .editProfileContainer {
     }
     .editFields {
@@ -75,7 +82,7 @@
         width: 600px;
         margin: 0 auto;
         margin-top: 200px;
-        height: 400px;
+        height: 320px;
         color: #FFFFFF;
         font-size: 20px;
     }
@@ -87,7 +94,6 @@
         text-align: center;
     }
     .firstNamePrompt {
-
     }
     .lastNamePrompt {
         margin-top: 67px;
@@ -100,6 +106,12 @@
     }
     .descriptionInput {
         margin-top: 50px;
+    }
+    .submissionFields {
+        width: 600px;
+        margin: 0 auto;
+        justify-content: space-around;
+        display: flex;
     }
     .background {
         position: absolute;
