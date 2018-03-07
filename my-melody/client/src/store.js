@@ -75,7 +75,6 @@ export default new Vuex.Store({
                     password: pword,
                 })
                 .then(res => {
-                    console.log(res);
                     context.commit('setUser', res.data.username);
                     context.commit('setLoggedIn', true);
                     return res.data;
@@ -83,7 +82,7 @@ export default new Vuex.Store({
                 .catch(err => console.error(err));
         },
         editUser(context, data) {
-            return axios.put(`${context.getters.baseApiUrl}/api/users/${data.username}`)
+            return axios.put(`${context.getters.baseApiUrl}/api/users/${data.username}`, data)
             .then(res => {
                 return res.data;
             })

@@ -53,7 +53,8 @@ export default new Router({
     {
         path: '/profile/editprofile',
         name: 'profile/editprofile',
-        component: EditProfile
+        component: EditProfile,
+        props: true
     }
   ]
 })

@@ -6,12 +6,12 @@
     <div class="personalInfo">
         <div class="profileFollowContainer">
             <icon class="profilePicture" name="user"></icon>
-            <router-link to="profile/editprofile" class="followRouterLink">Edit Profile</router-link>
+            <router-link :to="{ name: 'profile/editprofile', params: {user: this.$props.user } }" class="followRouterLink">Edit Profile</router-link>
         </div>
       <div class="personalInfoTextContainer">
           <header>{{ fullName }}</header>
-          <h2 class="followerCount">9 posts | 576 followers</h2>
-          <h2 class="description">This is a description.</h2>
+          <h2 class="followerCount">{{this.user.followers.length}} followers | {{this.user.following.length}} following</h2>
+          <h2 class="description">{{this.user.description}}</h2>
       </div>
     </div>
     <div class="tabs">

@@ -9,15 +9,15 @@
                     <header class="descriptionPrompt">Description:</header>
                 </div>
                 <div class="changeFields">
-                    <input type="text" placeholder="..."/>
-                    <input class="lastNameInput" type="text" placeholder="..."/>
-                    <textarea class="descriptionInput" rows="5" cols="50" maxlength="200"
-                        placeholder="This is a short description about yourself."></textarea>
+                    <input type="text" v-model="firstName" :placeholder="this.user.firstName"/>
+                    <input class="lastNameInput" v-model="lastName" type="text" :placeholder="this.user.lastName"/>
+                    <textarea class="descriptionInput" v-model="description" rows="5" cols="50" maxlength="200"
+                        :placeholder="this.user.description"></textarea>
                 </div>
             </div>
             <div class="submissionFields">
-                <button class="cancelButton">Cancel</button>
-                <button class="submitButton">Submit</button>
+                <button class="cancelButton" v-on:click="cancel">Cancel</button>
+                <button class="submitButton" v-on:click="submit">Save</button>
             </div>
             <div class="background">
             </div>
@@ -33,9 +33,48 @@
         components: {
             NavBarStandard
         },
+        props: ['user'],
         data: function() {
             return {
-
+                firstName: '',
+                lastName: '',
+                description: '',
+                edited: {},
+            }
+        },
+        methods: {
+            cancel() {
+                this.$router.go(-1);
+            },
+            submit() {
+                this.edited.username = this.user.username;
+                if (this.firstName !== this.user.firstName && this.firstName !== "") {
+                    this.edited.firstName = this.firstName;
+                }
+                if (this.lastName !== this.user.lastName && this.lastName !== "") {
+                    this.edited.lastName = this.lastName;
+                }
+                if (this.description !== this.user.description && this.description !== "") {
+                    this.edited.description = this.description;
+                }
+                if (this.edited.firstName || this.edited.lastName || this.edited.description) {
+                    this.$store.dispatch('editUser', this.edited)
+                    .then(res => {
+                        if (res) {
+                            this.$router.push({
+                                name: 'profile',
+                                params: {
+                                  user: res,
+                                }
+                            });
+                        } else {
+                            alert('Unable to edit');
+                        }
+                    });
+                }
+                else {
+                    alert('Nothing to update!');
+                }
             }
         }
     }

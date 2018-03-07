@@ -42,6 +42,7 @@ router.route('/:username')
         User.findOneAndUpdate(
             {username: req.params.username},
             {$set: req.body},
+            {new: true},
             (err, user) => {
                 if (err) res.jsonp(err);
                 else res.jsonp(user);
