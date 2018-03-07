@@ -14,8 +14,8 @@
               </div>
               <div class="modal-footer">
                 <slot name="footer">
-                  <button class="modal-default-button" @click="$emit('close')">
-                    OK
+                  <button class="modal-default-button" @click="$emit('exit', true)">
+                    Cancel
                   </button>
                 </slot>
               </div>
@@ -28,9 +28,7 @@
 <script>
 export default {
     name: 'search-results',
-    props: {
-        users: ['users']
-    }
+    props: ['users']
 }
 </script>
 

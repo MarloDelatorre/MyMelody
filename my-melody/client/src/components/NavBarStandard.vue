@@ -5,8 +5,8 @@
         <div class="searchBarContainer">
             <input v-model="searchText" v-on:keyup.enter="search" class="searchBar" type="text" placeholder="Search" />
         </div>
-        <modal v-if="showModal" @close="toggleModal = false">
-            <SearchResults/>
+        <modal v-if="toggleModal" @close="toggleModal = false" class="modal">
+            <SearchResults @exit="toggleModal = false" v-bind:users="this.users"/>
         </modal>
         <div class="iconMenuContainer">
             <router-link class="iconMenu" to="home">
@@ -38,13 +38,15 @@ import Icon from 'vue-awesome/components/Icon'
 export default {
     name: 'NavBarStandard',
     components: {
-        Icon
+        Icon,
+        SearchResults
     },
     data: function() {
         return {
             homeMessage: homeMessages,
-            searchText: searchText,
-            toggleModal: false
+            searchText: '',
+            toggleModal: false,
+            users: []
         }
     },
     methods: {
@@ -52,6 +54,8 @@ export default {
             if (this.searchText.length > 0) {
                 this.$store.dispatch('searchUsers', this.searchText)
                     .then(res => {
+                        console.log(res);
+                        this.users = res;
                         this.toggleModal = true;
                     })
             }

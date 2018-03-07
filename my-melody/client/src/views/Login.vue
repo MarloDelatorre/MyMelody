@@ -48,7 +48,6 @@ export default {
         else {
           this.$store.dispatch('getUser', [this.$data.message, this.$data.password])
           .then(res => {
-            console.log(res);
               if (res) {
                   this.$router.push({
                       name: 'profile',
@@ -57,7 +56,7 @@ export default {
                       }
                   });
               } else {
-                  console.log('Incorrect username/password combination');
+                  alert('Incorrect username/password combination');
               }
           });
         }

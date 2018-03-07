@@ -9,7 +9,7 @@ Vue.use(Vuex)
 const devMode = true;
 
 // DEFAULT TEST USER
-const testUsername = "test";
+const testUsername = "default";
 const testPassword = "user";
 
 export default new Vuex.Store({
@@ -68,13 +68,14 @@ export default new Vuex.Store({
         },
         getUser(context, data) {
             var uname = devMode ? testUsername : data[0];
-            var pword = devMode ? testUsername : data[1];
+            var pword = devMode ? testPassword : data[1];
             return axios.post(`${context.getters.baseApiUrl}/api/auth/login`,
                 {
                     username: uname,
                     password: pword,
                 })
                 .then(res => {
+                    console.log(res);
                     context.commit('setUser', res.data.username);
                     context.commit('setLoggedIn', true);
                     return res.data;
@@ -103,7 +104,7 @@ export default new Vuex.Store({
                 .catch(err => console.error(err));
         },
         searchUsers(context, data) {
-            return axios.get(`${context.getters.baseApiUrl}/api/users/search/${data.query}`)
+            return axios.get(`${context.getters.baseApiUrl}/api/users/search/${data}`)
             .then(res => {
                 return res.data;
             })

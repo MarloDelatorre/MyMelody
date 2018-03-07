@@ -36,7 +36,6 @@ module.exports = function(passport){
 
 
     var isValidPassword = function(user, password){
-		console.log(user.password);
         return bCrypt.compareSync(password, user.password);
     }
 

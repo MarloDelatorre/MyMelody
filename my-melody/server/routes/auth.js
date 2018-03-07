@@ -2,17 +2,21 @@ var express = require('express');
 var router = express.Router();
 
 module.exports = function(passport) {
-  router.post('/login', passport.authenticate('login', {
-		successRedirect: '/profile',
-		failureRedirect: '/login',
-		failureFlash : true
-	}));
+  router.post('/login', function(req, res, next) {
+      passport.authenticate('login', function(err, user, info) {
+        if (err) { return next(err); }
+        if (!user) { res.jsonp(null); }
+        else { res.jsonp(user); }
+      })(req, res, next);
+  });
 
-  router.post('/signup', passport.authenticate('signup', {
-		successRedirect: '/profile',
-		failureRedirect: '/register',
-		failureFlash : true
-	}));
+  router.post('/signup', function(req, res, next) {
+      passport.authenticate('signup', function(err, user, info) {
+        if (err) { return next(err); }
+        if (!user) { res.jsonp(null); }
+        else { res.jsonp(user); }
+      })(req, res, next);
+  });
 
   return router;
 }
