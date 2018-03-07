@@ -4,16 +4,24 @@ import axios from 'axios';
 
 Vue.use(Vuex)
 
+// REMEMBER TO TURN THIS OFF
+// WHEN PUSHING TO PRODUCTION
+const devMode = true;
+
+// DEFAULT TEST USER
+const testUsername = "test";
+const testPassword = "$2a$10$5OLHx79m8WaszBx6igPxLumA5Tggu42kTRyYc80ZfzDBB9CTAZK9a"
+
 export default new Vuex.Store({
   state: {
     spotifyToken: null,
     selectedTrack: { title: null, artist: null },
     postModalState: null,
     postModalOpen: false,
-    currentUser: null,
+    currentUser: devMode ? testUsername : null,
     baseApiUrl: 'http://localhost:8888',
     posts: [],
-    loggedIn: false
+    loggedIn: devMode
   },
   mutations: {
     selectTrack(state, track) {
@@ -61,13 +69,14 @@ export default new Vuex.Store({
     getUser(context, data) {
       return axios.get(`${context.getters.baseApiUrl}/api/users/${data.username}`)
         .then(res => {
-          if (res.data.password === data.password) {
-            context.commit('setUser', res.data.username);
-            context.commit('setLoggedIn', true);
-            return res.data;
-          } else {
-            return null;
-          }
+            var attemptedPassword = devMode ? testPassword : data.password;
+            if (attemptedPassword === res.data.password) {
+                context.commit('setUser', res.data.username);
+                context.commit('setLoggedIn', true);
+                return res.data;
+              } else {
+                return null;
+              }
         })
         .catch(err => console.error(err));
     },

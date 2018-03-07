@@ -4,8 +4,15 @@
       <NavBarStandard />
     </div>
     <div class="personalInfo">
-      <img src="https://scontent.ford1-1.fna.fbcdn.net/v/t1.0-9/20258149_1762883797059979_2271180749826725740_n.jpg?oh=862e49b11d09b483ee51d9ea6fb21226&oe=5B0CDCE7"/>
-      <header>{{fullName}}</header>
+        <div class="profileFollowContainer">
+            <icon class="profilePicture" name="user"></icon>
+            <router-link to="profile/editprofile" class="followRouterLink">Edit Profile</router-link>
+        </div>
+      <div class="personalInfoTextContainer">
+          <header>{{ fullName }}</header>
+          <h2 class="followerCount">9 posts | 576 followers</h2>
+          <h2 class="description">This is a description.</h2>
+      </div>
     </div>
     <div class="tabs">
         <button class="button" v-on:click="openTab = 'posts'" autofocus>{{homeMessage.posts}}</button>
@@ -31,11 +38,13 @@ import NavBarStandard from '../components/NavBarStandard.vue'
 import SavedSongs from '../components/SavedSongs.vue'
 
 import homeMessages from '../messages/HomeMessages.json'
+import Icon from 'vue-awesome/components/Icon'
 
 export default {
     name: 'profile',
     props: ['user'],
     components: {
+        Icon,
         NavBarStandard,
         PostWall,
         SavedSongs
@@ -70,7 +79,46 @@ export default {
     align-items: center;
     align-content: flex-end;
     padding-bottom: 15px;
-    margin-top: 15px;
+    margin-top: 140px;
+  }
+  .profilePicture {
+      width: 150px;
+      height: 150px;
+      border: 2px solid #D34084;
+      border-radius: 200px;
+      color: #D34084;
+  }
+  .profileFollowContainer {
+      display: flex;
+      flex-direction: column;
+      margin-right: 30px;
+      height: 200px;
+  }
+  .personalInfoTextContainer {
+      display: flex;
+      flex-direction: column;
+      color: #FFFFFF;
+      height: 200px;
+  }
+  .description {
+      font-size: 20px;
+      margin-top: 30px;
+  }
+  .followerCount {
+      font-size: 20px;
+      margin-top: 30px;
+  }
+  .followRouterLink {
+      margin-top: 16px;
+      background-color: #D34084;
+      border: 1px solid #D34084;
+      border-radius: 5px;
+      color: #FFFFFF;
+      padding: 3px 0;
+      font-size: 14px;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
   }
   .tabs {
     display: flex;
@@ -120,7 +168,6 @@ export default {
     font-size: 32pt;
     font-weight: bold;
     color: #D34084;
-    margin-top: 10px;
   }
 
 </style>
