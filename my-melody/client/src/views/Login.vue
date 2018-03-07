@@ -7,7 +7,7 @@
             </div> -->
             <div class="loginForm">
                   <div>
-                      <input type="text" v-model="message" :placeholder="loginMessage.usernameField"/>
+                      <input type="text" v-model="message" :placeholder="loginMessage.usernameField" autofocus/>
                   </div>
                   <div>
                       <input type="password" v-model="password" :placeholder="loginMessage.passwordField"/>
@@ -46,7 +46,7 @@ export default {
           return;
         }
         else {
-          this.$store.dispatch('getUser', {username: this.message, password: this.password})
+          this.$store.dispatch('getUser', [this.$data.message, this.$data.password])
           .then(res => {
             console.log(res);
               if (res) {
@@ -57,7 +57,7 @@ export default {
                       }
                   });
               } else {
-                  alert('Incorrect username/password combination');
+                  console.log('Incorrect username/password combination');
               }
           });
         }
