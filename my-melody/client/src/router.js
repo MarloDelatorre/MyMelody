@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
+import HomeStandard from './views/HomeStandard.vue'
 import About from './views/About.vue'
 import Team from './views/Team.vue'
 import LandingPage from './views/LandingPage.vue'
@@ -22,7 +23,7 @@ export default new Router({
     {
       path: '/home',
       name: 'home',
-      component: Home
+      component: HomeStandard
     },
     {
       path: '/about',

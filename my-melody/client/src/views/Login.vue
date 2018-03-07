@@ -48,15 +48,21 @@ export default {
         else {
           this.$store.dispatch('getUser', [this.$data.message, this.$data.password])
           .then(res => {
-              if (res) {
+              if (res.message) {
+                if (res.message.includes('Invalid')) {
+                    alert('Incorrect username/password combination');
+                }
+                else if (res.message.includes('found')) {
+                    alert('Username does not exist!');
+                }
+              }
+              else {
                   this.$router.push({
                       name: 'profile',
                       params: {
                         user: res,
                       }
                   });
-              } else {
-                  alert('Incorrect username/password combination');
               }
           });
         }

@@ -5,16 +5,28 @@ module.exports = function(passport) {
   router.post('/login', function(req, res, next) {
       passport.authenticate('login', function(err, user, info) {
         if (err) { return next(err); }
-        if (!user) { res.jsonp(null); }
-        else { res.jsonp(user); }
+        if (info) {
+            if (info.message.includes('found')) {
+                res.jsonp({message: "User not found"})
+            }
+            else if (info.message.includes('Invalid')) {
+                res.jsonp({message: 'Invalid password'})
+            }
+        }
+        if (user) { res.jsonp(user); }
       })(req, res, next);
   });
 
   router.post('/signup', function(req, res, next) {
       passport.authenticate('signup', function(err, user, info) {
+          console.log(info);
         if (err) { return next(err); }
-        if (!user) { res.jsonp(null); }
-        else { res.jsonp(user); }
+        if (info) {
+            if (info.message.includes('Exists')) {
+                res.jsonp({message: 'User already exists'});
+            }
+        }
+        if (user) { res.jsonp(user); }
       })(req, res, next);
   });
 

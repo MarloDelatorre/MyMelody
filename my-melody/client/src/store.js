@@ -59,9 +59,11 @@ export default new Vuex.Store({
                 password: data[3]
             })
             .then(res => {
+                console.log(res);
                 if (!res.request.response.includes('E11000')) {
                     context.commit('setUser', res.data);
                     context.commit('setLoggedIn', true);
+                    return res.data;
                 }
             })
             .catch(err => console.error(err));

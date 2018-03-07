@@ -52,23 +52,43 @@
               alert('Fields cannot be empty!');
             }
             else {
-              this.$store.dispatch('addUser', [this.$data.fName, this.$data.lName, this.$data.username, this.$data.password]);
-              var user = {
-                firstName: this.$data.fName,
-                lastName: this.$data.lName,
-              }
-              if (this.$store.getters.loggedIn) {
-                alert('User created!');
-                this.$router.push({
-                    name: 'profile',
-                    params: {
-                      user: user,
+              this.$store.dispatch('addUser', [this.$data.fName, this.$data.lName, this.$data.username, this.$data.password])
+              .then(res => {
+                  console.log(res);
+                  if (res.message) {
+                    if (res.message.includes('exists')) {
+                        alert('User already exists!');
                     }
-                });
-              }
-              else {
-                alert('Username already exists!');
-              }
+                  }
+                  else {
+                      alert('User created!');
+                      this.$router.push({
+                          name: 'profile',
+                          params: {
+                            user: res,
+                          }
+                      });
+                  }
+                  // var user = {
+                  //   firstName: this.$data.fName,
+                  //   lastName: this.$data.lName,
+                  // }
+                  // if (this.$store.getters.loggedIn) {
+                  //   alert('User created!');
+                  //   this.$router.push({
+                  //       name: 'profile',
+                  //       params: {
+                  //         user: user,
+                  //       }
+                  //   });
+                  // }
+                  // else {
+                  //   alert('Username already exists!');
+                  // }
+              })
+              .catch(err => {
+                  console.log(err);
+              })
             }
           }
         }
