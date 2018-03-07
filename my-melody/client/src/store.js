@@ -69,11 +69,6 @@ export default new Vuex.Store({
         getUser(context, data) {
             var uname = devMode ? testUsername : data[0];
             var pword = devMode ? testPassword : data[1];
-<<<<<<< HEAD
-=======
-            console.log(uname);
-            console.log(pword);
->>>>>>> b7a3480baaef38116e21a18125394a637646adf2
             return axios.post(`${context.getters.baseApiUrl}/api/auth/login`,
                 {
                     username: uname,
