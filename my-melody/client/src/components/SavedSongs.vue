@@ -21,7 +21,7 @@
     <div class="wrapper attributes">
       <div class="wrapper title-comment-module-reporter">
         <div class="wrapper title-comment">
-          <div class="column title">Daisy</div>
+          <div class="column title">{{this.user.username}}</div>
           <div class="column comment">Zedd</div>
         </div>
         <div class="wrapper module-reporter">
@@ -68,6 +68,13 @@
 <script>
     export default {
         name: 'SavedSongs',
+        props: [user],
+        components: {
+            Icon,
+            NavBarStandard,
+            PostWall,
+            Profile
+        },
         data: function() {
             return {
             }
