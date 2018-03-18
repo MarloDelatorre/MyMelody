@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid" style="margin-top: 10px">
+  <div v-if="this.$store.getters.loggedIn" class="container-fluid" style="margin-top: 10px">
   <div class="table-row header">
 
     <div class="wrapper attributes">
@@ -21,12 +21,12 @@
     <div class="wrapper attributes">
       <div class="wrapper title-comment-module-reporter">
         <div class="wrapper title-comment">
-          <div class="column title">{{this.user.username}}</div>
+          <div class="column title">Daisy</div>
           <div class="column comment">Zedd</div>
         </div>
         <div class="wrapper module-reporter">
           <div class="column module">True Colors </div>
-          <div class="column reporter">Avempaty</div>
+          <div class="column reporter">Hi</div>
         </div>
       </div>
     </div>
@@ -66,6 +66,13 @@
 </template>
 
 <script>
+import PostWall from '../components/PostWall.vue'
+import NavBarStandard from '../components/NavBarStandard.vue'
+import SavedSongs from '../components/SavedSongs.vue'
+
+import homeMessages from '../messages/HomeMessages.json'
+import Icon from 'vue-awesome/components/Icon'
+    
     export default {
         name: 'SavedSongs',
         props: ['user'],
@@ -77,6 +84,7 @@
         },
         data: function() {
             return {
+                fullName: this.user.firstName + ' ' + this.user.lastName,
             }
         }
     }
