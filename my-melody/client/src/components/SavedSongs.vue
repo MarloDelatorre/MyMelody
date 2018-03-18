@@ -68,7 +68,7 @@
 <script>
     export default {
         name: 'SavedSongs',
-        props: [user],
+        props: ['user'],
         components: {
             Icon,
             NavBarStandard,

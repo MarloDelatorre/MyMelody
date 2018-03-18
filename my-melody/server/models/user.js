@@ -1,13 +1,7 @@
 const mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 
-let trackSchema = new Schema({
-    trackId: {type: String, required: true},
-    title: {type: String, required: true},
-    artist: {type: String, required: true},
-    albumArt: {type: String, required: true},
-    service: {type: String, default: 'manual'},
-}, {versionKey: false});
+
 
 let userSchema = new Schema({
     username: {type: String, unique: true, required: true },
@@ -17,7 +11,7 @@ let userSchema = new Schema({
     description: {type: String, default: 'This is your description.'},
     followers: [{'username': Schema.Types.String}],
     following: [{'username': Schema.Types.String}],
-    savedSongs: [[trackSchema]]
+    savedSongs: [{type: Schema.Types.ObjectId, ref: 'Track'}]
 
 }, {versionKey: false});
 
