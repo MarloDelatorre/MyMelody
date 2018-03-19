@@ -1,8 +1,8 @@
 <template>
-  <div v-if="this.$store.getters.loggedIn" class="container-fluid" style="margin-top: 10px">
+  <div class="container-fluid" style="margin-top: 10px">
   <div class="table-row header">
 
-    <div class="wrapper attributes">
+    <div class="wrapper attributes top">
       <div class="wrapper title-comment-module-reporter">
         <div class="wrapper title-comment">
           <div class="column title">TITLE</div>
@@ -15,8 +15,10 @@
       </div>
     </div>
   </div>
+  <div class="line">
+  </div>
 
-  <div class="table-row">
+  <div class="table-row children">
 
     <div class="wrapper attributes">
       <div class="wrapper title-comment-module-reporter">
@@ -26,37 +28,7 @@
         </div>
         <div class="wrapper module-reporter">
           <div class="column module">True Colors </div>
-          <div class="column reporter">Hi</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="table-row">
-    <div class="wrapper attributes">
-      <div class="wrapper title-comment-module-reporter">
-        <div class="wrapper title-comment">
-          <div class="column title">Everyday, Everyday (feat. Nevve)</div>
-          <div class="column comment">Manilla Killa, Nevve</div>
-        </div>
-        <div class="wrapper module-reporter">
-          <div class="column module">Everyday, Everyday (feat. Nevve) </div>
-          <div class="column reporter">petertfarmer</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="table-row">
-    <div class="wrapper attributes">
-      <div class="wrapper title-comment-module-reporter">
-        <div class="wrapper title-comment">
-          <div class="column title">Getaway Car</div>
-          <div class="column comment">Taylor Swift</div>
-        </div>
-        <div class="wrapper module-reporter">
-          <div class="column module">Reputation</div>
-          <div class="column reporter">MarloD</div>
+          <div class="column reporter">{{this.user.username}}</div>
         </div>
       </div>
     </div>
@@ -66,21 +38,15 @@
 </template>
 
 <script>
-import PostWall from '../components/PostWall.vue'
 import NavBarStandard from '../components/NavBarStandard.vue'
-import SavedSongs from '../components/SavedSongs.vue'
-
-import homeMessages from '../messages/HomeMessages.json'
 import Icon from 'vue-awesome/components/Icon'
-    
+
     export default {
         name: 'SavedSongs',
         props: ['user'],
         components: {
             Icon,
             NavBarStandard,
-            PostWall,
-            Profile
         },
         data: function() {
             return {
@@ -99,6 +65,16 @@ import Icon from 'vue-awesome/components/Icon'
  * Basic styles, good for a large display. Everything fits in
  * one row, no wrapping. All text based cells grow equally.
  */
+ .top {
+     font-size: 18pt;
+     font-weight: bolder;
+ }
+ .line {
+     width: 95%;
+     height: 2px;
+     background-color: #0C1012;
+     margin: 0 auto;
+ }
 .table-row {
   display: flex;
   display: -webkit-flex;
@@ -106,15 +82,29 @@ import Icon from 'vue-awesome/components/Icon'
   -webkit-flex-direction: row;
   flex-wrap: no-wrap;
   -webkit-flex-wrap: no-wrap;
-  width: 800px;
-  padding-left: 15px;
-  padding-right: 15px;
+  padding: 10px 15px;
+  margin: 0 auto;
+}
+.container-fluid {
+    background-color: #1A2226;
+    width: 90%;
+    margin: 0 auto;
+}
+.children {
+    text-align: left;
 }
 .wrapper {
   display: flex;
   display: -webkit-flex;
   flex-direction: row;
+  padding-left: 15px;
   -webkit-flex-direction: row;
+}
+.title-comment{
+    width: 65%;
+}
+.module-reporter{
+    width: 35%;
 }
 .column {
   flex-grow: 0;
@@ -124,27 +114,29 @@ import Icon from 'vue-awesome/components/Icon'
   flex-shrink: 0;
   -webkit-flex-shrink: 0;
   vertical-align: top;
+  color: #fff;
 }
 
 .module {
-  width: 110px;
+  width: 60%;
+  padding-right: 25px;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 .reporter {
-  width: 85px;
+  width: 40%;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 .title {
   font-weight: bold;
-  color: #337ab5;
-  width: 220px;
+  color: #fff;
+  width: 50%;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 .comment {
-  width: 120px;
+  width: 50%;
 }
 .title,
 .comment {
@@ -157,6 +149,7 @@ import Icon from 'vue-awesome/components/Icon'
 }
 /* growable wrappers */
 .title-comment,
+.module-reporter,
 .title-comment-module-reporter,
 .attributes {
   flex-grow: 1;

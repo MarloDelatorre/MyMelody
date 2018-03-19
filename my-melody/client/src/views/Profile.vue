@@ -21,8 +21,8 @@
     <div v-if="openTab === 'posts'">
         <PostWall />
     </div>
-    <div v-else-if="openTab === 'savedSongs'">
-        <SavedSongs />
+    <div class="savedSongs" v-else-if="openTab === 'savedSongs'">
+        <SavedSongs v-bind:user="this.user"/>
     </div>
     <div class="background">
     </div>
@@ -62,6 +62,9 @@ export default {
 <style scoped>
   #startActive {
 
+  }
+  .savedSongs {
+      margin: 0 auto;
   }
   .profileContainer {
       background: #0C1012;
