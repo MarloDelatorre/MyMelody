@@ -33,14 +33,13 @@ export default {
         changeUser(username) {
             this.$store.dispatch('getUser', username)
             .then(res => {
-                console.log(res);
                 this.$router.push({
-                    name: 'profile',
+                    name: `otherprofile`,
                     params: {
-                      user: res,
+                        username: res.username,
+                        user: res
                     }
                 });
-                console.log('hi');
             })
             .catch(err => console.log(err));
         }

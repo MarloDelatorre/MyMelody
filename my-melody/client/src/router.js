@@ -8,6 +8,7 @@ import LandingPage from './views/LandingPage.vue'
 import Login from './views/Login.vue'
 import Register from './views/Register.vue'
 import Profile from './views/Profile.vue'
+import OtherProfile from './views/OtherProfile.vue'
 import Experiment from './views/Experiment.vue'
 import EditProfile from './views/EditProfile.vue'
 Vue.use(Router)
@@ -50,6 +51,12 @@ export default new Router({
       name: 'profile',
       component: Profile,
       props: true
+    },
+    {
+        path: '/user/:username',
+        name: 'otherprofile',
+        component: OtherProfile,
+        props: true
     },
     {
         path: '/profile/editprofile',
