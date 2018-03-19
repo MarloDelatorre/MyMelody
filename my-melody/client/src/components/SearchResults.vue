@@ -6,7 +6,7 @@
               <div class="modal-body">
                 <slot name="body">
                   <ul>
-                      <li v-for="user in users">
+                      <li v-for="user in users" v-on:click="changeUser(user.username)" class="results">
                         {{user.username}}
                       </li>
                   </ul>
@@ -28,7 +28,28 @@
 <script>
 export default {
     name: 'search-results',
-    props: ['users']
+    props: ['users'],
+    methods: {
+        changeUser(username) {
+            this.$store.dispatch('getUser', username)
+            .then(res => {
+                console.log(res);
+                this.$router.push({
+                    name: 'profile',
+                    params: {
+                      user: res,
+                    }
+                });
+                console.log('hi');
+            })
+            .catch(err => console.log(err));
+        }
+    },
+    data: function () {
+        return {
+
+        }
+    }
 }
 </script>
 
@@ -43,6 +64,10 @@ export default {
     background-color: rgba(0, 0, 0, .5);
     display: table;
     transition: opacity .3s ease;
+    }
+
+    .results {
+        border-bottom: 2px solid black;
     }
 
     .modal-wrapper {

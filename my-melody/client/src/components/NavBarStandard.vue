@@ -5,14 +5,14 @@
         <div class="searchBarContainer">
             <input v-model="searchText" v-on:keyup.enter="search" class="searchBar" type="text" placeholder="Search" />
         </div>
-        <modal v-if="toggleModal" @close="toggleModal = false" class="modal">
+        <div v-if="toggleModal" @close="toggleModal = false" class="modal">
             <SearchResults @exit="toggleModal = false" v-bind:users="this.users"/>
-        </modal>
+        </div>
         <div class="iconMenuContainer">
-            <router-link class="iconMenu" to="home">
+            <router-link class="iconMenu" to="/home">
                 <icon class="icons" name="home"></icon>
             </router-link>
-            <router-link class="iconMenu" to="profile">
+            <router-link class="iconMenu" to="/profile">
                 <icon class="icons" name="user"></icon>
             </router-link>
             <router-link class="iconMenu" to="/">
@@ -54,7 +54,6 @@ export default {
             if (this.searchText.length > 0) {
                 this.$store.dispatch('searchUsers', this.searchText)
                     .then(res => {
-                        console.log(res);
                         this.users = res;
                         this.toggleModal = true;
                     })

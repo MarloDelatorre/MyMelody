@@ -69,6 +69,13 @@ export default new Vuex.Store({
             .catch(err => console.error(err));
         },
         getUser(context, data) {
+            return axios.get(`${context.getters.baseApiUrl}/api/users/${data}`)
+            .then(res => {
+                return res.data;
+            })
+            .catch(err => console.log(err));
+        },
+        loginUser(context, data) {
             var uname = devMode ? testUsername : data[0];
             var pword = devMode ? testPassword : data[1];
             return axios.post(`${context.getters.baseApiUrl}/api/auth/login`,

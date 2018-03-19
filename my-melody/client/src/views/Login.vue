@@ -46,7 +46,7 @@ export default {
           return;
         }
         else {
-          this.$store.dispatch('getUser', [this.$data.message, this.$data.password])
+          this.$store.dispatch('loginUser', [this.$data.message, this.$data.password])
           .then(res => {
               if (res.message) {
                 if (res.message.includes('Invalid')) {
