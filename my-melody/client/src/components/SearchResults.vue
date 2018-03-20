@@ -7,7 +7,9 @@
                 <slot name="body">
                   <ul>
                       <li v-for="user in users" v-on:click="changeUser(user.username)" class="results">
-                        {{user.username}}
+                          <div v-if="user.username !== currentUser.username">
+                              {{user.username}}
+                          </div>
                       </li>
                   </ul>
                 </slot>
@@ -33,6 +35,7 @@ export default {
         changeUser(username) {
             this.$store.dispatch('getUser', username)
             .then(res => {
+                this.$emit('exit', true);
                 this.$router.push({
                     name: `otherprofile`,
                     params: {
@@ -48,7 +51,12 @@ export default {
         return {
 
         }
-    }   
+    },
+    computed: {
+        currentUser() {
+            return this.$store.getters.currentUser
+        }
+    }
 }
 </script>
 

@@ -10,7 +10,7 @@
             <button v-else class="followRouterLink" v-on:click="unfollow">Unfollow</button>
         </div>
       <div class="personalInfoTextContainer">
-          <header>{{ fullName }}</header>
+          <header>{{ this.user.firstName }} {{this.user.lastName}}</header>
           <h2 class="followerCount">{{this.user.followers.length}} followers | {{this.user.following.length}} following</h2>
           <h2 class="description">{{this.user.description}}</h2>
       </div>
@@ -37,6 +37,12 @@ import Icon from 'vue-awesome/components/Icon'
 export default {
     name: 'otherprofile',
     props: ['user'],
+    watch: {
+        otherUser: function(newVal, oldVal) {
+            console.log('prop changed: ', newVal, ' | was: ', oldVal)
+            this.$router.go(this.$router.currentRoute, this.user)
+        }
+    },
     components: {
         Icon,
         NavBarStandard,
@@ -47,17 +53,15 @@ export default {
       return {
           openTab: 'posts',
           homeMessage: homeMessages,
-          fullName: this.user.firstName + ' ' + this.user.lastName,
       }
   },
   methods: {
-      follow() { 
-          
+      follow() {
         this.user.followers.push(this.$store.getters.currentUser.username);
         this.$store.getters.currentUser.following.push(this.user.username);
         this.$store.dispatch("editFollowers", this.user);
         this.$store.dispatch("editFollowers", this.$store.getters.currentUser);
-          
+
       },
       unfollow() {
         var index = this.user.followers.indexOf(this.$store.getters.currentUser.username);
@@ -69,7 +73,7 @@ export default {
             this.$store.getters.currentUser.following.splice(index,1);
         }
         this.$store.dispatch("editFollowers", this.user);
-        this.$store.dispatch("editFollowers", this.$store.getters.currentUser);  
+        this.$store.dispatch("editFollowers", this.$store.getters.currentUser);
       }
   }
 }
