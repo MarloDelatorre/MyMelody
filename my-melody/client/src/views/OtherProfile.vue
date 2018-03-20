@@ -6,7 +6,8 @@
     <div class="personalInfo">
         <div class="profileFollowContainer">
             <icon class="profilePicture" name="user"></icon>
-            <button class="followRouterLink" v-on:click="follow">Follow</button>
+            <button v-if="!this.$store.getters.currentUser.following.includes(this.user.username)" class="followRouterLink" v-on:click="follow">Follow</button>
+            <button v-else class="followRouterLink" v-on:click="unfollow">Unfollow</button>
         </div>
       <div class="personalInfoTextContainer">
           <header>{{ fullName }}</header>
@@ -50,8 +51,25 @@ export default {
       }
   },
   methods: {
-      follow() {
-          //do stuff
+      follow() { 
+          
+        this.user.followers.push(this.$store.getters.currentUser.username);
+        this.$store.getters.currentUser.following.push(this.user.username);
+        this.$store.dispatch("editFollowers", this.user);
+        this.$store.dispatch("editFollowers", this.$store.getters.currentUser);
+          
+      },
+      unfollow() {
+        var index = this.user.followers.indexOf(this.$store.getters.currentUser.username);
+        if (index > -1) {
+            this.user.followers.splice(index,1);
+        }
+          var index = this.$store.getters.currentUser.following.indexOf(this.user.username);
+        if (index > -1) {
+            this.$store.getters.currentUser.following.splice(index,1);
+        }
+        this.$store.dispatch("editFollowers", this.user);
+        this.$store.dispatch("editFollowers", this.$store.getters.currentUser);  
       }
   }
 }

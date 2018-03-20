@@ -77,12 +77,14 @@
                 }
             }
         }
+
+
     }
 </script>
 
 <style scoped>
     input {
-        width: 80%;
+        width: 20%;
         height: 30px;
         padding-left: 20px;
         padding-right: 20px;

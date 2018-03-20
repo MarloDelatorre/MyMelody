@@ -18,7 +18,7 @@ export default new Vuex.Store({
         selectedTrack: { title: null, artist: null },
         postModalState: null,
         postModalOpen: false,
-        currentUser: devMode ? testUsername : null,
+        currentUser: {},
         baseApiUrl: 'http://localhost:8888',
         posts: [],
         loggedIn: devMode
@@ -84,7 +84,7 @@ export default new Vuex.Store({
                     password: pword,
                 })
                 .then(res => {
-                    context.commit('setUser', res.data.username);
+                    context.commit('setUser', res.data);
                     context.commit('setLoggedIn', true);
                     return res.data;
                 })
@@ -101,10 +101,10 @@ export default new Vuex.Store({
             context.commit('setLoggedIn', false);
         },
         editFollowers(context, data) {
-            return axios.put(`${context.getters.baseApiUrl}/api/users/${data.username}`,
+            return        axios.put(`${context.getters.baseApiUrl}/api/users/${data.username}`,
                 {
-                    following: data,
-                    followers: data
+                    following: data.following,
+                    followers: data.followers
                 })
                 .then(res => {
                     return res.data;
