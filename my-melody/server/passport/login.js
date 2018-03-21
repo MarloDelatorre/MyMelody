@@ -9,8 +9,9 @@ module.exports = function(passport){
         },
         function(req, username, password, done) {
             // check in mongo if a user with username exists or not
-            User.findOne({ 'username' :  username },
-                function(err, user) {
+            User.findOne({ 'username' :  username })
+			.populate('savedSongs')
+			.exec(function(err, user) {
                     // In case of any error, return using the done method
                     if (err)
                         return done(err);

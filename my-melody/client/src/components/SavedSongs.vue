@@ -20,29 +20,24 @@
 
   <ul>
       <li v-for="track in this.user.savedSongs">
-          <div>
-              {{track.title}}
+          <div class="table-row children">
+
+            <div class="wrapper attributes">
+              <div class="wrapper title-comment-module-reporter">
+                <div class="wrapper title-comment">
+                  <div class="column title">{{track.title}}</div>
+                  <div class="column comment">{{track.artist}}</div>
+                </div>
+                <div class="wrapper module-reporter">
+                  <div class="column module">this is where album goes </div>
+                  <div class="column reporter">username?</div>
+                </div>
+              </div>
+            </div>
           </div>
       </li>
   </ul>
   <button v-on:click="console">hello</button>
-
-  <div class="table-row children">
-
-    <div class="wrapper attributes">
-      <div class="wrapper title-comment-module-reporter">
-        <div class="wrapper title-comment">
-          <div class="column title">Daisy</div>
-          <div class="column comment">Zedd</div>
-        </div>
-        <div class="wrapper module-reporter">
-          <div class="column module">True Colors </div>
-          <div class="column reporter">{{this.user.username}}</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
 </div>
 </template>
 

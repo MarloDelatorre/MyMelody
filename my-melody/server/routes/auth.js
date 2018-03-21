@@ -19,7 +19,6 @@ module.exports = function(passport) {
 
   router.post('/signup', function(req, res, next) {
       passport.authenticate('signup', function(err, user, info) {
-          console.log(info);
         if (err) { return next(err); }
         if (info) {
             if (info.message.includes('Exists')) {

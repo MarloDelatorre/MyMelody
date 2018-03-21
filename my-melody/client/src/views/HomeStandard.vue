@@ -3,13 +3,16 @@
         <div class="nav">
             <NavBarStandard />
         </div>
+        <!-- make the list for each post here -->
         <div class="card">
             <div class="topInfo">
                 <div class="userInfo">
                     First Last
                 </div>
                 <div class="saveIcon">
-                    <icon name="plus"></icon>
+                    <button v-on:click="saveSong">
+                        <icon name="plus"></icon>
+                    </button>
                 </div>
             </div>
             <div class="image">
@@ -24,6 +27,7 @@
                 </div>
             </div>
         </div>
+        <!--  end list thing here-->
         <div class="background">
         </div>
     </div>
@@ -46,15 +50,21 @@ export default {
 
     },
     created: function() {
-        console.log(this.$store.getters.currentUser);
-        this.$store.dispatch('getPosts', this.$store.getters);
+        this.$store.dispatch('getPosts', this.$store.getters.currentUser.username)
+        .then(res => {
+            console.log(res);
+        })
     },
     components: {
         NavBarStandard,
         Icon
     },
     methods: {
-
+        saveSong() {
+            console.log('saving');
+            //add to savedSongs list
+            //this.$store.dispatch('editUser', whatever post you want);
+        }
     }
 }
 </script>

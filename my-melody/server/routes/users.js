@@ -36,7 +36,9 @@ router.route('/:username')
             .populate('savedSongs')
             .exec((err, user) => {
                 if (err) res.send(err);
-                else res.jsonp(user);
+                else {
+                    res.jsonp(user);
+                }
             }
         )
     })
