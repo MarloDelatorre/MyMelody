@@ -30,13 +30,13 @@ export default {
     methods: {
         addPost() {
             console.log({track: this.$store.getters.selectedTrack, caption: this.caption})
-            axios.post('${this.$state.getters.baseApiUrl}/posts/', {
+            axios.post(`${this.$store.getters.baseApiUrl}/posts/`, {
                 username: this.$store.getters.currentUser,
                 caption: this.caption,
                 track: this.track
             }).then(res => {
                 console.log(res);
-                this.$store.dispatch('getPosts');
+                this.$store.dispatch('getPosts', this.$store.getters.currentUser);
                 this.$store.commit('postModalState', null);
             }).catch(err => console.error(err));
         },
