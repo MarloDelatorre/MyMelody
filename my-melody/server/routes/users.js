@@ -7,7 +7,9 @@ var router = express.Router();
 router.route('/')
     // get all users
     .get((req, res) => {
-        User.find({}, (err, users) => {
+        User.find({})
+        .populate('savedSongs')
+        .exec((err, users) => {
             if (err) res.send(err);
             else res.jsonp(users);
         })
@@ -30,8 +32,9 @@ router.route('/:username')
     // get one user
     .get((req, res) => {
         User.findOne(
-            {username: req.params.username},
-            (err, user) => {
+            {username: req.params.username})
+            .populate('savedSongs')
+            .exec((err, user) => {
                 if (err) res.send(err);
                 else res.jsonp(user);
             }

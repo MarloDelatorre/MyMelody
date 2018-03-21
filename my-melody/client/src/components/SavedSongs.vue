@@ -18,6 +18,15 @@
   <div class="line">
   </div>
 
+  <ul>
+      <li v-for="track in this.user.savedSongs">
+          <div>
+              {{track.title}}
+          </div>
+      </li>
+  </ul>
+  <button v-on:click="console">hello</button>
+
   <div class="table-row children">
 
     <div class="wrapper attributes">
@@ -51,6 +60,11 @@ import Icon from 'vue-awesome/components/Icon'
         data: function() {
             return {
                 fullName: this.user.firstName + ' ' + this.user.lastName,
+            }
+        },
+        methods: {
+            console() {
+                console.log(this.user);
             }
         }
     }

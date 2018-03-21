@@ -55,7 +55,7 @@ export default {
           homeMessage: homeMessages,
           fullName: this.user.firstName + ' ' + this.user.lastName,
       }
-    }
+  }
 }
 </script>
 
