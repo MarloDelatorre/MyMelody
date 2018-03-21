@@ -9,7 +9,6 @@ var cors = require('cors');
 var fs = require('fs');
 var history = require('connect-history-api-fallback');
 var passport = require('passport');
-var renderer = require('vue-server-renderer');
 var flash = require('connect-flash');
 
 // Route Imports
@@ -19,6 +18,14 @@ var posts = require('./routes/posts');
 var auth = require('./routes/auth')(passport);
 
 let app = express();
+
+//Resolving Client/Server Routing
+app.use(history({
+  verbose: true,
+  rewrites: [
+    { from: /^(\/api\/)/, to: context => context.parsedUrl.pathname }
+  ]
+}));
 
 // Configuring Passport
 var passport = require('passport');

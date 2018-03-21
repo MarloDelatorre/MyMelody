@@ -11,6 +11,8 @@ import Profile from './views/Profile.vue'
 import OtherProfile from './views/OtherProfile.vue'
 import Experiment from './views/Experiment.vue'
 import EditProfile from './views/EditProfile.vue'
+import NotFound from './views/NotFound.vue'
+
 Vue.use(Router)
 
 export default new Router({
@@ -63,6 +65,11 @@ export default new Router({
         name: 'profile/editprofile',
         component: EditProfile,
         props: true
+    },
+    {
+        path: '*',
+        name: 'notfound',
+        component: NotFound
     }
   ]
 })
