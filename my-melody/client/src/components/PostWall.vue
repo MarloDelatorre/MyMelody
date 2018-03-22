@@ -5,75 +5,18 @@
     <div class="wrapper attributes">
       <div class="wrapper title-comment-module-reporter">
         <div class="wrapper title-comment">
-              <div class="card">
-                <img src="../assets/zedd.jpg">
-                <p>DAISY</p>
-              </div>
-          <div class="card">
-                <img src="../assets/albumart/Damn.jpg">
-                <p>HUMBLE</p>
-              </div>
-        </div>
-        <div class="wrapper module-reporter">
-          <div class="card">
-                <img src="../assets/albumart/illenium.jpg">
-                <p>CRAWL OUTTA LOVE</p>
-              </div>
+            <ul class="list">
+                <li v-for="post in this.$store.getters.posts">
+                  <div class="card">
+                    <img v-bind:src="post.track.albumArt">
+                    <p>{{post.track.title}}</p>
+                  </div>
+                </li>
+            </ul>
         </div>
       </div>
     </div>
   </div>
-
-
-  <div class="table-row">
-
-    <div class="wrapper attributes">
-      <div class="wrapper title-comment-module-reporter">
-        <div class="wrapper title-comment">
-              <div class="card">
-                <img src="../assets/albumart/love.jpg">
-                <p>IN THE NAME OF LOVE</p>
-              </div>
-          <div class="card">
-                <img src="../assets/albumart/khalid.jpg">
-                <p>SILENCE</p>
-              </div>
-        </div>
-        <div class="wrapper module-reporter">
-          <div class="card">
-                <img src="../assets/albumart/Starboy.jpeg">
-                <p>STARBOY</p>
-              </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="table-row">
-    <div class="wrapper attributes">
-      <div class="wrapper title-comment-module-reporter">
-        <div class="wrapper title-comment">
-          <div class="card">
-                <img src="../assets/albumart/reputation.jpeg">
-                <p>GETAWAY CAR</p>
-              </div>
-          <div class="card">
-                <img src="../assets/albumart/g-eazy.jpg">
-                <p>NO LIMIT</p>
-              </div>
-        </div>
-        <div class="wrapper module-reporter">
-          <div class="card">
-                <img src="../assets/albumart/chance.jpg">
-                <p>MIXTAPE</p>
-              </div>
-
-        </div>
-      </div>
-    </div>
-  </div>
-
-
 </div>
 </template>
 
@@ -82,7 +25,11 @@
         name: 'PostWall',
         data: function() {
             return {
+
             }
+        },
+        created: function() {
+            this.$store.dispatch('getUserPosts', this.$store.getters.currentUser.username)
         }
     }
 </script>
@@ -101,13 +48,17 @@
   height: 350px;
   background-color: #1A2226;
   text-align: center;
-
-
 }
 .card img {
   width: 300px;
   height: 300px;
 
+}
+.list {
+    display: flex;
+    flex-direction: row;
+}
+.card {
 }
 .card p {
   color: white;

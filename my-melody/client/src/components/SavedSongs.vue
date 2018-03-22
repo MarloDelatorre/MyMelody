@@ -29,7 +29,9 @@
                   <div class="column comment">{{track.artist}}</div>
                 </div>
                 <div class="wrapper module-reporter">
-                  <div class="column module">this is where album goes </div>
+                  <div class="column module">
+                      <img v-bind:src="track.albumArt"/>
+                   </div>
                   <div class="column reporter">username?</div>
                 </div>
               </div>
@@ -131,6 +133,10 @@ import Icon from 'vue-awesome/components/Icon'
   padding-right: 25px;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+.module img {
+    width: 80px;
+    height: 80px;
 }
 .reporter {
   width: 40%;

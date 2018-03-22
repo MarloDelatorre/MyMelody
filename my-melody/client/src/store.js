@@ -44,10 +44,17 @@ export default new Vuex.Store({
         }
     },
     actions: {
-        getPosts(context, username) {
+        getUserPosts(context, username) {
             return axios.get(`${context.getters.baseApiUrl}/api/posts/${username}`)
             .then(res => {
                 context.commit('setPosts', res.data);
+            })
+            .catch(err => console.error(err));
+        },
+        getAllPosts(context, data) {
+            return axios.get(`${context.getters.baseApiUrl}/api/posts/`)
+            .then(res => {
+                return res.data;
             })
             .catch(err => console.error(err));
         },

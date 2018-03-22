@@ -3,31 +3,43 @@
         <div class="nav">
             <NavBarStandard />
         </div>
-        <!-- make the list for each post here -->
-        <div class="card">
-            <div class="topInfo">
-                <div class="userInfo">
-                    First Last
-                </div>
-                <div class="saveIcon">
-                    <button v-on:click="saveSong">
-                        <icon name="plus"></icon>
-                    </button>
-                </div>
+        <div v-if="this.posts.length === 0">
+            Loading...
+        </div>
+        <div v-else>
+            <div v-if="this.posts.includes('nothing')">
+                No posts were found
             </div>
-            <div class="image">
-                <img src="../assets/albumart/Zedd.jpg">
-            </div>
-            <div class="bottomInfo">
-                <div class="songInfo">
-                    Daisy - Zedd
-                </div>
-                <div class="songDesc">
-                    This is the song description.
-                </div>
+            <div v-else>
+                <ul>
+                    <li v-for="post in this.posts" class="results">
+                        <div class="card">
+                            <div class="topInfo">
+                                <div class="userInfo">
+                                    {{post.username}}
+                                </div>
+                                <div class="saveIcon">
+                                    <button v-on:click="saveSong">
+                                        <icon name="plus"></icon>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="image">
+                                <img v-bind:src="post.track.albumArt">
+                            </div>
+                            <div class="bottomInfo">
+                                <div class="songInfo">
+                                    {{post.track.title}} - {{post.track.artist}}
+                                </div>
+                                <div class="songDesc">
+                                    {{post.caption}}
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </div>
-        <!--  end list thing here-->
         <div class="background">
         </div>
     </div>
@@ -43,16 +55,22 @@ export default {
     name: 'home',
     data: function () {
         return {
-
+            posts: []
         }
     },
     computed: {
 
     },
     created: function() {
-        this.$store.dispatch('getPosts', this.$store.getters.currentUser.username)
+        this.$store.dispatch('getAllPosts')
         .then(res => {
-            console.log(res);
+            console.log('nothing');
+            if (res.length === 0) {
+                this.posts = ['nothing'];
+            }
+            else {
+                this.posts = res; //filter by time here
+            }
         })
     },
     components: {
