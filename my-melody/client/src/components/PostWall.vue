@@ -9,7 +9,7 @@
                 <li v-for="post in this.$store.getters.posts">
                   <div class="card">
                     <img v-bind:src="post.track.albumArt">
-                    <p>{{post.track.title}}</p>
+                    <p>{{post.track.title}} - {{post.track.artist}}</p>
                   </div>
                 </li>
             </ul>

@@ -19,7 +19,7 @@
   </div>
 
   <ul>
-      <li v-for="track in this.user.savedSongs">
+      <li v-for="track in this.user.savedSongs" class="list">
           <div class="table-row children">
 
             <div class="wrapper attributes">
@@ -39,7 +39,6 @@
           </div>
       </li>
   </ul>
-  <button v-on:click="console">hello</button>
 </div>
 </template>
 

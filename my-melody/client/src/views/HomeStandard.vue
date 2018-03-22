@@ -64,7 +64,6 @@ export default {
     created: function() {
         this.$store.dispatch('getAllPosts')
         .then(res => {
-            console.log('nothing');
             if (res.length === 0) {
                 this.posts = ['nothing'];
             }

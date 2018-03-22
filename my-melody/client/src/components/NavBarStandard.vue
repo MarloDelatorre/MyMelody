@@ -12,7 +12,7 @@
             <router-link class="iconMenu" to="/home">
                 <icon class="icons" name="home"></icon>
             </router-link>
-            <router-link class="iconMenu" to="/profile">
+            <router-link class="iconMenu" :to="{name: 'profile', params: {user: this.$store.getters.currentUser}}">
                 <icon class="icons" name="user"></icon>
             </router-link>
             <router-link class="iconMenu" to="/">
