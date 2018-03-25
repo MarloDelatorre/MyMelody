@@ -141,10 +141,14 @@ export default {
     display: flex;
     align-items: center;
 }
+.saveIcon button {
+    background: #1A2226;
+    border: none;
+}
 .saveIcon svg {
     width: 20px;
     height: 20px;
-
+    color: white;
 }
 .image img {
     width: 550px;
