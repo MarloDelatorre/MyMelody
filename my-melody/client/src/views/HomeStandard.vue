@@ -19,7 +19,7 @@
                                     {{post.username}}
                                 </div>
                                 <div class="saveIcon">
-                                    <button v-on:click="saveSong">
+                                    <button v-on:click="saveSong(post.track)">
                                         <icon name="plus"></icon>
                                     </button>
                                 </div>
@@ -77,10 +77,9 @@ export default {
         Icon
     },
     methods: {
-        saveSong() {
-            console.log('saving');
-            //add to savedSongs list
-            //this.$store.dispatch('editUser', whatever post you want);
+        saveSong(track) {
+            this.$store.getters.currentUser.savedSongs.push(track);
+            this.$store.dispatch('saveSong', this.$store.getters.currentUser);
         }
     }
 }
