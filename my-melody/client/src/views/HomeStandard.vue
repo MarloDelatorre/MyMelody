@@ -3,31 +3,43 @@
         <div class="nav">
             <NavBarStandard />
         </div>
-        <!-- make the list for each post here -->
-        <div class="card">
-            <div class="topInfo">
-                <div class="userInfo">
-                    First Last
-                </div>
-                <div class="saveIcon">
-                    <button v-on:click="saveSong">
-                        <icon name="plus"></icon>
-                    </button>
-                </div>
+        <div v-if="this.posts.length === 0">
+            Loading...
+        </div>
+        <div v-else>
+            <div v-if="this.posts.includes('nothing')">
+                No posts were found
             </div>
-            <div class="image">
-                <img src="../assets/albumart/Zedd.jpg">
-            </div>
-            <div class="bottomInfo">
-                <div class="songInfo">
-                    Daisy - Zedd
-                </div>
-                <div class="songDesc">
-                    This is the song description.
-                </div>
+            <div v-else>
+                <ul>
+                    <li v-for="post in this.posts" class="results">
+                        <div class="card">
+                            <div class="topInfo">
+                                <div class="userInfo">
+                                    {{post.username}}
+                                </div>
+                                <div class="saveIcon">
+                                    <button v-on:click="saveSong(post.track)">
+                                        <icon name="plus"></icon>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="image">
+                                <img v-bind:src="post.track.albumArt">
+                            </div>
+                            <div class="bottomInfo">
+                                <div class="songInfo">
+                                    {{post.track.title}} - {{post.track.artist}}
+                                </div>
+                                <div class="songDesc">
+                                    {{post.caption}}
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </div>
-        <!--  end list thing here-->
         <div class="background">
         </div>
     </div>
@@ -43,16 +55,31 @@ export default {
     name: 'home',
     data: function () {
         return {
-
+            posts: []
         }
     },
     computed: {
 
     },
     created: function() {
-        this.$store.dispatch('getPosts', this.$store.getters.currentUser.username)
+        this.$store.dispatch('getAllPosts')
         .then(res => {
-            console.log(res);
+            if (res.length === 0) {
+                this.posts = ['nothing'];
+            }
+            else {
+                this.posts = res; //filter by time here
+                var n = this.posts.length;
+                for (var i = 0; i < n; i++) {
+                    for (var j = 0; j < (n-i-1); j++) {
+                        if (this.posts[j].posted < this.posts[j+1].posted) {
+                            var tmp = this.posts[j];
+                            this.posts[j] = this.posts[j+1];
+                            this.posts[j+1] = tmp;
+                        }
+                    }
+                }
+            }
         })
     },
     components: {
@@ -60,10 +87,9 @@ export default {
         Icon
     },
     methods: {
-        saveSong() {
-            console.log('saving');
-            //add to savedSongs list
-            //this.$store.dispatch('editUser', whatever post you want);
+        saveSong(track) {
+            this.$store.getters.currentUser.savedSongs.push(track);
+            this.$store.dispatch('saveSong', this.$store.getters.currentUser);
         }
     }
 }
@@ -125,10 +151,14 @@ export default {
     display: flex;
     align-items: center;
 }
+.saveIcon button {
+    background: #1A2226;
+    border: none;
+}
 .saveIcon svg {
     width: 20px;
     height: 20px;
-
+    color: white;
 }
 .image img {
     width: 550px;

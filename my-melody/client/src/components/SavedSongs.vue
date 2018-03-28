@@ -19,7 +19,7 @@
   </div>
 
   <ul>
-      <li v-for="track in this.user.savedSongs">
+      <li v-for="track in this.user.savedSongs" class="list">
           <div class="table-row children">
 
             <div class="wrapper attributes">
@@ -29,7 +29,9 @@
                   <div class="column comment">{{track.artist}}</div>
                 </div>
                 <div class="wrapper module-reporter">
-                  <div class="column module">this is where album goes </div>
+                  <div class="column module">
+                      <img v-bind:src="track.albumArt"/>
+                   </div>
                   <div class="column reporter">username?</div>
                 </div>
               </div>
@@ -37,7 +39,6 @@
           </div>
       </li>
   </ul>
-  <button v-on:click="console">hello</button>
 </div>
 </template>
 
@@ -131,6 +132,10 @@ import Icon from 'vue-awesome/components/Icon'
   padding-right: 25px;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+.module img {
+    width: 80px;
+    height: 80px;
 }
 .reporter {
   width: 40%;

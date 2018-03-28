@@ -44,10 +44,17 @@ export default new Vuex.Store({
         }
     },
     actions: {
-        getPosts(context, username) {
+        getUserPosts(context, username) {
             return axios.get(`${context.getters.baseApiUrl}/api/posts/${username}`)
             .then(res => {
                 context.commit('setPosts', res.data);
+            })
+            .catch(err => console.error(err));
+        },
+        getAllPosts(context, data) {
+            return axios.get(`${context.getters.baseApiUrl}/api/posts/`)
+            .then(res => {
+                return res.data;
             })
             .catch(err => console.error(err));
         },
@@ -101,7 +108,7 @@ export default new Vuex.Store({
             context.commit('setLoggedIn', false);
         },
         editFollowers(context, data) {
-            return        axios.put(`${context.getters.baseApiUrl}/api/users/${data.username}`,
+            return axios.put(`${context.getters.baseApiUrl}/api/users/${data.username}`,
                 {
                     following: data.following,
                     followers: data.followers
@@ -113,6 +120,16 @@ export default new Vuex.Store({
         },
         searchUsers(context, data) {
             return axios.get(`${context.getters.baseApiUrl}/api/users/search/${data}`)
+            .then(res => {
+                return res.data;
+            })
+            .catch(err => console.error(err));
+        },
+        saveSong(context, data) {
+            return axios.put(`${context.getters.baseApiUrl}/api/users/${data.username}`,
+            {
+                savedSongs: data.savedSongs
+            })
             .then(res => {
                 return res.data;
             })
