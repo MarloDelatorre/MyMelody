@@ -69,6 +69,16 @@ export default {
             }
             else {
                 this.posts = res; //filter by time here
+                var n = this.posts.length;
+                for (var i = 0; i < n; i++) {
+                    for (var j = 0; j < (n-i-1); j++) {
+                        if (this.posts[j].posted < this.posts[j+1].posted) {
+                            var tmp = this.posts[j];
+                            this.posts[j] = this.posts[j+1];
+                            this.posts[j+1] = tmp;
+                        }
+                    }
+                }
             }
         })
     },
