@@ -64,4 +64,8 @@ export default {
         font-size: 1.1em;
         cursor: pointer;
     }
+
+    p:hover {
+        color: #D34084;
+    }
 </style>

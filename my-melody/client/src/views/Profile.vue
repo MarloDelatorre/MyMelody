@@ -11,7 +11,8 @@
         </div>
       <div class="personalInfoTextContainer">
           <header>{{ fullName }}</header>
-          <h2 class="follow" @click="dialog = 'followers'">{{this.user.followers.length}} followers</h2><h2 class="follow" @click="dialog = 'following'">{{this.user.following.length}} following</h2><h2 class="description">{{this.user.description}}</h2>
+          <h2 class="follow" @click="dialog = 'followers'">{{this.user.followers.length}} followers</h2><h2 class="follow" @click="dialog = 'following'">{{this.user.following.length}} following</h2>
+          <h2 class="description">{{this.user.description}}</h2>
       </div>
     </div>
     <div class="tabs">

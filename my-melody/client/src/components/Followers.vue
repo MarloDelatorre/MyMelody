@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-on:click="navigate(follower)" class="follower" v-for="follower in followers">
-            <icon class="pro-pic" name="user"></icon><p>{{follower}}</p>
+            <icon class="pro-pic" name="user"></icon><p><span class="new" v-if="follower.new">*new*</span> {{follower.username}}</p>
         </div>
     </div>
 </template>
@@ -20,9 +20,9 @@ export default {
         }
     },
     methods: {
-        navigate(user) {
+        navigate(follower) {
             this.$router.push({
-                path: `/user/${user}`
+                path: `/user/${follower.username}`
             })
         }
     }
@@ -63,5 +63,15 @@ export default {
         color: #ffffff;
         font-size: 1.1em;
         cursor: pointer;
+    }
+
+    p:hover {
+        color: #D34084;
+    }
+
+    .new {
+        color: #D34084;
+        text-transform: uppercase;
+        padding-right: 5px;
     }
 </style>
