@@ -3,12 +3,12 @@
         <div class="nav">
             <NavBarStandard />
         </div>
-        <div v-if="this.posts.length === 0">
+        <div v-if="this.posts.length === 0" class="whiteText">
             Loading...
         </div>
         <div v-else>
-            <div v-if="this.posts.includes('nothing')">
-                No posts were found
+            <div v-if="this.posts.includes('nothing')" class="whiteText">
+                No posts were found.
             </div>
             <div v-else>
                 <ul>
@@ -64,21 +64,22 @@ export default {
     created: function() {
         this.$store.dispatch('getAllPosts')
         .then(res => {
-            if (res.length === 0) {
+            var allFollowerPosts = [];
+
+            res.filter(post => {
+                if (this.$store.getters.currentUser.following.includes(post.username) || post.username === this.$store.getters.currentUser.username) {
+                    allFollowerPosts.push(post);
+                };
+            });
+
+            this.posts = allFollowerPosts; //filter by time here
+
+            console.log(this.posts);
+
+            if (this.posts.length === 0) {
                 this.posts = ['nothing'];
             }
             else {
-                var allFollowerPosts = [];
-                console.log(res);
-
-                res.filter(post => {
-                    if (this.$store.getters.currentUser.following.includes(post.username) || post.username === this.$store.getters.currentUser.username) {
-                        allFollowerPosts.push(post);
-                    };
-                });
-
-                this.posts = allFollowerPosts; //filter by time here
-
                 var date_sort_desc = function (post1, post2) {
                   if (post1.posted > post2.posted) return -1;
                     if (post1.posted < post2.posted) return 1;
@@ -86,7 +87,7 @@ export default {
                 };
                 this.posts.sort(date_sort_desc);
             }
-        })
+        });
     },
     components: {
         NavBarStandard,
@@ -103,6 +104,10 @@ export default {
 </script>
 
 <style scoped>
+.whiteText {
+    color: #FFFFFF;
+}
+
 .nav {
     height: 80px;
     position: fixed;
