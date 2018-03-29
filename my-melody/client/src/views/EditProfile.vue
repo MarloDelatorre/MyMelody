@@ -44,7 +44,12 @@
         },
         methods: {
             cancel() {
-                this.$router.go(-1);
+                this.$router.push({
+                    name: 'profile',
+                    params: {
+                      user: this.$store.getters.currentUser,
+                    }
+                });
             },
             submit() {
                 this.edited.username = this.user.username;
