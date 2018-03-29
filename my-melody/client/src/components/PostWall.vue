@@ -25,11 +25,21 @@
         name: 'PostWall',
         data: function() {
             return {
-
+                
             }
         },
-        created: function() {
+        created: function() {            
             this.$store.dispatch('getUserPosts', this.$store.getters.currentUser.username)
+            .then(() => {
+                //console.log(this.$store.getters.posts);
+                var date_sort_desc = function (post1, post2) {
+                  if (post1.posted > post2.posted) return -1;
+                    if (post1.posted < post2.posted) return 1;
+                    return 0;
+                };
+                //console.log(this.$store.getters.posts);
+                this.$store.getters.posts.sort(date_sort_desc);
+            })
         }
     }
 </script>

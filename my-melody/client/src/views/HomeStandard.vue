@@ -19,8 +19,8 @@
                                     {{post.username}}
                                 </div>
                                 <div class="saveIcon">
-                                    <button v-on:click="saveSong(post.track)">
-                                        <icon name="plus"></icon>
+                                    <button class="saveButton" v-on:click="saveSong(post.track)">
+                                        <icon class="plus" name="plus"></icon>
                                     </button>
                                 </div>
                             </div>
@@ -68,17 +68,23 @@ export default {
                 this.posts = ['nothing'];
             }
             else {
-                this.posts = res; //filter by time here
-                var n = this.posts.length;
-                for (var i = 0; i < n; i++) {
-                    for (var j = 0; j < (n-i-1); j++) {
-                        if (this.posts[j].posted < this.posts[j+1].posted) {
-                            var tmp = this.posts[j];
-                            this.posts[j] = this.posts[j+1];
-                            this.posts[j+1] = tmp;
-                        }
-                    }
-                }
+                var allFollowerPosts = [];
+                console.log(res);
+
+                res.filter(post => {
+                    if (this.$store.getters.currentUser.following.includes(post.username) || post.username === this.$store.getters.currentUser.username) {
+                        allFollowerPosts.push(post);
+                    };
+                });
+
+                this.posts = allFollowerPosts; //filter by time here
+
+                var date_sort_desc = function (post1, post2) {
+                  if (post1.posted > post2.posted) return -1;
+                    if (post1.posted < post2.posted) return 1;
+                    return 0;
+                };
+                this.posts.sort(date_sort_desc);
             }
         })
     },
@@ -90,6 +96,7 @@ export default {
         saveSong(track) {
             this.$store.getters.currentUser.savedSongs.push(track);
             this.$store.dispatch('saveSong', this.$store.getters.currentUser);
+            alert('Song Saved!');
         }
     }
 }
@@ -144,6 +151,12 @@ export default {
 .userInfo {
     margin-left: 20px;
     font-size: 13pt;
+}
+.saveButton {
+    cursor: pointer;
+}
+.plus:hover {
+    color: #D34084;
 }
 .saveIcon {
     margin-left: auto;
