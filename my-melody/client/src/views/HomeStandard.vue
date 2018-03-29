@@ -68,6 +68,7 @@ export default {
                 this.posts = ['nothing'];
             }
             else {
+<<<<<<< HEAD
                 var allFollowerPosts = [];
                 console.log(res);
 
@@ -88,6 +89,16 @@ export default {
                         }
                     }
                 }
+=======
+                this.posts = res; //filter by time here
+                
+                var date_sort_desc = function (post1, post2) {
+                  if (post1.posted > post2.posted) return -1;
+                    if (post1.posted < post2.posted) return 1;
+                    return 0;
+                };
+                this.posts.sort(date_sort_desc);
+>>>>>>> ffb4a17b406d9dcd2e57a5f0c33902eaac22c5c1
             }
         })
     },

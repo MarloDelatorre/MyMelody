@@ -1,6 +1,5 @@
 <template>
     <div class="SearchResultContainer">
-        <div class=""
         <ul class="listContainer">
             <li v-for="user in users">
                 <div v-if="user.username !== currentUser.username" v-on:click="changeUser(user.username)" class="listValues">
