@@ -17,18 +17,9 @@
         props: ['users'],
         methods: {
             changeUser(username) {
-                this.$store.dispatch('getUser', username)
-                .then(res => {
-                    this.$emit('exit', true);
                     this.$router.push({
-                        name: `otherprofile`,
-                        params: {
-                            username: res.username,
-                            user: res
-                        }
+                        path: `/user/${username}`
                     });
-                })
-                .catch(err => console.log(err));
             }
         },
         data: function() {

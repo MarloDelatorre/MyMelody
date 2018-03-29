@@ -43,8 +43,8 @@ export default {
         SavedSongs
     },
     watch: {
-        otherUser: function(newVal, oldVal) {
-            console.log('prop changed: ', newVal, ' | was: ', oldVal)
+        '$route': function (to, from) {
+            this.$store.dispatch('getUser', to.params.username).then(u => this.user = u);
         }
     },
     computed: {
@@ -53,7 +53,7 @@ export default {
         },
     },
     mounted: function() {
-            this.$store.dispatch('getUser', this.$route.params.username).then(u => this.user = u);
+        this.$store.dispatch('getUser', this.$route.params.username).then(u => this.user = u);
     },
     data: function() {
       return {
