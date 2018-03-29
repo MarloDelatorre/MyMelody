@@ -19,7 +19,6 @@
             changeUser(username) {
                 this.$store.dispatch('getUser', username)
                 .then(res => {
-                    this.$emit('exit', true);
                     this.$router.push({
                         name: `otherprofile`,
                         params: {
@@ -27,6 +26,7 @@
                             user: res
                         }
                     });
+                    this.$emit('exit');
                 })
                 .catch(err => console.log(err));
             }

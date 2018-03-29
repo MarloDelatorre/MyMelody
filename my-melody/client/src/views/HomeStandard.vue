@@ -68,7 +68,16 @@ export default {
                 this.posts = ['nothing'];
             }
             else {
-                this.posts = res; //filter by time here
+                var allFollowerPosts = [];
+                console.log(res);
+
+                res.filter(post => {
+                    if (this.$store.getters.currentUser.following.includes(post.username) || post.username === this.$store.getters.currentUser.username) {
+                        allFollowerPosts.push(post);
+                    };
+                });
+                
+                this.posts = allFollowerPosts; //filter by time here
                 var n = this.posts.length;
                 for (var i = 0; i < n; i++) {
                     for (var j = 0; j < (n-i-1); j++) {
