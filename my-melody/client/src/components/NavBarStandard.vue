@@ -4,7 +4,7 @@
 
         <div class="searchBarContainer">
             <input v-model="searchText" v-on:keyup.enter="search" class="searchBar" type="text" placeholder="Search" />
-            <div v-if="this.users.length > 0 && searchText.length > 0">
+            <div v-if="toggleModal === true">
                 <SearchResultProfile v-on:exit="reset" v-bind:users="this.users"/>
             </div>
         </div>
@@ -72,10 +72,12 @@ export default {
             else {
                 this.users = [];
             }
+            this.toggleModal = true;
         },
         reset() {
             this.searchText = '';
             this.users = [];
+            this.toggleModal = false;
         }
     }
 }
