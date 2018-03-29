@@ -3,20 +3,20 @@
     <div class="nav">
       <NavBarStandard />
     </div>
-    <div class="personalInfo">
+    <div v-if="user && currentUser" class="personalInfo">
         <div class="profileFollowContainer">
             <icon class="profilePicture" name="user"></icon>
-            <button v-if="!this.$store.getters.currentUser.following.includes(this.user.username)" class="followRouterLink" v-on:click="follow">Follow</button>
-            <button v-else class="followRouterLink" v-on:click="unfollow">Unfollow</button>
+            <button v-if="!currentUser.following.includes(user.username)" class="followRouterLink" @click="follow">Follow</button>
+            <button v-else class="followRouterLink" @click="unfollow">Unfollow</button>
         </div>
       <div class="personalInfoTextContainer">
-          <header>{{ this.user.firstName }} {{this.user.lastName}}</header>
-          <h2 class="followerCount">{{this.user.followers.length}} followers | {{this.user.following.length}} following</h2>
-          <h2 class="description">{{this.user.description}}</h2>
+          <header>{{ user.firstName }} {{ user.lastName }}</header>
+          <h2 class="followerCount">{{ user.followers.length }} followers | {{ user.following.length }} following</h2>
+          <h2 class="description">{{ user.description }}</h2>
       </div>
     </div>
     <div class="tabs">
-        <button class="button" v-on:click="openTab = 'posts'" autofocus>{{homeMessage.posts}}</button>
+        <button class="button" @click="openTab = 'posts'" autofocus>{{ homeMessage.posts }}</button>
     </div>
     <div v-if="openTab === 'posts'">
         <PostWall />
@@ -36,46 +36,53 @@ import Icon from 'vue-awesome/components/Icon'
 
 export default {
     name: 'otherprofile',
-    props: ['user'],
-    watch: {
-        otherUser: function(newVal, oldVal) {
-            console.log('prop changed: ', newVal, ' | was: ', oldVal)
-            this.$router.go(this.$router.currentRoute, this.user)
-        }
-    },
     components: {
         Icon,
         NavBarStandard,
         PostWall,
         SavedSongs
     },
+    watch: {
+        otherUser: function(newVal, oldVal) {
+            console.log('prop changed: ', newVal, ' | was: ', oldVal)
+        }
+    },
+    computed: {
+        currentUser() {
+            return this.$store.getters.currentUser;
+        },
+    },
+    mounted: function() {
+            this.$store.dispatch('getUser', this.$route.params.username).then(u => this.user = u);
+    },
     data: function() {
       return {
           openTab: 'posts',
           homeMessage: homeMessages,
+          user: null
       }
-  },
-  methods: {
+    },
+    methods: {
       follow() {
-        this.user.followers.push(this.$store.getters.currentUser.username);
+        this.user.followers.push({ username: this.currentUser.username, new: true });
         this.$store.getters.currentUser.following.push(this.user.username);
-        this.$store.dispatch("editFollowers", this.user);
-        this.$store.dispatch("editFollowers", this.$store.getters.currentUser);
-
+        this.$store.dispatch("editFollowers", this.user).then(thisUser => {
+            this.$store.dispatch("editFollowers", this.$store.getters.currentUser);
+        });
       },
       unfollow() {
-        var index = this.user.followers.indexOf(this.$store.getters.currentUser.username);
+        var index = this.user.followers.map(follower => follower.username).indexOf(this.$store.getters.currentUser.username);
         if (index > -1) {
             this.user.followers.splice(index,1);
         }
-          var index = this.$store.getters.currentUser.following.indexOf(this.user.username);
+        var index = this.$store.getters.currentUser.following.indexOf(this.user.username);
         if (index > -1) {
             this.$store.getters.currentUser.following.splice(index,1);
         }
         this.$store.dispatch("editFollowers", this.user);
         this.$store.dispatch("editFollowers", this.$store.getters.currentUser);
       }
-  }
+    }
 }
 </script>
 

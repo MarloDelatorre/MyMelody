@@ -1,5 +1,6 @@
 <template>
   <div v-if="this.$store.getters.loggedIn" class="profileContainer">
+    <modal :title="dialog" :component="dialog" @hide="dialog = null"></modal>
     <div class="nav">
       <NavBarStandard />
     </div>
@@ -10,7 +11,7 @@
         </div>
       <div class="personalInfoTextContainer">
           <header>{{ fullName }}</header>
-          <h2 class="followerCount">{{this.user.followers.length}} followers | {{this.user.following.length}} following</h2>
+          <h2 class="follow" @click="dialog = 'followers'">{{this.user.followers.length}} followers</h2><h2 class="follow" @click="dialog = 'following'">{{this.user.following.length}} following</h2>
           <h2 class="description">{{this.user.description}}</h2>
       </div>
     </div>
@@ -36,6 +37,9 @@
 import PostWall from '../components/PostWall.vue'
 import NavBarStandard from '../components/NavBarStandard.vue'
 import SavedSongs from '../components/SavedSongs.vue'
+import Followers from '../components/Followers.vue'
+import Following from '../components/Following.vue'
+import Modal from '../components/Modal.vue'
 
 import homeMessages from '../messages/HomeMessages.json'
 import Icon from 'vue-awesome/components/Icon'
@@ -47,13 +51,17 @@ export default {
         Icon,
         NavBarStandard,
         PostWall,
-        SavedSongs
+        SavedSongs,
+        Followers,
+        Following,
+        Modal
     },
     data: function() {
       return {
           openTab: 'posts',
           homeMessage: homeMessages,
           fullName: this.user.firstName + ' ' + this.user.lastName,
+          dialog: null
       }
   }
 }
@@ -107,9 +115,15 @@ export default {
       font-size: 20px;
       margin-top: 30px;
   }
-  .followerCount {
+  .follow {
       font-size: 20px;
-      margin-top: 30px;
+      cursor: pointer;
+      display: inline;
+      padding: 0;
+      margin: 0;
+  }
+  .follow:hover {
+      color: #D34084;
   }
   .followRouterLink {
       margin-top: 16px;
@@ -171,6 +185,7 @@ export default {
     font-size: 32pt;
     font-weight: bold;
     color: #D34084;
+    margin-bottom: 20px;
   }
 
 </style>
