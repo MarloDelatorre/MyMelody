@@ -64,18 +64,18 @@ export default {
     },
     methods: {
       follow() {
-        this.user.followers.push(this.$store.getters.currentUser.username);
+        this.user.followers.push({ username: this.currentUser.username, new: true });
         this.$store.getters.currentUser.following.push(this.user.username);
-        this.$store.dispatch("editFollowers", this.user);
-        this.$store.dispatch("editFollowers", this.$store.getters.currentUser);
-
+        this.$store.dispatch("editFollowers", this.user).then(thisUser => {
+            this.$store.dispatch("editFollowers", this.$store.getters.currentUser);
+        });
       },
       unfollow() {
-        var index = this.user.followers.indexOf(this.$store.getters.currentUser.username);
+        var index = this.user.followers.map(follower => follower.username).indexOf(this.$store.getters.currentUser.username);
         if (index > -1) {
             this.user.followers.splice(index,1);
         }
-          var index = this.$store.getters.currentUser.following.indexOf(this.user.username);
+        var index = this.$store.getters.currentUser.following.indexOf(this.user.username);
         if (index > -1) {
             this.$store.getters.currentUser.following.splice(index,1);
         }
