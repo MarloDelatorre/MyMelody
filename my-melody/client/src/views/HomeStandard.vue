@@ -68,7 +68,6 @@ export default {
                 this.posts = ['nothing'];
             }
             else {
-<<<<<<< HEAD
                 var allFollowerPosts = [];
                 console.log(res);
 
@@ -77,28 +76,15 @@ export default {
                         allFollowerPosts.push(post);
                     };
                 });
-                
+
                 this.posts = allFollowerPosts; //filter by time here
-                var n = this.posts.length;
-                for (var i = 0; i < n; i++) {
-                    for (var j = 0; j < (n-i-1); j++) {
-                        if (this.posts[j].posted < this.posts[j+1].posted) {
-                            var tmp = this.posts[j];
-                            this.posts[j] = this.posts[j+1];
-                            this.posts[j+1] = tmp;
-                        }
-                    }
-                }
-=======
-                this.posts = res; //filter by time here
-                
+
                 var date_sort_desc = function (post1, post2) {
                   if (post1.posted > post2.posted) return -1;
                     if (post1.posted < post2.posted) return 1;
                     return 0;
                 };
                 this.posts.sort(date_sort_desc);
->>>>>>> ffb4a17b406d9dcd2e57a5f0c33902eaac22c5c1
             }
         })
     },
