@@ -19,8 +19,8 @@
                                     {{post.username}}
                                 </div>
                                 <div class="saveIcon">
-                                    <button v-on:click="saveSong(post.track)">
-                                        <icon name="plus"></icon>
+                                    <button class="saveButton" v-on:click="saveSong(post.track)">
+                                        <icon class="plus" name="plus"></icon>
                                     </button>
                                 </div>
                             </div>
@@ -90,6 +90,7 @@ export default {
         saveSong(track) {
             this.$store.getters.currentUser.savedSongs.push(track);
             this.$store.dispatch('saveSong', this.$store.getters.currentUser);
+            alert('Song Saved!');
         }
     }
 }
@@ -144,6 +145,12 @@ export default {
 .userInfo {
     margin-left: 20px;
     font-size: 13pt;
+}
+.saveButton {
+    cursor: pointer;
+}
+.plus:hover {
+    color: #D34084;
 }
 .saveIcon {
     margin-left: auto;
