@@ -4,10 +4,13 @@
 
         <div class="searchBarContainer">
             <input v-model="searchText" v-on:keyup.enter="search" class="searchBar" type="text" placeholder="Search" />
+            <div v-if="this.users.length > 0 && searchText.length > 0">
+                <SearchResultProfile @exit="searchText = ''" v-bind:users="this.users"/>
+            </div>
         </div>
-        <div v-if="toggleModal" @close="toggleModal = false" class="modal">
+        <!-- <div v-if="toggleModal" @close="toggleModal = false" class="modal">
             <SearchResults @exit="toggleModal = false" v-bind:users="this.users"/>
-        </div>
+        </div> -->
         <div class="iconMenuContainer">
             <router-link class="iconMenu" to="/home">
                 <icon class="icons" name="home"></icon>
@@ -32,6 +35,7 @@
 <script>
 import homeMessages from '../messages/HomeMessages.json'
 import SearchResults from  './SearchResults.vue'
+import SearchResultProfile from './SearchResultProfiles.vue'
 
 import Icon from 'vue-awesome/components/Icon'
 
@@ -39,24 +43,34 @@ export default {
     name: 'NavBarStandard',
     components: {
         Icon,
-        SearchResults
+        SearchResults,
+        SearchResultProfile
     },
     data: function() {
         return {
             homeMessage: homeMessages,
             searchText: '',
-            toggleModal: false,
-            users: []
+            users: [],
+            toggleModal: false
         }
     },
     methods: {
+        populateUsers() {
+            for (var user in users) {
+                console.log(user.username);
+            }
+        },
         search() {
+            // console.log(this.searchText);
+            // console.log(this.searchText.length);
             if (this.searchText.length > 0) {
                 this.$store.dispatch('searchUsers', this.searchText)
                     .then(res => {
                         this.users = res;
-                        this.toggleModal = true;
-                    })
+                    });
+            }
+            else {
+                this.users = [];
             }
         }
     }
@@ -71,7 +85,6 @@ export default {
         display: flex;
         line-height: 80px;
         justify-content: space-between;
-        overflow-x: hidden;
     }
 
     .projectName {
@@ -81,13 +94,14 @@ export default {
         align-content: center;
         /* flex-basis: 100px; */
         margin-left: 30px;
-        flex-grow: 1;
+        margin-right: 10px;
+        flex-grow: 3;
     }
 
     .searchBarContainer {
-        display: flex;
         justify-content: center;
         align-items: center;
+        text-align: center;
         flex-grow: 8;
     }
 
@@ -95,11 +109,25 @@ export default {
         height: 40px;
         width: 350px;
         padding-left: 20px;
+        padding-right: 20px;
         background: #000000;
         color: #FFFFFF;
         border: 1px solid #D34084;
         border-radius: 10px;
         font-size: 15px;
+    }
+
+    .searchDropdownContainer {
+        background: #1A2226;
+        margin: 0 auto;
+        margin-top: -10px;
+        border: 1px solid #D34084;
+        border-radius: 10px;
+        width: 390px;
+        display: flex;
+        flex-direction: column;
+        max-height: 400px;
+        overflow-x: scroll;
     }
 
     .iconMenuContainer {
