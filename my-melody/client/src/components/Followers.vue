@@ -15,15 +15,25 @@ export default {
         Icon
     },
     computed: {
+        user() {
+            return this.$store.getters.currentUser;
+        },
         followers() {
-            return this.$store.getters.currentUser.followers;
+            return this.user.followers;
         }
     },
     methods: {
         navigate(follower) {
             this.$router.push({
                 path: `/user/${follower.username}`
-            })
+            });
+        },
+        clearNew() {
+            this.followers =  this.followers.map(follower => { 
+                follower.new = false;
+                return follower;
+            });
+            this.$store.dispatch("editFollowers", this.user);
         }
     }
 }

@@ -4,14 +4,14 @@
       <div class="modal-wrapper">
         <div class="modal-container">
 
-          <span class="close" @click="$emit('hide')">&times;</span>
+          <span class="close" @click="close">&times;</span>
           <div class="modal-header">
             <h1>{{title}}</h1>
           </div>
 
           <div class="modal-body">
             <div name="body">
-                <component :is="component"></component>
+                <component :is="component" ref="bodyRef"></component>
             </div>
           </div>
 
@@ -35,6 +35,14 @@ export default {
     Followers,
     Following
   },
+  methods: {
+    close() {
+        this.$emit('hide');
+        if (this.component === 'followers') {
+            this.$refs.bodyRef.clearNew();
+        }
+    }
+  }
 };
 </script>
 
