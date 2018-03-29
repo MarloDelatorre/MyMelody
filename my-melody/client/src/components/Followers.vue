@@ -18,9 +18,17 @@ export default {
         user() {
             return this.$store.getters.currentUser;
         },
-        followers() {
-            return this.user.followers;
+        followers: {
+            get: function() {
+                return this.user.followers;
+            },
+            set: function(value) {
+                this.user.followers = value;
+            }
         }
+    },
+    destroyed: function() {
+        this.clearNew();
     },
     methods: {
         navigate(follower) {
