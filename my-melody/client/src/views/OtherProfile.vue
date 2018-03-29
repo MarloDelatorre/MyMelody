@@ -66,9 +66,8 @@ export default {
       follow() {
         this.user.followers.push({ username: this.currentUser.username, new: true });
         this.$store.getters.currentUser.following.push(this.user.username);
-        this.$store.dispatch("editFollowers", this.user).then(thisUser => {
-            this.$store.dispatch("editFollowers", this.$store.getters.currentUser);
-        });
+        this.$store.dispatch("editFollowers", this.user)
+        this.$store.dispatch("editFollowers", this.$store.getters.currentUser);
       },
       unfollow() {
         var index = this.user.followers.map(follower => follower.username).indexOf(this.$store.getters.currentUser.username);
