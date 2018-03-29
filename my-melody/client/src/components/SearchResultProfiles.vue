@@ -1,6 +1,6 @@
 <template>
     <div class="SearchResultContainer">
-        <div v-if="userList.length === 1 && userList[0].username.includes('Results')">
+        <div v-if="userList[0].username.includes('Results')">
             <div class="listContainer">
                     <div class="noResults" v-on:click="changeUser('THIS IS NOT A USER')">
                         No Search Results
@@ -49,6 +49,9 @@
                 console.log(to);
                 if (to.length === 0) {
                     this.userList = [{username: 'No Results Found'}]
+                }
+                else {
+                    this.userList = [];
                 }
             }
         },
