@@ -6,17 +6,17 @@
     <div v-if="user && currentUser" class="personalInfo">
         <div class="profileFollowContainer">
             <icon class="profilePicture" name="user"></icon>
-            <button v-if="!currentUser.following.includes(this.user.username)" class="followRouterLink" v-on:click="follow">Follow</button>
-            <button v-else class="followRouterLink" v-on:click="unfollow">Unfollow</button>
+            <button v-if="!currentUser.following.includes(user.username)" class="followRouterLink" @click="follow">Follow</button>
+            <button v-else class="followRouterLink" @click="unfollow">Unfollow</button>
         </div>
       <div class="personalInfoTextContainer">
-          <header>{{ this.user.firstName }} {{this.user.lastName}}</header>
-          <h2 class="followerCount">{{this.user.followers.length}} followers | {{this.user.following.length}} following</h2>
-          <h2 class="description">{{this.user.description}}</h2>
+          <header>{{ user.firstName }} {{ user.lastName }}</header>
+          <h2 class="followerCount">{{ user.followers.length }} followers | {{ user.following.length }} following</h2>
+          <h2 class="description">{{ user.description }}</h2>
       </div>
     </div>
     <div class="tabs">
-        <button class="button" v-on:click="openTab = 'posts'" autofocus>{{homeMessage.posts}}</button>
+        <button class="button" @click="openTab = 'posts'" autofocus>{{ homeMessage.posts }}</button>
     </div>
     <div v-if="openTab === 'posts'">
         <PostWall />
