@@ -1,6 +1,6 @@
 <template>
     <div class="SearchResultContainer">
-        <div v-if="userList[0].username.includes('Results')">
+        <div v-if="this.userList[0].username.includes('No Results Found')">
             <div class="listContainer">
                     <div class="noResults" v-on:click="changeUser('THIS IS NOT A USER')">
                         No Search Results
@@ -41,18 +41,19 @@
         },
         data: function() {
             return {
-                userList: [],
+                userList: [{'username': 'Finished'}],
             }
         },
         watch: {
             'users': function(to, from) {
-                console.log(to);
+                // console.log(to);
                 if (to.length === 0) {
-                    this.userList = [{username: 'No Results Found'}]
+                    this.userList = [{'username': 'No Results Found'}];
                 }
                 else {
-                    this.userList = [];
+                    this.userList = [{'username': 'Gottem'}];
                 }
+                console.log(this.userList[0].username);
             }
         },
         computed: {
