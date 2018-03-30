@@ -24,6 +24,8 @@
 <script>
 import Followers from "./Followers.vue";
 import Following from "./Following.vue";
+import SearchDialog from './SearchDialog';
+import AddPostDialog from './AddPostDialog';
 
 export default {
   name: "modal",
@@ -33,7 +35,9 @@ export default {
   },
   components: {
     Followers,
-    Following
+    Following,
+    SearchDialog,
+    AddPostDialog
   }
 };
 </script>

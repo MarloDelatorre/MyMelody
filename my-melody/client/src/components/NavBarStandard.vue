@@ -1,5 +1,6 @@
 <template>
     <div class="navBarStandardContainer">
+        <modal :title="dialog" :component="dialog" @hide="dialog = null"></modal>
         <header class="projectName">{{ homeMessage.projectName }}</header>
 
         <div class="searchBarContainer">
@@ -18,9 +19,9 @@
             <router-link class="iconMenu" :to="{name: 'profile', params: {user: this.$store.getters.currentUser}}">
                 <icon class="icons" name="user"></icon>
             </router-link>
-            <router-link class="iconMenu" to="/">
+            <div class="iconMenu" @click="dialog = 'search-dialog'">
                 <icon class="icons" name="clone"></icon>
-            </router-link>
+            </div>
             <router-link class="iconMenu" to="/">
                 <icon class="icons" name="sign-out"></icon>
             </router-link>
@@ -36,6 +37,7 @@
 import homeMessages from '../messages/HomeMessages.json'
 import SearchResults from  './SearchResults.vue'
 import SearchResultProfile from './SearchResultProfiles.vue'
+import Modal from './Modal.vue'
 
 import Icon from 'vue-awesome/components/Icon'
 
@@ -44,14 +46,16 @@ export default {
     components: {
         Icon,
         SearchResults,
-        SearchResultProfile
+        SearchResultProfile,
+        Modal
     },
     data: function() {
         return {
             homeMessage: homeMessages,
             searchText: '',
             users: [],
-            toggleModal: false
+            toggleModal: false,
+            dialog: null
         }
     },
     methods: {

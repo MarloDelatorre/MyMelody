@@ -37,7 +37,7 @@ export default {
     methods: {
         search() {
             this.selectedTrack = null;
-            axios.get(`${this.$store.getters.baseApiUrl}/spotify/search?q=${this.query}`)
+            axios.get(`${this.$store.getters.baseApiUrl}/api/spotify/search?q=${this.query}`)
                 .then(res => {
                     if (res.data.length < 1) {
                         this.noResults = true;
