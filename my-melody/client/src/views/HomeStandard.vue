@@ -16,7 +16,7 @@
                         <div class="card">
                             <div class="topInfo">
                                 <div class="userInfo">
-                                    {{post.username}}
+                                <p @click="navigate(post.username)">{{post.username}}</p>
                                 </div>
                                 <div class="saveIcon">
                                     <button class="saveButton" v-on:click="saveSong(post.track)">
@@ -30,6 +30,9 @@
                             <div class="bottomInfo">
                                 <div class="songInfo">
                                     {{post.track.title}} - {{post.track.artist}}
+                                </div>
+                                <div class="timestamp">
+                                    {{formattedDate(post.posted)}}
                                 </div>
                                 <div class="songDesc">
                                     {{post.caption}}
@@ -49,7 +52,7 @@
 // @ is an alias to /src
 import NavBarStandard from '@/components/NavBarStandard.vue'
 import Icon from 'vue-awesome/components/Icon'
-
+import dateFormat from 'dateformat'
 
 export default {
     name: 'home',
@@ -98,6 +101,14 @@ export default {
             this.$store.getters.currentUser.savedSongs.push(track);
             this.$store.dispatch('saveSong', this.$store.getters.currentUser);
             alert('Song Saved!');
+        },
+        navigate(username) {
+            this.$router.push({
+                path: `/user/${username}`
+            });
+        },
+        formattedDate(date) {
+            return dateFormat(new Date(date), 'mmmm dS, yyyy');
         }
     }
 }
@@ -153,6 +164,10 @@ export default {
     margin-bottom: 35px;
     margin-left: 20px;
 }
+.timestamp {
+    margin: 10px 0 10px 20px;
+    font-style: italic;
+}
 .userInfo {
     margin-left: 20px;
     font-size: 13pt;
@@ -190,6 +205,14 @@ export default {
     width: 100%;
     height: 100%;
     background: #0C1012;
+}
+
+.userInfo {
+    cursor: pointer;
+}
+
+.userInfo p:hover {
+    color: #D34084;
 }
 
 </style>
