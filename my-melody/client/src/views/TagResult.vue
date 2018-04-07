@@ -64,7 +64,13 @@ export default {
     },
     watch: {
         '$route': function (to, from) {
-            this.$store.dispatch('getUser', to.params.username).then(u => this.user = u);
+            if (!from.includes('%23')) {
+                this.$store.dispatch('getUser', to.params.username);
+            }
+            else {
+                var percent = '%23' + to.params.tag.substring(1);
+                this.$store.dispatch('getTag', percent).then(t => this.tag = t);
+            }
         }
     },
     computed: {
@@ -73,11 +79,11 @@ export default {
         },
     },
     mounted: function() {
-        this.$store.dispatch('getTag', this.$route.params.tag).then(t => this.tag = t);
+        var percent = '%23' + this.$route.params.tag.substring(1);
+        this.$store.dispatch('getTag', percent).then(t => this.tag = t);
     },
     data: function() {
       return {
-          openTab: 'posts',
           homeMessage: homeMessages,
           tag: null
       }

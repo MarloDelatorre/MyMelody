@@ -58,7 +58,7 @@ router.route('/:tag')
     //find and update a tag
     .put((req, res) => {
         Tag.findOneAndUpdate(
-            {username: req.params.tag},
+            {tag: req.params.tag},
             {$set: req.body},
             {new: true},
             (err, tag) => {

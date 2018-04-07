@@ -46,13 +46,14 @@
                 this.$emit('exit');
             },
             changeTag(tag) {
-                this.$store.dispatch('getTag', tag)
+                var percent = '%23' + tag.substring(1);
+                this.$store.dispatch('getTag', percent)
                 .then(res => {
                     this.$router.push({
                         name: `tagresult`,
                         params: {
-                            tag: res[0].tag,
-                            posts: res[0].posts
+                            tag: res.tag,
+                            posts: res.posts
                         }
                     });
                 })
