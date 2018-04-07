@@ -39,7 +39,7 @@ router.route('/:tag')
     //get one tag
     .get((req, res) => {
         Tag.findOne(
-            {tag: req.params.tag}
+            {tag: req.params.tag})
             .populate({
                 path: 'posts',
                 populate: {
@@ -52,7 +52,7 @@ router.route('/:tag')
                 else {
                     res.jsonp(tag);
                 }
-            })
+            }
         )
     })
     //find and update a tag
