@@ -10,8 +10,15 @@
         <div v-else>
             <ul class="listContainer">
                 <li v-for="user in users">
-                    <div v-if="user.username !== currentUser.username" v-on:click="changeUser(user.username)" class="listValues">
-                        {{user.username}}
+                    <div v-if="user.username">
+                        <div v-if="user.username !== currentUser.username" v-on:click="changeUser(user.username)" class="listValues">
+                            {{user.username}}
+                        </div>
+                    </div>
+                    <div v-else-if="user.tag">
+                        <div class="listValues">
+                            {{user.tag}}
+                        </div>
                     </div>
                 </li>
             </ul>
@@ -53,7 +60,6 @@
                 else {
                     this.userList = [{'username': 'Gottem'}];
                 }
-                console.log(this.userList[0].username);
             }
         },
         computed: {

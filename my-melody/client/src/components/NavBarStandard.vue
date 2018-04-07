@@ -54,6 +54,7 @@ export default {
             homeMessage: homeMessages,
             searchText: '',
             users: [],
+            results: [],
             toggleModal: false,
             dialog: null
         }
@@ -72,6 +73,11 @@ export default {
                     .then(res => {
                         this.users = res;
                     });
+                this.$store.dispatch('searchTags', this.searchText)
+                    .then(res => {
+                        this.users.push(...res);
+                        console.log(this.users);
+                    })
             }
             else {
                 this.users = [];

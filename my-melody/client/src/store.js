@@ -125,6 +125,13 @@ export default new Vuex.Store({
             })
             .catch(err => console.error(err));
         },
+        searchTags(context, data) {
+            return axios.get(`${context.getters.baseApiUrl}/api/tags/search/${data}`)
+            .then(res => {
+                return res.data;
+            })
+            .catch(err => console.error(err));
+        },
         saveSong(context, data) {
             return axios.put(`${context.getters.baseApiUrl}/api/users/${data.username}`,
             {
