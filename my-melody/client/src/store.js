@@ -141,7 +141,14 @@ export default new Vuex.Store({
                 return res.data;
             })
             .catch(err => console.error(err));
-        }
+        },
+        getTag(context, data) {
+            return axios.get(`${context.getters.baseApiUrl}/api/tags/${data}`)
+            .then(res => {
+                return res.data;
+            })
+            .catch(err => console.log(err));
+        },
     },
     getters: {
         selectedTrack(state) {

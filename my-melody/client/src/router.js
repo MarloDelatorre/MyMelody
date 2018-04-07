@@ -12,6 +12,7 @@ import OtherProfile from './views/OtherProfile.vue'
 import Experiment from './views/Experiment.vue'
 import EditProfile from './views/EditProfile.vue'
 import NotFound from './views/NotFound.vue'
+import TagResult from './views/TagResult.vue'
 
 Vue.use(Router)
 
@@ -58,6 +59,12 @@ export default new Router({
         path: '/user/:username',
         name: 'otherprofile',
         component: OtherProfile,
+        props: true
+    },
+    {
+        path: '/tag/:tag',
+        name: 'tagresult',
+        component: TagResult,
         props: true
     },
     {

@@ -71,13 +71,14 @@ export default {
             if (this.searchText.length > 0) {
                 this.$store.dispatch('searchUsers', this.searchText)
                     .then(res => {
-                        this.users = res;
-                    });
-                this.$store.dispatch('searchTags', this.searchText)
-                    .then(res => {
                         this.users.push(...res);
-                        console.log(this.users);
                     })
+                    .then(
+                        this.$store.dispatch('searchTags', this.searchText)
+                            .then(res => {
+                                this.users.push(...res);
+                            })
+                    )
             }
             else {
                 this.users = [];

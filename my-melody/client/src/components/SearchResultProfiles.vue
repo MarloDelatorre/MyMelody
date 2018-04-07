@@ -16,7 +16,7 @@
                         </div>
                     </div>
                     <div v-else-if="user.tag">
-                        <div class="listValues">
+                        <div v-on:click="changeTag(user.tag)" class="listValues">
                             {{user.tag}}
                         </div>
                     </div>
@@ -39,6 +39,20 @@
                         params: {
                             username: res.username,
                             user: res
+                        }
+                    });
+                })
+                .catch(err => console.log(err));
+                this.$emit('exit');
+            },
+            changeTag(tag) {
+                this.$store.dispatch('getTag', tag)
+                .then(res => {
+                    this.$router.push({
+                        name: `tagresult`,
+                        params: {
+                            tag: res[0].tag,
+                            posts: res[0].posts
                         }
                     });
                 })
