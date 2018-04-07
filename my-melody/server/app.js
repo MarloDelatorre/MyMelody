@@ -17,6 +17,7 @@ var users = require('./routes/users');
 var spotify = require('./routes/spotify')
 var posts = require('./routes/posts');
 var auth = require('./routes/auth')(passport);
+var tags = require('./routes/tags');
 
 let app = express();
 
@@ -56,6 +57,7 @@ app.use('/api/users', users);
 app.use('/api/spotify', spotify);
 app.use('/api/posts', posts);
 app.use('/api/auth', auth);
+app.use('/api/tags', tags);
 
 // const render = (req, res, context) => {
 // 	const s = Date.now()
