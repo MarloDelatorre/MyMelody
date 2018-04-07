@@ -13,7 +13,12 @@ module.exports = function(passport) {
                 res.jsonp({message: 'Invalid password'})
             }
         }
-        if (user) { res.jsonp(user); }
+        if (user) {
+            req.logIn(user, function(err) {
+                if (err) { return next(err); }
+            })
+            res.jsonp(user);
+        }
       })(req, res, next);
   });
 
@@ -25,9 +30,26 @@ module.exports = function(passport) {
                 res.jsonp({message: 'User already exists'});
             }
         }
-        if (user) { res.jsonp(user); }
+        if (user) {
+            req.logIn(user, function(err) {
+                if (err) { return next(err); }
+            })
+            res.jsonp(user);
+        }
       })(req, res, next);
   });
+
+  router.get('/loggedIn', function(req, res, next) {
+    // isAuthenticated is set by `deserializeUser()`
+    if (!req.isAuthenticated || !req.isAuthenticated()) {
+        res.status(401).send({
+            success: false,
+            message: 'You need to be authenticated to access this page!'
+          })
+        } else {
+          next()
+        }
+     })
 
   return router;
 }

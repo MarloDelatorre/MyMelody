@@ -10,6 +10,7 @@ var fs = require('fs');
 var history = require('connect-history-api-fallback');
 var passport = require('passport');
 var flash = require('connect-flash');
+var session = require('express-session');
 
 // Route Imports
 var users = require('./routes/users');
@@ -27,16 +28,6 @@ app.use(history({
   ]
 }));
 
-// Configuring Passport
-var passport = require('passport');
-var expressSession = require('express-session');
-app.use(expressSession({secret: 'mySecretKey'}));
-app.use(passport.initialize());
-app.use(passport.session());
-
-var initPassport = require('./passport/init');
-initPassport(passport);
-
 // Middleware
 app.use(cors());
 // app.use(favicon(path.join(__dirname, '../client/dist', 'favicon.ico')));
@@ -46,8 +37,19 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(flash());
 app.use(express.static(path.join(__dirname, '../client/dist')));
+
+// Configuring Passport
+app.use(express.static("public"));
+app.use(session({
+    secret: 'supersmashhoes',
+    resave: true,
+    saveUninitialized: true
+}));
 app.use(passport.initialize());
 app.use(passport.session());
+
+var initPassport = require('./passport/init');
+initPassport(passport);
 
 // Route Registration
 app.use('/api/users', users);
