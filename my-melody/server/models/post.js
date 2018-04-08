@@ -6,6 +6,7 @@ let postSchema = new Schema({
     track: {type: Schema.Types.ObjectId, ref: 'Track'},
     caption: {type: String, default: ''},
     posted: {type: String, default: new Date().toISOString()},
+    tags: [{type: String}],
 }, {versionKey: false});
 
 

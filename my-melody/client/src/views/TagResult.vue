@@ -6,10 +6,12 @@
     <div class="topTitle">
         {{this.$route.params.tag}}
         Follow/Unfollow/Whatever later
+        <button v-if="!currentUser.following.includes(this.$route.params.tag)" class="followRouterLink" @click="follow">Follow</button>
+        <button v-else class="followRouterLink" @click="unfollow">Unfollow</button>
     </div>
     <div class="home">
         <ul>
-            <li v-for="post in this.$route.params.posts" class="results">
+            <li v-for="post in this.tag.posts" class="results">
                 <div class="card">
                     <div class="topInfo">
                         <div class="userInfo">
@@ -68,6 +70,7 @@ export default {
                 this.$store.dispatch('getUser', to.params.username);
             }
             else {
+                console.log('hello');
                 var percent = '%23' + to.params.tag.substring(1);
                 this.$store.dispatch('getTag', percent).then(t => this.tag = t);
             }
@@ -79,6 +82,7 @@ export default {
         },
     },
     mounted: function() {
+
         var percent = '%23' + this.$route.params.tag.substring(1);
         this.$store.dispatch('getTag', percent).then(t => this.tag = t);
     },
@@ -96,25 +100,18 @@ export default {
             this.$store.getters.currentUser.savedSongs.push(track);
             this.$store.dispatch('saveSong', this.$store.getters.currentUser);
             alert('Song Saved!');
+        },
+        follow() {
+            this.$store.getters.currentUser.following.push(this.$route.params.tag);
+            this.$store.dispatch("editFollowers", this.$store.getters.currentUser);
+        },
+        unfollow() {
+            var index = this.$store.getters.currentUser.following.indexOf(this.$route.params.tag);
+            if (index > -1) {
+                this.$store.getters.currentUser.following.splice(index,1);
+            }
+            this.$store.dispatch("editFollowers", this.$store.getters.currentUser);
         }
-    //   follow() {
-    //     this.user.followers.push({ username: this.currentUser.username, new: true });
-    //     this.$store.getters.currentUser.following.push(this.user.username);
-    //     this.$store.dispatch("editFollowers", this.user)
-    //     this.$store.dispatch("editFollowers", this.$store.getters.currentUser);
-    //   },
-    //   unfollow() {
-    //     var index = this.user.followers.map(follower => follower.username).indexOf(this.$store.getters.currentUser.username);
-    //     if (index > -1) {
-    //         this.user.followers.splice(index,1);
-    //     }
-    //     var index = this.$store.getters.currentUser.following.indexOf(this.user.username);
-    //     if (index > -1) {
-    //         this.$store.getters.currentUser.following.splice(index,1);
-    //     }
-    //     this.$store.dispatch("editFollowers", this.user);
-    //     this.$store.dispatch("editFollowers", this.$store.getters.currentUser);
-    //   }
     }
 }
 </script>
@@ -125,6 +122,18 @@ export default {
   }
   .savedSongs {
       margin: 0 auto;
+  }
+  .followRouterLink {
+      margin-top: 16px;
+      background-color: #D34084;
+      border: 1px solid #D34084;
+      border-radius: 5px;
+      color: #FFFFFF;
+      padding: 3px 0;
+      font-size: 14px;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
   }
   .topTitle {
       color: #fff;

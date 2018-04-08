@@ -21,9 +21,17 @@ export default {
     },
     methods: {
         navigate(user) {
-            this.$router.push({
-                path: `/user/${user}`
-            })
+            if (user.substring(0,1) !== '#') {
+                this.$router.push({
+                    path: `/user/${user}`
+                })
+            }
+            else {
+                var percent = '%23' + user.substring(1);
+                this.$router.push({
+                    path: `/tag/${percent}`
+                })
+            }
         }
     }
 }
@@ -32,7 +40,7 @@ export default {
 <style scoped>
     .following {
         display: flex;
-        align-items: center; 
+        align-items: center;
         padding: 10px 20px;
         border-bottom: 2px solid #0C1012;
     }
