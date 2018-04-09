@@ -4,10 +4,13 @@
       <NavBarStandard />
     </div>
     <div class="topTitle">
-        {{this.$route.params.tag}}
-        Follow/Unfollow/Whatever later
-        <button v-if="!currentUser.following.includes(this.$route.params.tag)" class="followRouterLink" @click="follow">Follow</button>
-        <button v-else class="followRouterLink" @click="unfollow">Unfollow</button>
+        <div>
+            {{this.$route.params.tag}}
+        </div>
+        <div>
+            <button v-if="!currentUser.following.includes(this.$route.params.tag)" class="followRouterLink" @click="follow">Follow</button>
+            <button v-else class="followRouterLink" @click="unfollow">Unfollow</button>
+        </div>
     </div>
     <div class="home">
         <ul>
@@ -139,8 +142,9 @@ export default {
       color: #fff;
       font-size: 32pt;
       font-weight: bold;
-      margin: 0 auto;
-      width: 50%;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
   }
   .profileContainer {
       background: #0C1012;
@@ -218,18 +222,6 @@ export default {
       border-radius: 200px;
       color: #D34084;
   }
-  .profileFollowContainer {
-      display: flex;
-      flex-direction: column;
-      margin-right: 30px;
-      height: 200px;
-  }
-  .personalInfoTextContainer {
-      display: flex;
-      flex-direction: column;
-      color: #FFFFFF;
-      height: 200px;
-  }
   .saveButton {
       cursor: pointer;
   }
@@ -266,10 +258,12 @@ export default {
       border-radius: 5px;
       color: #FFFFFF;
       padding: 3px 0;
-      font-size: 14px;
+      font-size: 18px;
       cursor: pointer;
       text-align: center;
       text-decoration: none;
+      height: 45px;
+      width: 95px;
   }
   .background {
       position: absolute;
