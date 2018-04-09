@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <input class="search-box" v-model="query" placeholder="Search"/><button class="search-btn" v-on:click="search"><icon name="search"></icon></button>
+        <input class="search-box" v-model="query" placeholder="Search"/><button class="search-btn" v-on:click="search"><icon class="searchIcon" name="search"></icon></button>
         <div class="results">
             <p v-if="!tracks">Search for a song or artist.</p>
             <div v-if="noResults" class="noresults">
@@ -20,6 +20,7 @@
 <script>
 import TrackCard from './TrackCard.vue';
 import axios from 'axios';
+import Icon from 'vue-awesome/components/Icon';
 
 export default {
     name: 'search-dialog',
@@ -63,25 +64,25 @@ export default {
         margin: 30px auto;
     }
     .search-box {
-        border: 1px solid #d34084; 
+        border: 2px solid #d34084;
         border-top-left-radius: 20px;
         border-bottom-left-radius: 20px;
         padding: 0 15px;
         height: 30px;
         margin: 10px 0;
-    } 
+    }
 
    .search-btn {
-       border: 1px solid #d34084; 
+       border: 1px solid #d34084;
        border-top-right-radius: 20px;
        border-bottom-right-radius: 20px;
-       background-color: #d34084; 
+       background-color: #d34084;
        color: #fff;
-       height: 32px;
+       height: 34px;
        padding: 0 12px;
        vertical-align: middle;
     }
-    
+
     .results {
         display: flex;
         flex-wrap: wrap;
@@ -113,7 +114,11 @@ export default {
     .result {
         margin: 15px;
     }
-    
+
+    .searchIcon svg {
+        color: #fff;
+    }
+
     .select {
         padding: 8px 30px;
         border: 1px solid #d34084;
