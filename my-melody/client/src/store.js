@@ -119,14 +119,16 @@ export default new Vuex.Store({
                 .catch(err => console.error(err));
         },
         searchUsers(context, data) {
-            return axios.get(`${context.getters.baseApiUrl}/api/users/search/${data}`)
+            const encoded = encodeURIComponent(data);
+            return axios.get(`${context.getters.baseApiUrl}/api/users/search/${encoded}`)
             .then(res => {
                 return res.data;
             })
             .catch(err => console.error(err));
         },
         searchTags(context, data) {
-            return axios.get(`${context.getters.baseApiUrl}/api/tags/search/${data}`)
+            const encoded = encodeURIComponent(data);
+            return axios.get(`${context.getters.baseApiUrl}/api/tags/search/${encoded}`)
             .then(res => {
                 return res.data;
             })
