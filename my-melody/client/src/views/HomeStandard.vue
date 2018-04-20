@@ -65,6 +65,17 @@ export default {
 
     },
     created: function() {
+        this.$store.dispatch('isLoggedIn')
+        .then(res => {
+            if (res.loggedIn && !this.$store.getters.currentUser.following) {
+                this.$store.dispatch('resetUser', res.user)
+                .then(res => {
+                    this.$router.push({
+                        name: 'profile'
+                    });
+                })
+            }
+        })
         this.$store.dispatch('getAllPosts')
         .then(res => {
             var allFollowerPosts = [];
@@ -77,7 +88,6 @@ export default {
 
             this.posts = allFollowerPosts; //filter by time here
 
-            console.log(this.posts);
 
             if (this.posts.length === 0) {
                 this.posts = ['nothing'];

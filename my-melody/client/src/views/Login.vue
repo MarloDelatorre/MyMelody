@@ -58,10 +58,7 @@ export default {
               }
               else {
                   this.$router.push({
-                      name: 'profile',
-                      params: {
-                        user: res,
-                      }
+                      name: 'profile'
                   });
               }
           });
@@ -70,7 +67,20 @@ export default {
       facebook() {
         console.log('this is username: ' + this.$data.message + ', this is password: ' + this.$data.password);
       }
-    }
+  },
+  created: function() {
+      this.$store.dispatch('isLoggedIn')
+      .then(res => {
+          if (res.loggedIn) {
+              this.$store.dispatch('resetUser', res.user)
+              .then(res => {
+                  this.$router.push({
+                      name: 'profile'
+                  });
+              })
+          }
+      })
+  }
 }
 </script>
 

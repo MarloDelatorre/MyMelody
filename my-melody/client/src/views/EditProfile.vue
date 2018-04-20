@@ -42,6 +42,20 @@
                 edited: {},
             }
         },
+        created: function() {
+            this.$store.dispatch('isLoggedIn')
+            .then(res => {
+                if (!res.loggedIn) {
+                    alert("No logged in user!")
+                    this.$router.push({
+                        name: 'landingPage'
+                    });
+                }
+                else {
+                    this.user = res.user
+                }
+            })
+        },
         methods: {
             cancel() {
                 this.$router.push({

@@ -25,10 +25,10 @@
         name: 'PostWall',
         data: function() {
             return {
-                
+
             }
         },
-        created: function() {            
+        created: function() {
             this.$store.dispatch('getUserPosts', this.$store.getters.currentUser.username)
             .then(() => {
                 //console.log(this.$store.getters.posts);

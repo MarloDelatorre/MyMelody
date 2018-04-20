@@ -6,7 +6,7 @@ var Track = require('../models/track');
 var router = express.Router();
 
 router.route('/')
-    // get all all posts 
+    // get all all posts
     .get((req, res) => {
         Post.find({})
             .populate('track')
@@ -15,7 +15,7 @@ router.route('/')
                 else res.jsonp(posts);
             });
     })
-    // save new post 
+    // save new post
     .post((req, res) => {
         var newTrack = new Track({ _id: new mongoose.Types.ObjectId()});
         Object.assign(newTrack, req.body.track);
@@ -26,9 +26,9 @@ router.route('/')
                 var newPost = new Post({
                     username: req.body.username,
                     track: newTrack._id,
-                    caption: req.body.caption 
+                    caption: req.body.caption
                 });
-                
+
                 newPost.save((err2, post) => {
                     if (err2) res.send(err2);
                     else res.jsonp(post);

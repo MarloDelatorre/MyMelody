@@ -36,7 +36,20 @@
           register() {
             this.$router.push('register');
           }
-        }
+      },
+      created: function() {
+          this.$store.dispatch('isLoggedIn')
+          .then(res => {
+              if (res.loggedIn) {
+                  this.$store.dispatch('resetUser', res.user)
+                  .then(res => {
+                      this.$router.push({
+                          name: 'profile'
+                      });
+                  })
+              }
+          })
+      }
     }
 </script>
 

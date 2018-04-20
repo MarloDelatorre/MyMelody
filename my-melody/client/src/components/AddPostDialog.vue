@@ -3,6 +3,7 @@
             <track-card :title="track.title" :artist="track.artist" :albumArt="track.albumArt"/>
             <div class="caption">
                 <textarea v-model="caption" placeholder="Add a caption..."></textarea>
+                <textarea v-model="tags" placeholder="Add tags separated by a space, ex. #edm #electronic etc..."></textarea>
                 <div>
                     <button v-on:click="back">Back</button>
                     <button v-on:click="addPost">Add Post</button>
@@ -19,7 +20,8 @@ export default {
     name: 'add-post-dialog',
     data: function() {
         return {
-            caption: null
+            caption: null,
+            tags: null
         }
     },
     computed: {
@@ -29,11 +31,15 @@ export default {
     },
     methods: {
         addPost() {
+            const encoded = encodeURIComponent(this.tags);
+            var tagArray = encoded.split(" ");
+            console.log(tagArray);
             console.log({track: this.$store.getters.selectedTrack, caption: this.caption})
             axios.post(`${this.$store.getters.baseApiUrl}/posts/`, {
                 username: this.$store.getters.currentUser,
                 caption: this.caption,
-                track: this.track
+                track: this.track,
+                tags: tagArray,
             }).then(res => {
                 console.log(res);
                 this.$store.dispatch('getPosts', this.$store.getters.currentUser);
@@ -60,7 +66,7 @@ export default {
     }
 
     .caption {
-        margin-left: 15px; 
+        margin-left: 15px;
     }
 
     .caption textarea {
@@ -72,7 +78,7 @@ export default {
     .caption button {
         box-sizing: border-box;
         width: 150px;
-        padding: 7px 0; 
+        padding: 7px 0;
         border: 1px solid #d34084;
         border-radius: 25px;
         background-color: #d34084;

@@ -57,7 +57,6 @@ router.route('/:username')
 
 router.route('/search/:string')
     .get((req, res) => {
-        console.log(req.params.string);
         User.find({'username': new RegExp(req.params.string, 'i')}, 'username', (err, users) => {
             if (err) res.send(err);
             res.jsonp(users);

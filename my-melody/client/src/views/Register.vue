@@ -43,6 +43,19 @@
             password2: '',
           }
         },
+        created: function() {
+            this.$store.dispatch('isLoggedIn')
+            .then(res => {
+                if (res.loggedIn) {
+                    this.$store.dispatch('resetUser', res.user)
+                    .then(res => {
+                        this.$router.push({
+                            name: 'profile'
+                        });
+                    })
+                }
+            })
+        },
         methods: {
           register() {
             if (this.$data.password !== this.$data.password2) {
@@ -63,10 +76,7 @@
                   else {
                       alert('User created!');
                       this.$router.push({
-                          name: 'profile',
-                          params: {
-                            user: res,
-                          }
+                          name: 'profile'
                       });
                   }
                   // var user = {

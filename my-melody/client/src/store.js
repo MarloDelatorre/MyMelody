@@ -45,7 +45,7 @@ export default new Vuex.Store({
     },
     actions: {
         getUserPosts(context, username) {
-            return axios.get(`${context.getters.baseApiUrl}/api/posts/${username}`)
+            return axios.get(`${context.getters.baseApiUrl}/api/posts/${username}`, {withCredentials: true})
             .then(res => {
                 context.commit('setPosts', res.data);
             })
@@ -104,8 +104,9 @@ export default new Vuex.Store({
             })
             .catch(err => console.error(err));
         },
-        logout(context, username) {
-            context.commit('setLoggedIn', false);
+        resetUser(context, user) {
+            context.commit('setLoggedIn', true);
+            context.commit('setUser', user)
         },
         editFollowers(context, data) {
             return axios.put(`${context.getters.baseApiUrl}/api/users/${data.username}`,
@@ -151,6 +152,27 @@ export default new Vuex.Store({
             })
             .catch(err => console.log(err));
         },
+        isLoggedIn(context, data) {
+            return axios.get(`${context.getters.baseApiUrl}/api/auth/loggedIn`)
+            .then(res => {
+                if (res.data.user) {
+                    context.commit('setUser', res.data.user)
+                }
+                return res.data;
+            })
+            .catch(err => console.log(err));
+        },
+        logoutUser(context, data) {
+            return axios.get(`${context.getters.baseApiUrl}/api/auth/logout`)
+            .then(res => {
+                if (res.data.message) {
+                    context.commit('setLoggedIn', false);
+                    context.commit('setUser', {})
+                    return res.data
+                }
+            })
+            .catch(err => console.log(err));
+        }
     },
     getters: {
         selectedTrack(state) {

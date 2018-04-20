@@ -73,7 +73,6 @@ export default {
                 this.$store.dispatch('getUser', to.params.username);
             }
             else {
-                console.log('hello');
                 var percent = '%23' + to.params.tag.substring(1);
                 this.$store.dispatch('getTag', percent).then(t => this.tag = t);
             }

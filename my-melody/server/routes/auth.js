@@ -39,17 +39,23 @@ module.exports = function(passport) {
       })(req, res, next);
   });
 
+  router.get('/logout', function(req, res) {
+      req.logout();
+      res.jsonp({message: 'logged out'})
+  })
+
   router.get('/loggedIn', function(req, res, next) {
     // isAuthenticated is set by `deserializeUser()`
     if (!req.isAuthenticated || !req.isAuthenticated()) {
-        res.status(401).send({
-            success: false,
-            message: 'You need to be authenticated to access this page!'
-          })
-        } else {
-          next()
-        }
-     })
+        res.jsonp({loggedIn: false})
+    }
+    else {
+        res.jsonp({
+            loggedIn: true,
+            user: req.user
+        })
+    }
+ })
 
   return router;
 }

@@ -11,6 +11,7 @@ var history = require('connect-history-api-fallback');
 var passport = require('passport');
 var flash = require('connect-flash');
 var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
 
 // Route Imports
 var users = require('./routes/users');
@@ -41,10 +42,13 @@ app.use(express.static(path.join(__dirname, '../client/dist')));
 
 // Configuring Passport
 app.use(express.static("public"));
+var dbURI = process.env.MONGODB_URI || 'mongodb://localhost/mymelody';
 app.use(session({
+    name: 'MyMelody-cookie',
     secret: 'supersmashhoes',
-    resave: true,
-    saveUninitialized: true
+    resave: false,
+    saveUninitialized: true,
+    store: new MongoStore({url: dbURI})
 }));
 app.use(passport.initialize());
 app.use(passport.session());

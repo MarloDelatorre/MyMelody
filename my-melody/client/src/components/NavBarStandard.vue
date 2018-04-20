@@ -22,9 +22,9 @@
             <div class="iconMenu" @click="dialog = 'search-dialog'">
                 <icon class="icons" name="clone"></icon>
             </div>
-            <router-link class="iconMenu" to="/">
+            <div class="iconMenu" @click="logout">
                 <icon class="icons" name="sign-out"></icon>
-            </router-link>
+            </div>
         </div>
 
         <div class="iconMenuMiniContainer">
@@ -90,6 +90,14 @@ export default {
             this.searchText = '';
             this.users = [];
             this.toggleModal = false;
+        },
+        logout() {
+            this.$store.dispatch('logoutUser')
+            .then(res => {
+                this.$router.push({
+                    name: 'landingPage'
+                });
+            })
         }
     }
 }

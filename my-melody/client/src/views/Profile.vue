@@ -1,5 +1,5 @@
 <template>
-  <div v-if="this.$store.getters.loggedIn" class="profileContainer">
+  <div class="profileContainer">
     <modal :title="dialog" :component="dialog" @hide="dialog = null"></modal>
     <div class="nav">
       <NavBarStandard />
@@ -7,10 +7,10 @@
     <div class="personalInfo">
         <div class="profileFollowContainer">
             <icon class="profilePicture" name="user"></icon>
-            <router-link :to="{ name: 'profile/editprofile', params: {user: this.$props.user } }" class="followRouterLink">Edit Profile</router-link>
+            <router-link :to="{ name: 'profile/editprofile', params: {user: this.user } }" class="followRouterLink">Edit Profile</router-link>
         </div>
       <div class="personalInfoTextContainer">
-          <header>{{ fullName }}</header>
+          <header>{{ this.user.firstName }} {{this.user.lastName}}</header>
           <h2 class="follow" @click="dialog = 'followers'">{{this.user.followers.length}} followers</h2><h2 class="follow" @click="dialog = 'following'">{{this.user.following.length}} following</h2>
           <h2 class="description">{{this.user.description}}</h2>
       </div>
@@ -28,9 +28,6 @@
     <div class="background">
     </div>
   </div>
-  <div v-else>
-    Please log in to view this page
-  </div>
 </template>
 
 <script>
@@ -46,7 +43,6 @@ import Icon from 'vue-awesome/components/Icon'
 
 export default {
     name: 'profile',
-    props: ['user'],
     components: {
         Icon,
         NavBarStandard,
@@ -57,13 +53,27 @@ export default {
         Modal
     },
     data: function() {
-      return {
-          openTab: 'posts',
-          homeMessage: homeMessages,
-          fullName: this.user.firstName + ' ' + this.user.lastName,
-          dialog: null
-      }
-  }
+        return {
+            openTab: 'posts',
+            homeMessage: homeMessages,
+            dialog: null,
+            user: this.$store.getters.currentUser
+        }
+    },
+    created: function() {
+        this.$store.dispatch('isLoggedIn')
+        .then(res => {
+            if (!res.loggedIn) {
+                alert("No logged in user!")
+                this.$router.push({
+                    name: 'landingPage'
+                });
+            }
+            else {
+                this.user = res.user
+            }
+        })
+    }
 }
 </script>
 
