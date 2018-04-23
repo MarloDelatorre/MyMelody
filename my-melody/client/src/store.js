@@ -58,6 +58,13 @@ export default new Vuex.Store({
             })
             .catch(err => console.error(err));
         },
+        getAllTags(context,data){
+            return axios.get(`${context.getters.baseApiUrl}/api/tags`)
+            .then(res => {
+                return res.data;
+            })
+            .catch(err => console.error(err));
+        },
         addUser(context, data) {
             return axios.post(`${context.getters.baseApiUrl}/api/auth/signup`, {
                 firstName: data[0],
