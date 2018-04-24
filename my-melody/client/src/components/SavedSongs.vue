@@ -73,7 +73,7 @@ import Icon from 'vue-awesome/components/Icon';
             filterMethod(value) {
                 console.log(value);
                 var s = value.title.toLowerCase();
-                if(s.startsWith(this.query)) {
+                if(s.includes(this.query)) {
                     return value;
                 } else {
                     return null;
