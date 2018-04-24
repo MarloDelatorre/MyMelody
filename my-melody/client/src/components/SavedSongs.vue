@@ -1,5 +1,10 @@
 <template>
+
   <div class="container-fluid" style="margin-top: 10px">
+      <div class="filter">
+      <input class="search-box" v-model="query" placeholder="Filter"/><button class="search-btn" v-on:click="search"><icon class="searchIcon" name="search"></icon></button>
+      <button v-if="query!==null" class="search-btn" v-on:click="reset">Clear</button>
+    </div>
   <div class="table-row header">
 
     <div class="wrapper attributes top">
@@ -19,7 +24,7 @@
   </div>
 
   <ul>
-      <li v-for="track in this.user.savedSongs" class="list">
+      <li v-for="track in this.songArray" class="list">
           <div class="table-row children">
 
             <div class="wrapper attributes">
@@ -43,8 +48,9 @@
 </template>
 
 <script>
-import NavBarStandard from '../components/NavBarStandard.vue'
-import Icon from 'vue-awesome/components/Icon'
+import NavBarStandard from '../components/NavBarStandard.vue';
+import axios from 'axios';
+import Icon from 'vue-awesome/components/Icon';
 
     export default {
         name: 'SavedSongs',
@@ -56,11 +62,36 @@ import Icon from 'vue-awesome/components/Icon'
         data: function() {
             return {
                 fullName: this.user.firstName + ' ' + this.user.lastName,
+                query: null,
+                songArray: this.user.savedSongs
             }
         },
         methods: {
             console() {
                 console.log(this.user);
+            },
+            filterMethod(value) {
+                console.log(value);
+                var s = value.title.toLowerCase();
+                if(s.includes(this.query)) {
+                    return value;
+                } else {
+                    return null;
+                }
+            },
+            search() {
+                console.log(this.user.savedSongs.length);
+                console.log(this.query);
+                if(this.query !== '') {
+                    //var newList = this.user.savedSongs.filter(song => song.title.length > 7);
+                    var newList = this.user.savedSongs.filter(song => this.filterMethod(song));
+                    console.log(newList);
+                    this.songArray = newList;
+                }
+            },
+            reset() {
+                this.query = null;
+                this.songArray = this.user.savedSongs;
             }
         }
     }
@@ -85,6 +116,12 @@ import Icon from 'vue-awesome/components/Icon'
      background-color: #0C1012;
      margin: 0 auto;
  }
+    .filter {
+        text-align: right;
+        margin-right: 10px;
+        
+    }
+
 .table-row {
   display: flex;
   display: -webkit-flex;
@@ -168,6 +205,30 @@ import Icon from 'vue-awesome/components/Icon'
 .attributes {
   flex-grow: 1;
   -webkit-flex-grow: 1;
+}
+.searchIcon svg {
+    color: #fff;
+}
+.search-box {
+    border: 2px solid #d34084;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    padding: 0 15px;
+    height: 30px;
+    margin: 10px 0;
+    background-color: #0C1012;
+    color: #fff;
+}
+
+.search-btn {
+    border: 1px solid #d34084;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    background-color: #d34084;
+    color: #fff;
+    height: 34px;
+    padding: 0 12px;
+    vertical-align: middle;
 }
 
 </style>

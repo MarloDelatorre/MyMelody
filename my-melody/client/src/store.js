@@ -6,7 +6,7 @@ Vue.use(Vuex)
 
 // REMEMBER TO TURN THIS OFF
 // WHEN PUSHING TO PRODUCTION
-const devMode = false;
+const devMode = true;
 
 // DEFAULT TEST USER
 const testUsername = "default";
@@ -53,6 +53,13 @@ export default new Vuex.Store({
         },
         getAllPosts(context, data) {
             return axios.get(`${context.getters.baseApiUrl}/api/posts/`)
+            .then(res => {
+                return res.data;
+            })
+            .catch(err => console.error(err));
+        },
+        getAllTags(context,data){
+            return axios.get(`${context.getters.baseApiUrl}/api/tags`)
             .then(res => {
                 return res.data;
             })

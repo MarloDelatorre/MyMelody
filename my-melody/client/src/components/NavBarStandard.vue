@@ -66,7 +66,7 @@ export default {
             }
         },
         search() {
-            // console.log(this.searchText);
+            console.log(this.searchText);
             // console.log(this.searchText.length);
             this.users = [];
             if (this.searchText.length > 0) {
@@ -136,7 +136,7 @@ export default {
         width: 350px;
         padding-left: 20px;
         padding-right: 20px;
-        background: #000000;
+        background: #0C1012;
         color: #FFFFFF;
         border: 1px solid #D34084;
         border-radius: 10px;

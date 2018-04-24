@@ -1,33 +1,80 @@
 <template>
   <div class="container-fluid">
-<div class="table-row">
-
-    <div class="wrapper attributes">
-      <div class="wrapper title-comment-module-reporter">
-        <div class="wrapper title-comment">
-            <ul class="list">
-                <li v-for="post in this.$store.getters.posts">
-                  <div class="card">
-                    <img v-bind:src="post.track.albumArt">
-                    <p>{{post.track.title}} - {{post.track.artist}}</p>
-                  </div>
-                </li>
-            </ul>
-        </div>
+      <div>
+          <input class="search-box" v-model="query" placeholder="Filter by tag"/><button class="search-btn" v-on:click="search"><icon class="searchIcon" name="search"></icon></button>
       </div>
+      <div class="table-row">
+            <div class="wrapper attributes">
+              <div class="wrapper title-comment-module-reporter">
+                <div class="wrapper title-comment">
+                    <ul class="list">
+                        <li v-for="post in this.postArray">
+                          <div class="card">
+                            <img v-bind:src="post.track.albumArt">
+                            <p>{{post.track.title}} - {{post.track.artist}}</p>
+                          </div>
+                        </li>
+                    </ul>
+                </div>
+              </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
 </template>
 
 <script>
+import Icon from 'vue-awesome/components/Icon';
+
     export default {
         name: 'PostWall',
+        components: {
+            Icon,
+        },
         data: function() {
             return {
+<<<<<<< HEAD
 
             }
         },
+=======
+                query: null,
+                postArray: this.$store.getters.posts,
+            }
+        },
+        methods: {
+            filterMethod(post) {
+                console.log(post);
+                console.log(post.tags);
+                var s = post.tags.includes(this.query);
+                console.log(s);
+                if (s) {
+                    return post;
+                }
+                else {
+                    return null;
+                }
+                // var s = post.tags.includes(this.query);
+                // if(s) {
+                //     return post;
+                // } else {
+                //     return null;
+                // }
+            },
+            search() {
+                console.log(this.query);
+                if(this.query !== null && this.query !== '') {
+                    //var newList = this.user.savedSongs.filter(song => song.title.length > 7);
+
+                    var newList = this.$store.getters.posts.filter(posts => this.filterMethod(posts));
+                    console.log(newList);
+                    this.postArray = newList;
+                }
+                else {
+                    this.postArray = this.$store.getters.posts;
+                }
+            },
+        },
+>>>>>>> master
         created: function() {
             this.$store.dispatch('getUserPosts', this.$store.getters.currentUser.username)
             .then(() => {
@@ -53,6 +100,31 @@
  * Basic styles, good for a large display. Everything fits in
  * one row, no wrapping. All text based cells grow equally.
  */
+ .searchIcon svg {
+     color: #fff;
+ }
+ .search-box {
+     border: 2px solid #d34084;
+     border-top-left-radius: 20px;
+     border-bottom-left-radius: 20px;
+     padding: 0 15px;
+     height: 30px;
+     margin: 10px 0;
+     background-color: #0C1012;
+     color: #FFFFFF;
+ }
+ .search-btn {
+     border: 1px solid #d34084;
+     border-top-right-radius: 20px;
+     border-bottom-right-radius: 20px;
+     background-color: #d34084;
+     color: #fff;
+     height: 34px;
+     padding: 0 12px;
+     margin-top: -2px;
+     vertical-align: middle;
+ }
+
 .card {
   width: 300px;
   height: 350px;
