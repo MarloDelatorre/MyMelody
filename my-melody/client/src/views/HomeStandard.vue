@@ -65,7 +65,6 @@ export default {
 
     },
     created: function() {
-<<<<<<< HEAD
         this.$store.dispatch('isLoggedIn')
         .then(res => {
             if (res.loggedIn && !this.$store.getters.currentUser.following) {
@@ -77,19 +76,18 @@ export default {
                 })
             }
         })
-=======
-        var allFollowerPosts = [];
         
+        var allFollowerPosts = [];
+
         this.$store.dispatch('getAllTags')
         .then(res => {
             res.filter(tag => { //is it post?
-                if 
+                if
                     (this.$store.getters.currentUser.following.includes(tag.tag)) {
                         allFollowerPosts.push(...tag.posts);
                     };
             });
         }).then(
->>>>>>> master
         this.$store.dispatch('getAllPosts')
         .then(res => {
 
@@ -99,14 +97,10 @@ export default {
                     allFollowerPosts.push(post);
                 };
             });
-            
+
 
             this.posts = allFollowerPosts; //filter by time here
 
-<<<<<<< HEAD
-
-=======
->>>>>>> master
             if (this.posts.length === 0) {
                 this.posts = ['nothing'];
             }
@@ -120,7 +114,7 @@ export default {
                 console.log(this.posts);
             }
         }));
-        
+
     },
     components: {
         NavBarStandard,

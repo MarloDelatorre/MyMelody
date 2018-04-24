@@ -32,11 +32,6 @@ import Icon from 'vue-awesome/components/Icon';
         },
         data: function() {
             return {
-<<<<<<< HEAD
-
-            }
-        },
-=======
                 query: null,
                 postArray: this.$store.getters.posts,
             }
@@ -74,7 +69,6 @@ import Icon from 'vue-awesome/components/Icon';
                 }
             },
         },
->>>>>>> master
         created: function() {
             this.$store.dispatch('getUserPosts', this.$store.getters.currentUser.username)
             .then(() => {
