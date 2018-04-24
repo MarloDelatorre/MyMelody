@@ -72,6 +72,25 @@ export default {
     display: table;
     transition: opacity .3s ease;
     }
+    .search-box {
+        border: 2px solid #d34084;
+        border-top-left-radius: 20px;
+        border-bottom-left-radius: 20px;
+        padding: 0 15px;
+        height: 30px;
+        margin: 10px 0;
+    }
+
+   .search-btn {
+       border: 1px solid #d34084;
+       border-top-right-radius: 20px;
+       border-bottom-right-radius: 20px;
+       background-color: #d34084;
+       color: #fff;
+       height: 34px;
+       padding: 0 12px;
+       vertical-align: middle;
+    }
 
     .results {
         border-bottom: 2px solid black;
