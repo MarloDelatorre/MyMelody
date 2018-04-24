@@ -38,30 +38,19 @@ import Icon from 'vue-awesome/components/Icon';
         },
         methods: {
             filterMethod(post) {
-                console.log(post);
-                console.log(post.tags);
                 var s = post.tags.includes(this.query);
-                console.log(s);
                 if (s) {
                     return post;
                 }
                 else {
                     return null;
                 }
-                // var s = post.tags.includes(this.query);
-                // if(s) {
-                //     return post;
-                // } else {
-                //     return null;
-                // }
             },
             search() {
-                console.log(this.query);
                 if(this.query !== null && this.query !== '') {
                     //var newList = this.user.savedSongs.filter(song => song.title.length > 7);
 
                     var newList = this.$store.getters.posts.filter(posts => this.filterMethod(posts));
-                    console.log(newList);
                     this.postArray = newList;
                 }
                 else {
@@ -78,8 +67,8 @@ import Icon from 'vue-awesome/components/Icon';
                     if (post1.posted < post2.posted) return 1;
                     return 0;
                 };
-                //console.log(this.$store.getters.posts);
                 this.$store.getters.posts.sort(date_sort_desc);
+                this.postArray = this.$store.getters.posts;
             })
         }
     }

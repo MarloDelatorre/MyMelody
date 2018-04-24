@@ -7,10 +7,14 @@
             Loading...
         </div>
         <div v-else>
+            <div class="filterWrap">
+                <input class="search-box" v-model="query" placeholder="Filter by tag"/><button class="search-btn" v-on:click="search"><icon class="searchIcon" name="search"></icon></button>
+            </div>
             <div v-if="this.posts.includes('nothing')" class="whiteText">
                 No posts were found.
             </div>
             <div v-else>
+
                 <ul>
                     <li v-for="post in this.posts" class="results">
                         <div class="card">
@@ -58,7 +62,9 @@ export default {
     name: 'home',
     data: function () {
         return {
-            posts: []
+            posts: [],
+            allPosts: [],
+            query: null,
         }
     },
     computed: {
@@ -66,11 +72,11 @@ export default {
     },
     created: function() {
         var allFollowerPosts = [];
-        
+
         this.$store.dispatch('getAllTags')
         .then(res => {
             res.filter(tag => { //is it post?
-                if 
+                if
                     (this.$store.getters.currentUser.following.includes(tag.tag)) {
                         allFollowerPosts.push(...tag.posts);
                     };
@@ -85,7 +91,7 @@ export default {
                     allFollowerPosts.push(post);
                 };
             });
-            
+
 
             this.posts = allFollowerPosts; //filter by time here
 
@@ -101,8 +107,9 @@ export default {
                 this.posts.sort(date_sort_desc);
                 console.log(this.posts);
             }
+            this.allPosts = this.posts;
         }));
-        
+
     },
     components: {
         NavBarStandard,
@@ -121,12 +128,64 @@ export default {
         },
         formattedDate(date) {
             return dateFormat(new Date(date), 'mmmm dS, yyyy');
-        }
+        },
+        filterMethod(post) {
+            var s = post.tags.includes(this.query);
+            if (s) {
+                return post;
+            }
+            else {
+                return null;
+            }
+        },
+        search() {
+            if(this.query !== null && this.query !== '') {
+                //var newList = this.user.savedSongs.filter(song => song.title.length > 7);
+
+                var tempAllPosts = this.allPosts;
+                var newList = tempAllPosts.filter(posts => this.filterMethod(posts));
+                if (newList.length === 0) {
+                    newList = ['nothing'];
+                }
+                this.posts = newList;
+            }
+            else {
+                this.posts = this.allPosts;
+            }
+        },
     }
 }
 </script>
 
 <style scoped>
+.filterWrap {
+    margin: 10px;
+    float: right;
+}
+.searchIcon svg {
+    color: #fff;
+}
+.search-box {
+    border: 2px solid #d34084;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    padding: 0 15px;
+    height: 30px;
+    margin: 10px 0;
+    background-color: #0C1012;
+    color: #FFFFFF;
+}
+.search-btn {
+    border: 1px solid #d34084;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    background-color: #d34084;
+    color: #fff;
+    height: 34px;
+    padding: 0 12px;
+    margin-top: -2px;
+    vertical-align: middle;
+}
 .whiteText {
     color: #FFFFFF;
 }
