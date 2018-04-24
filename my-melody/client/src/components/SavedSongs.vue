@@ -90,7 +90,7 @@ import Icon from 'vue-awesome/components/Icon';
                 }
             },
             reset() {
-                this.query = '';
+                this.query = null;
                 this.songArray = this.user.savedSongs;
             }
         }
