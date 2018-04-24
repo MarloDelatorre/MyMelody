@@ -3,6 +3,7 @@
   <div class="container-fluid" style="margin-top: 10px">
       <div class="filter">
       <input class="search-box" v-model="query" placeholder="Filter"/><button class="search-btn" v-on:click="search"><icon class="searchIcon" name="search"></icon></button>
+      <button v-if="query!==null" class="search-btn" v-on:click="reset">Clear</button>
     </div>
   <div class="table-row header">
 
@@ -90,6 +91,7 @@ import Icon from 'vue-awesome/components/Icon';
             },
             reset() {
                 this.query = '';
+                this.songArray = this.user.savedSongs;
             }
         }
     }
@@ -117,6 +119,7 @@ import Icon from 'vue-awesome/components/Icon';
     .filter {
         text-align: right;
         margin-right: 10px;
+        
     }
 
 .table-row {
@@ -214,6 +217,7 @@ import Icon from 'vue-awesome/components/Icon';
     height: 30px;
     margin: 10px 0;
     background-color: #0C1012;
+    color: #fff;
 }
 
 .search-btn {
