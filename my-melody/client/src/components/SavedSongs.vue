@@ -82,7 +82,7 @@ import Icon from 'vue-awesome/components/Icon';
             search() {
                 console.log(this.user.savedSongs.length);
                 console.log(this.query);
-                if(this.query !== null) {
+                if(this.query !== '') {
                     //var newList = this.user.savedSongs.filter(song => song.title.length > 7);
                     var newList = this.user.savedSongs.filter(song => this.filterMethod(song));
                     console.log(newList);
@@ -90,7 +90,7 @@ import Icon from 'vue-awesome/components/Icon';
                 }
             },
             reset() {
-                this.query = '';
+                this.query = null;
                 this.songArray = this.user.savedSongs;
             }
         }
