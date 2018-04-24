@@ -1,5 +1,5 @@
 <template>
-    
+
   <div class="container-fluid" style="margin-top: 10px">
       <div class="filter">
       <input class="search-box" v-model="query" placeholder="Filter"/><button class="search-btn" v-on:click="search"><icon class="searchIcon" name="search"></icon></button>
@@ -72,11 +72,11 @@ import Icon from 'vue-awesome/components/Icon';
             filterMethod(value) {
                 console.log(value);
                 var s = value.title.toLowerCase();
-                if(s.startsWith(this.query)) {
+                if(s.includes(this.query)) {
                     return value;
                 } else {
                     return null;
-                }     
+                }
             },
             search() {
                 console.log(this.user.savedSongs.length);
@@ -86,7 +86,7 @@ import Icon from 'vue-awesome/components/Icon';
                     var newList = this.user.savedSongs.filter(song => this.filterMethod(song));
                     console.log(newList);
                     this.songArray = newList;
-                }   
+                }
             },
             reset() {
                 this.query = '';
@@ -225,6 +225,6 @@ import Icon from 'vue-awesome/components/Icon';
     height: 34px;
     padding: 0 12px;
     vertical-align: middle;
-}    
+}
 
 </style>
