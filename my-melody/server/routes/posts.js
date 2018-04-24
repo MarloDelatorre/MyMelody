@@ -26,7 +26,8 @@ router.route('/')
                 var newPost = new Post({
                     username: req.body.username,
                     track: newTrack._id,
-                    caption: req.body.caption
+                    caption: req.body.caption,
+                    tags: req.body.tags
                 });
 
                 newPost.save((err2, post) => {
