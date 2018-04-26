@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
       <div>
-          <input class="search-box" v-model="query" placeholder="Filter by tag"/><button class="search-btn" v-on:click="search"><icon class="searchIcon" name="search"></icon></button>
+          <input class="search-box" v-model="query" placeholder="Filter by artist, track, or tag"/><button class="search-btn" v-on:click="search"><icon class="searchIcon" name="search"></icon></button>
       </div>
       <div class="table-row">
             <div class="wrapper attributes">
@@ -38,12 +38,26 @@ import Icon from 'vue-awesome/components/Icon';
         },
         methods: {
             filterMethod(post) {
-                var s = post.tags.includes(this.query);
-                if (s) {
-                    return post;
+                if (this.query.startsWith("#")) {
+                    var s = post.tags.includes(this.query);
+                    if (s) {
+                        return post;
+                    }
+                    else {
+                        return null;
+                    }
                 }
                 else {
-                    return null;
+                    // console.log(post.track.title.toLowerCase().includes(this.query));
+                    // console.log(post.track.artist.toLowerCase().includes(this.query));
+
+                    var s = post.track.title.toLowerCase().includes(this.query) || post.track.artist.toLowerCase().includes(this.query);
+                    if (s) {
+                        return post;
+                    }
+                    else {
+                        return null;
+                    }
                 }
             },
             search() {
@@ -92,6 +106,7 @@ import Icon from 'vue-awesome/components/Icon';
      border-bottom-left-radius: 20px;
      padding: 0 15px;
      height: 30px;
+     width: 150px;
      margin: 10px 0;
      background-color: #0C1012;
      color: #FFFFFF;
@@ -106,6 +121,7 @@ import Icon from 'vue-awesome/components/Icon';
      padding: 0 12px;
      margin-top: -2px;
      vertical-align: middle;
+     cursor: pointer;
  }
 
 .card {
