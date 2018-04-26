@@ -8,7 +8,7 @@
         </div>
         <div v-else>
             <div class="filterWrap">
-                <input class="search-box" v-model="query" placeholder="Filter by tag"/><button class="search-btn" v-on:click="search"><icon class="searchIcon" name="search"></icon></button>
+                <input class="search-box" v-model="query" placeholder="Filter by artist, track, or tag"/><button class="search-btn" v-on:click="search"><icon class="searchIcon" name="search"></icon></button>
             </div>
             <div v-if="this.posts.includes('nothing')" class="whiteText">
                 No posts were found.
@@ -38,12 +38,12 @@
                                 <div class="timestamp">
                                     {{formattedDate(post.posted)}}
                                 </div>
-                                <div v-if="post.tags.length > 0" class="tags"> 
+                                <div v-if="post.tags.length > 0" class="tags">
                                     <li v-for="tags in post.tags">
                                         <div @click="navigateTag(tags)">{{tags}}</div>
                                     </li>
-                                    
-                                </div> 
+
+                                </div>
                                 <div class="songDesc">
                                     {{post.caption}}
                                 </div>
@@ -81,8 +81,8 @@ export default {
 
         this.$store.dispatch('getAllTags')
         .then(res => {
-            res.filter(tag => { 
-                if 
+            res.filter(tag => {
+                if
                     (this.$store.getters.currentUser.following.includes(tag.tag)) {
                         allFollowerPosts.push(...tag.posts);
                     };
@@ -135,36 +135,50 @@ export default {
             var tagger = '%23' + tags.substring(1);
             this.$router.push({
                path: `/tag/${tagger}`
-            });  
+            });
         },
         formattedDate(date) {
             return dateFormat(new Date(date), 'mmmm dS, yyyy');
         },
-        filterMethod(post) { 
-            var s = post.tags.includes(this.query); 
-            if (s) { 
-                return post; 
-            } 
-            else { 
-                return null; 
-            } 
+        filterMethod(post) {
+            if (this.query.startsWith("#")) {
+                var s = post.tags.includes(this.query);
+                if (s) {
+                    return post;
+                }
+                else {
+                    return null;
+                }
+            }
+            else {
+                // console.log(post.track.title.toLowerCase().includes(this.query));
+                // console.log(post.track.artist.toLowerCase().includes(this.query));
+
+                var s = post.track.title.toLowerCase().includes(this.query) || post.track.artist.toLowerCase().includes(this.query);
+                if (s) {
+                    return post;
+                }
+                else {
+                    return null;
+                }
+            }
         },
-        search() { 
-            if(this.query !== null && this.query !== '') { 
-                //var newList = this.user.savedSongs.filter(song => song.title.length > 7); 
- 
-                var tempAllPosts = this.allPosts; 
-                var newList = tempAllPosts.filter(posts => this.filterMethod(posts)); 
-                if (newList.length === 0) { 
-                    newList = ['nothing']; 
-                } 
-                this.posts = newList; 
-            } 
-            else { 
-                this.posts = this.allPosts; 
-            } 
-        } 
-        
+        search() {
+            if(this.query !== null && this.query !== '') {
+                //var newList = this.user.savedSongs.filter(song => song.title.length > 7);
+
+                var tempAllPosts = this.allPosts;
+                var newList = tempAllPosts.filter(posts => this.filterMethod(posts));
+                if (newList.length === 0) {
+                    newList = ['nothing'];
+                }
+                this.posts = newList;
+            }
+            else {
+                this.posts = this.allPosts;
+            }
+        }
+
     }
 }
 </script>
@@ -183,6 +197,7 @@ export default {
     border-bottom-left-radius: 20px;
     padding: 0 15px;
     height: 30px;
+    width: 150px;
     margin: 10px 0;
     background-color: #0C1012;
     color: #FFFFFF;
@@ -237,7 +252,7 @@ export default {
     flex-direction: column;
     justify-content: space-between;
 }
-    
+
     .tags{
     margin: 10px 0 10px 20px;
     }
@@ -305,10 +320,10 @@ export default {
     display: flex;
 }
 .tags li {
-    margin-right: 10px;    
+    margin-right: 10px;
 }
 .tags li:hover {
-    color: #D34084;  
+    color: #D34084;
     cursor: pointer;
 }
 
