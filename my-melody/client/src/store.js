@@ -120,8 +120,10 @@ export default new Vuex.Store({
             context.commit('setUser', user)
         },
         editTag(context, data) {
-            console.log(data);
-            const encoded = encodeURIComponent(data.tag);
+            var encoded = data;
+            if (data.substring(0, 1) !== '%') {
+                encoded = encodeURIComponent(data);
+            }
             return axios.put(`${context.getters.baseApiUrl}/api/tags/${encoded}`,
             {
                 posts: data.posts
@@ -146,7 +148,10 @@ export default new Vuex.Store({
                 .catch(err => console.error(err));
         },
         searchUsers(context, data) {
-            const encoded = encodeURIComponent(data);
+            var encoded = data;
+            if (data.substring(0, 1) !== '%') {
+                encoded = encodeURIComponent(data);
+            }
             return axios.get(`${context.getters.baseApiUrl}/api/users/search/${encoded}`)
             .then(res => {
                 return res.data;
@@ -154,7 +159,10 @@ export default new Vuex.Store({
             .catch(err => console.error(err));
         },
         searchTags(context, data) {
-            const encoded = encodeURIComponent(data);
+            var encoded = data;
+            if (data.substring(0, 1) !== '%') {
+                encoded = encodeURIComponent(data);
+            }
             return axios.get(`${context.getters.baseApiUrl}/api/tags/search/${encoded}`)
             .then(res => {
                 return res.data;
@@ -172,7 +180,10 @@ export default new Vuex.Store({
             .catch(err => console.error(err));
         },
         getTag(context, data) {
-            const encoded = encodeURIComponent(data);
+            var encoded = data;
+            if (data.substring(0, 1) !== '%') {
+                encoded = encodeURIComponent(data);
+            }
             return axios.get(`${context.getters.baseApiUrl}/api/tags/${encoded}`)
             .then(res => {
                 return res.data;
@@ -201,7 +212,6 @@ export default new Vuex.Store({
             .catch(err => console.log(err));
         },
         addTag(context, data) {
-            console.log(data);
             return axios.post(`${context.getters.baseApiUrl}/api/tags/`,
             {
                 tag: data.tag,

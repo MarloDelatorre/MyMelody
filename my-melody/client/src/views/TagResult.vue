@@ -69,7 +69,7 @@ export default {
     },
     watch: {
         '$route': function (to, from) {
-            if (!from.includes('%23')) {
+            if (!from.path.includes('%23')) {
                 this.$store.dispatch('getUser', to.params.username);
             }
             else {

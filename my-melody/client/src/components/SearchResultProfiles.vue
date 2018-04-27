@@ -49,6 +49,7 @@
                 var percent = '%23' + tag.substring(1);
                 this.$store.dispatch('getTag', percent)
                 .then(res => {
+                    console.log(res);
                     this.$router.push({
                         name: `tagresult`,
                         params: {
