@@ -20,7 +20,7 @@
         <button class="button" v-on:click="openTab = 'savedSongs'">{{homeMessage.savedSongs}}</button>
     </div>
     <div v-if="openTab === 'posts'">
-        <PostWall />
+        <PostWall :user="$store.getters.currentUser.username"/>
     </div>
     <div class="savedSongs" v-else-if="openTab === 'savedSongs'">
         <SavedSongs v-bind:user="this.user"/>

@@ -32,6 +32,9 @@ import PlayableAlbumArt from '@/components/PlayableAlbumArt.vue'
             Icon,
             PlayableAlbumArt
         },
+        props: {
+            user: String
+        },
         data: function() {
             return {
                 query: null,
@@ -75,9 +78,9 @@ import PlayableAlbumArt from '@/components/PlayableAlbumArt.vue'
             },
         },
         created: function() {
-            this.$store.dispatch('getUserPosts', this.$store.getters.currentUser.username)
-            .then(() => {
-                //console.log(this.$store.getters.posts);
+            this.$store.dispatch('getUserPosts', this.user)
+            .then((res) => {
+                console.log(res);
                 var date_sort_desc = function (post1, post2) {
                   if (post1.posted > post2.posted) return -1;
                     if (post1.posted < post2.posted) return 1;

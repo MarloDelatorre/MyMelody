@@ -18,7 +18,7 @@ export default {
     computed: {
         audio() {
             var a = new Audio(this.audioUrl);
-            a.volume = 0.6;
+            a.volume = 0.1;
             return a;
         }
     },
