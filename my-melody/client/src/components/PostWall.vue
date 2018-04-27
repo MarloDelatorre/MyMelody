@@ -38,11 +38,7 @@ import PlayableAlbumArt from '@/components/PlayableAlbumArt.vue'
         data: function() {
             return {
                 query: null,
-            }
-        },
-        computed: {
-            postArray: function() {
-                return this.$store.getters.posts;
+                postArray: [],
             }
         },
         methods: {
@@ -84,7 +80,6 @@ import PlayableAlbumArt from '@/components/PlayableAlbumArt.vue'
         created: function() {
             this.$store.dispatch('getUserPosts', this.user)
             .then((res) => {
-                console.log(res);
                 var date_sort_desc = function (post1, post2) {
                   if (post1.posted > post2.posted) return -1;
                     if (post1.posted < post2.posted) return 1;
