@@ -174,7 +174,7 @@ export default {
         color: #D34084;
     }
 
-    @media (max-width:900px) {
+    /* @media (max-width:900px) {
         .iconMenuContainer {
             display: none;
         }
@@ -183,5 +183,5 @@ export default {
             display: flex;
         }
 
-    }
+    } */
 </style>
