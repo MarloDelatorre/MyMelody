@@ -10,7 +10,13 @@ module.exports = function(passport){
         function(req, username, password, done) {
             // check in mongo if a user with username exists or not
             User.findOne({ 'username' :  username })
-			.populate('savedSongs')
+			.populate({
+                path: 'savedSongs',
+                populate: {
+                    path: 'track',
+                    model: 'Track'
+                }
+            })
 			.exec(function(err, user) {
                     // In case of any error, return using the done method
                     if (err)

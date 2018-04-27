@@ -114,6 +114,7 @@ import PlayableAlbumArt from '@/components/PlayableAlbumArt.vue'
  * Basic styles, good for a large display. Everything fits in
  * one row, no wrapping. All text based cells grow equally.
  */
+
  .dad {
      display: flex;
      justify-content: center;
@@ -173,7 +174,7 @@ import PlayableAlbumArt from '@/components/PlayableAlbumArt.vue'
 }
 .container-fluid {
     margin: 0 auto;
-    width: 930px;
+    width: 840px;
 }
 .table-row {
   display: flex;
@@ -182,7 +183,6 @@ import PlayableAlbumArt from '@/components/PlayableAlbumArt.vue'
   -webkit-flex-direction: row;
   flex-wrap: wrap;
   -webkit-flex-wrap: wrap;
-  width: 900px;
   padding-left: 15px;
   padding-right: 15px;
 }

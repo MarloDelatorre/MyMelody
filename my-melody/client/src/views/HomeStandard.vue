@@ -23,7 +23,7 @@
                                 <p @click="navigate(post.username)">{{post.username}}</p>
                                 </div>
                                 <div class="saveIcon">
-                                    <button class="saveButton" v-on:click="saveSong(post.track)">
+                                    <button class="saveButton" v-on:click="saveSong(post)">
                                         <icon class="plus" name="plus"></icon>
                                     </button>
                                 </div>
@@ -123,8 +123,9 @@ export default {
         PlayableAlbumArt
     },
     methods: {
-        saveSong(track) {
-            this.$store.getters.currentUser.savedSongs.push(track);
+        saveSong(post) {
+            console.log(post);
+            this.$store.getters.currentUser.savedSongs.push(post);
             this.$store.dispatch('saveSong', this.$store.getters.currentUser);
             alert('Song Saved!');
         },
@@ -144,13 +145,14 @@ export default {
         },
         filterMethod(post) {
             if (this.query.startsWith("#")) {
-                var s = post.tags.includes(this.query);
-                if (s) {
-                    return post;
+                var s = post.tags;
+                for(var i = 0; i < s.length; i++) {
+                    console.log(s[i]);
+                    if(s[i].includes(this.query)) {
+                        return post;
+                    }
                 }
-                else {
-                    return null;
-                }
+                return null;
             }
             else {
                 // console.log(post.track.title.toLowerCase().includes(this.query));
