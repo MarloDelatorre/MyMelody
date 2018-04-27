@@ -130,26 +130,29 @@ import PlayableAlbumArt from '@/components/PlayableAlbumArt.vue'
  }
 
 .card {
-  width: 300px;
+  width: 250px;
   height: 350px;
   background-color: #1A2226;
   text-align: center;
 }
 .card img {
-  width: 300px;
-  height: 300px;
+  width: 250px;
+  height: 250px;
 
 }
 .list {
     display: flex;
     flex-direction: row;
 }
-.card {
+
+.list li {
+    margin: 10px;
 }
+
 .card p {
   color: white;
   margin-top: 14px;
-    font-size: 18px;
+  font-size: 18px;
   font-weight: bold;
 }
 .container-fluid {
@@ -161,9 +164,9 @@ import PlayableAlbumArt from '@/components/PlayableAlbumArt.vue'
   display: -webkit-flex;
   flex-direction: row;
   -webkit-flex-direction: row;
-  flex-wrap: no-wrap;
-  -webkit-flex-wrap: no-wrap;
-  width: 800px;
+  flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  width: 900px;
   padding-left: 15px;
   padding-right: 15px;
 }
@@ -173,6 +176,12 @@ import PlayableAlbumArt from '@/components/PlayableAlbumArt.vue'
   flex-direction: row;
   -webkit-flex-direction: row;
 }
+.list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
 .column {
   flex-grow: 0;
   overflow: hidden;
