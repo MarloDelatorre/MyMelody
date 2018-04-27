@@ -25,6 +25,8 @@ export default {
             caption: null,
             tags: '',
             tagArray: [],
+            uniqueArray: [],
+            post: null,
         }
     },
     computed: {
@@ -33,6 +35,29 @@ export default {
         }
     },
     methods: {
+        tagStuff(tag) {
+            this.$store.dispatch('getTag', tag)
+            .then(res2 => {
+                console.log('result', res2);
+                console.log('tag:', tag)
+                if (res2 === null) {
+                    var newArray = [];
+                    newArray.push(this.post);
+                    this.$store.dispatch('addTag', {tag: tag, posts: newArray})
+                    .then(res3 => {
+                        console.log('add tag:', res3);
+                    })
+                    .catch(err => console.error(err));
+                }
+                else {
+                    var newPosts = res2.posts.concat(this.post);
+                    this.$store.dispatch('editTag', {tag: res2.tag, posts: newPosts})
+                    .then(res3 => {})
+                    .catch(err => console.error(err));
+                }
+            })
+            .catch(err => console.error(err));
+        },
         addPost() {
             console.log({track: this.$store.getters.selectedTrack, caption: this.caption})
             this.tagArray = this.tags.split(" ");
@@ -41,16 +66,20 @@ export default {
                     this.tagArray[tag] = '#' + this.tagArray[tag];
                 }
             }
-            var uniqueArray = this.tagArray.filter(function(item, pos, self) {
+            this.uniqueArray = this.tagArray.filter(function(item, pos, self) {
                 return self.indexOf(item) == pos;
             })
             axios.post(`${this.$store.getters.baseApiUrl}/api/posts/`, {
                 username: this.$store.getters.currentUser.username,
                 caption: this.caption,
                 track: this.track,
-                tags: uniqueArray,
+                tags: this.uniqueArray,
             }).then(res => {
-                console.log(res);
+                this.post = res.data;
+                for (var i = this.uniqueArray.length-1; i >= 0; i--) {
+                    this.tagStuff(this.uniqueArray[i]);
+                }
+
                 this.$store.commit('postModalState', null);
                 this.$emit('hide');
             }).catch(err => console.error(err));

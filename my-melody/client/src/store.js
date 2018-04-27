@@ -111,6 +111,18 @@ export default new Vuex.Store({
             })
             .catch(err => console.error(err));
         },
+        editTag(context, data) {
+            console.log(data);
+            const encoded = encodeURIComponent(data.tag);
+            return axios.put(`${context.getters.baseApiUrl}/api/tags/${encoded}`,
+            {
+                posts: data.posts
+            })
+            .then(res => {
+                return res.data;
+            })
+            .catch(err => console.log(err));
+        },
         logout(context, username) {
             context.commit('setLoggedIn', false);
         },
@@ -152,12 +164,25 @@ export default new Vuex.Store({
             .catch(err => console.error(err));
         },
         getTag(context, data) {
-            return axios.get(`${context.getters.baseApiUrl}/api/tags/${data}`)
+            const encoded = encodeURIComponent(data);
+            return axios.get(`${context.getters.baseApiUrl}/api/tags/${encoded}`)
             .then(res => {
                 return res.data;
             })
             .catch(err => console.log(err));
         },
+        addTag(context, data) {
+            console.log(data);
+            return axios.post(`${context.getters.baseApiUrl}/api/tags/`,
+            {
+                tag: data.tag,
+                posts: data.posts,
+            })
+            .then(res => {
+                return res.data;
+            })
+            .catch(err => console.log(err));
+        }
     },
     getters: {
         selectedTrack(state) {
