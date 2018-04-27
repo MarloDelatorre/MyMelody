@@ -6,7 +6,7 @@ Vue.use(Vuex)
 
 // REMEMBER TO TURN THIS OFF
 // WHEN PUSHING TO PRODUCTION
-const devMode = true;
+const devMode = false;
 
 // DEFAULT TEST USER
 const testUsername = "default";
@@ -179,7 +179,6 @@ export default new Vuex.Store({
             })
             .catch(err => console.log(err));
         },
-<<<<<<< HEAD
         isLoggedIn(context, data) {
             return axios.get(`${context.getters.baseApiUrl}/api/auth/loggedIn`)
             .then(res => {
@@ -198,7 +197,9 @@ export default new Vuex.Store({
                     context.commit('setUser', {})
                     return res.data
                 }
-=======
+            })
+            .catch(err => console.log(err));
+        },
         addTag(context, data) {
             console.log(data);
             return axios.post(`${context.getters.baseApiUrl}/api/tags/`,
@@ -208,7 +209,6 @@ export default new Vuex.Store({
             })
             .then(res => {
                 return res.data;
->>>>>>> master
             })
             .catch(err => console.log(err));
         }

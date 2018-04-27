@@ -3,11 +3,7 @@
             <track-card :title="track.title" :artist="track.artist" :albumArt="track.albumArt"/>
             <div class="caption">
                 <textarea v-model="caption" placeholder="Add a caption..."></textarea>
-<<<<<<< HEAD
-                <textarea v-model="tags" placeholder="Add tags separated by a space, ex. #edm #electronic etc..."></textarea>
-=======
                 <input v-model="tags" class="tags" placeholder="Add tags separated by spaces..."></input>
->>>>>>> master
                 <div>
                     <button v-on:click="back">Back</button>
                     <button v-on:click="addPost">Add Post</button>
@@ -29,14 +25,10 @@ export default {
     data: function() {
         return {
             caption: null,
-<<<<<<< HEAD
-            tags: null
-=======
             tags: '',
             tagArray: [],
             uniqueArray: [],
             post: null,
->>>>>>> master
         }
     },
     computed: {
@@ -48,15 +40,11 @@ export default {
         tagStuff(tag) {
             this.$store.dispatch('getTag', tag)
             .then(res2 => {
-                console.log('result', res2);
-                console.log('tag:', tag)
                 if (res2 === null) {
                     var newArray = [];
                     newArray.push(this.post);
                     this.$store.dispatch('addTag', {tag: tag, posts: newArray})
-                    .then(res3 => {
-                        console.log('add tag:', res3);
-                    })
+                    .then(res3 => {})
                     .catch(err => console.error(err));
                 }
                 else {
