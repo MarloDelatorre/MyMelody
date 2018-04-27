@@ -19,7 +19,7 @@
             <router-link class="iconMenu" :to="{name: 'profile', params: {user: this.$store.getters.currentUser}}">
                 <icon class="icons" name="user"></icon>
             </router-link>
-            <div class="iconMenu" @click="dialog = 'search-dialog'">
+            <div class="iconMenu" @click="dialog = 'post-wrapper'">
                 <icon class="icons" name="clone"></icon>
             </div>
             <router-link class="iconMenu" to="/">

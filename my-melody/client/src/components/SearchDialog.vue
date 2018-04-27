@@ -25,7 +25,8 @@ import Icon from 'vue-awesome/components/Icon';
 export default {
     name: 'search-dialog',
     components: {
-        TrackCard
+        TrackCard,
+        Icon
     },
     data: function() {
         return {

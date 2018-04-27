@@ -13,6 +13,8 @@
 
 <script>
 import TrackCard from './TrackCard.vue';
+import Icon from 'vue-awesome/components/Icon';
+
 import axios from 'axios';
 
 export default {
@@ -30,14 +32,14 @@ export default {
     methods: {
         addPost() {
             console.log({track: this.$store.getters.selectedTrack, caption: this.caption})
-            axios.post(`${this.$store.getters.baseApiUrl}/posts/`, {
+            axios.post(`${this.$store.getters.baseApiUrl}/api/posts/`, {
                 username: this.$store.getters.currentUser,
                 caption: this.caption,
                 track: this.track
             }).then(res => {
                 console.log(res);
-                this.$store.dispatch('getPosts', this.$store.getters.currentUser);
                 this.$store.commit('postModalState', null);
+                this.$emit('hide');
             }).catch(err => console.error(err));
         },
         back() {
@@ -45,7 +47,8 @@ export default {
         },
     },
     components: {
-        TrackCard
+        TrackCard,
+        Icon
     }
 }
 </script>

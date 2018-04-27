@@ -11,7 +11,7 @@
 
           <div class="modal-body">
             <div name="body">
-                <component :is="component"></component>
+                <component @hide="$emit('hide')" :is="component"></component>
             </div>
           </div>
 
@@ -26,7 +26,7 @@ import Followers from "./Followers.vue";
 import Following from "./Following.vue";
 import SearchDialog from './SearchDialog';
 import AddPostDialog from './AddPostDialog';
-
+import PostWrapper from './PostWrapper';
 export default {
   name: "modal",
   props: {
@@ -37,7 +37,8 @@ export default {
     Followers,
     Following,
     SearchDialog,
-    AddPostDialog
+    AddPostDialog,
+    PostWrapper
   }
 };
 </script>
