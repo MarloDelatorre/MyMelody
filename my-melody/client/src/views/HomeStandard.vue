@@ -7,10 +7,14 @@
             Loading...
         </div>
         <div v-else>
+            <div class="filterWrap">
+                <input class="search-box" v-on:keyup.enter="search" v-model="query" placeholder="Filter by artist, track, or tag"/><button class="search-btn" v-on:click="search"><icon class="searchIcon" name="search"></icon></button>
+            </div>
             <div v-if="this.posts.includes('nothing')" class="whiteText">
                 No posts were found.
             </div>
             <div v-else>
+
                 <ul>
                     <li v-for="post in this.posts" class="results">
                         <div class="card">
@@ -19,13 +23,13 @@
                                 <p @click="navigate(post.username)">{{post.username}}</p>
                                 </div>
                                 <div class="saveIcon">
-                                    <button class="saveButton" v-on:click="saveSong(post.track)">
+                                    <button class="saveButton" v-on:click="saveSong(post)">
                                         <icon class="plus" name="plus"></icon>
                                     </button>
                                 </div>
                             </div>
                             <div class="image">
-                                <img v-bind:src="post.track.albumArt">
+                                <playable-album-art :artUrl="post.track.albumArt" :audioUrl="post.track.audio"></playable-album-art>
                             </div>
                             <div class="bottomInfo">
                                 <div class="songInfo">
@@ -33,6 +37,12 @@
                                 </div>
                                 <div class="timestamp">
                                     {{formattedDate(post.posted)}}
+                                </div>
+                                <div v-if="post.tags.length > 0" class="tags">
+                                    <li v-for="tags in post.tags">
+                                        <div @click="navigateTag(tags)">{{tags}}</div>
+                                    </li>
+
                                 </div>
                                 <div class="songDesc">
                                     {{post.caption}}
@@ -53,12 +63,15 @@
 import NavBarStandard from '@/components/NavBarStandard.vue'
 import Icon from 'vue-awesome/components/Icon'
 import dateFormat from 'dateformat'
+import PlayableAlbumArt from '@/components/PlayableAlbumArt.vue'
 
 export default {
     name: 'home',
     data: function () {
         return {
-            posts: []
+            posts: [],
+            allPosts: [],
+            query: null,
         }
     },
     computed: {
@@ -76,12 +89,12 @@ export default {
                 })
             }
         })
-        
+
         var allFollowerPosts = [];
 
         this.$store.dispatch('getAllTags')
         .then(res => {
-            res.filter(tag => { //is it post?
+            res.filter(tag => {
                 if
                     (this.$store.getters.currentUser.following.includes(tag.tag)) {
                         allFollowerPosts.push(...tag.posts);
@@ -98,9 +111,7 @@ export default {
                 };
             });
 
-
             this.posts = allFollowerPosts; //filter by time here
-
             if (this.posts.length === 0) {
                 this.posts = ['nothing'];
             }
@@ -113,16 +124,19 @@ export default {
                 this.posts.sort(date_sort_desc);
                 console.log(this.posts);
             }
+            this.allPosts = this.posts;
         }));
 
     },
     components: {
         NavBarStandard,
-        Icon
+        Icon,
+        PlayableAlbumArt
     },
     methods: {
-        saveSong(track) {
-            this.$store.getters.currentUser.savedSongs.push(track);
+        saveSong(post) {
+            console.log(post);
+            this.$store.getters.currentUser.savedSongs.push(post);
             this.$store.dispatch('saveSong', this.$store.getters.currentUser);
             alert('Song Saved!');
         },
@@ -131,14 +145,90 @@ export default {
                 path: `/user/${username}`
             });
         },
+        navigateTag(tags) {
+            var tagger = '%23' + tags.substring(1);
+            this.$router.push({
+               path: `/tag/${tagger}`
+            });
+        },
         formattedDate(date) {
             return dateFormat(new Date(date), 'mmmm dS, yyyy');
+        },
+        filterMethod(post) {
+            if (this.query.startsWith("#")) {
+                var s = post.tags;
+                for(var i = 0; i < s.length; i++) {
+                    console.log(s[i]);
+                    if(s[i].includes(this.query)) {
+                        return post;
+                    }
+                }
+                return null;
+            }
+            else {
+                // console.log(post.track.title.toLowerCase().includes(this.query));
+                // console.log(post.track.artist.toLowerCase().includes(this.query));
+
+                var s = post.track.title.toLowerCase().includes(this.query) || post.track.artist.toLowerCase().includes(this.query);
+                if (s) {
+                    return post;
+                }
+                else {
+                    return null;
+                }
+            }
+        },
+        search() {
+            if(this.query !== null && this.query !== '') {
+                //var newList = this.user.savedSongs.filter(song => song.title.length > 7);
+
+                var tempAllPosts = this.allPosts;
+                var newList = tempAllPosts.filter(posts => this.filterMethod(posts));
+                if (newList.length === 0) {
+                    newList = ['nothing'];
+                }
+                this.posts = newList;
+            }
+            else {
+                this.posts = this.allPosts;
+            }
         }
+
     }
 }
 </script>
 
 <style scoped>
+.filterWrap {
+    margin: 10px;
+    float: right;
+}
+.searchIcon svg {
+    color: #fff;
+}
+.search-box {
+    border: 2px solid #d34084;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    padding: 0 15px;
+    height: 30px;
+    width: 150px;
+    margin: 10px 0;
+    background-color: #0C1012;
+    color: #FFFFFF;
+}
+.search-btn {
+    border: 1px solid #d34084;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    background-color: #d34084;
+    color: #fff;
+    height: 34px;
+    padding: 0 12px;
+    margin-top: -2px;
+    cursor: pointer;
+    vertical-align: middle;
+}
 .whiteText {
     color: #FFFFFF;
 }
@@ -153,7 +243,7 @@ export default {
     display: flex;
     flex-direction: column;
     width: 550px;
-    height:700px;
+    height:750px;
     background-color: #1A2226;
     color: #fff;
     margin: 25px 0px;
@@ -178,6 +268,10 @@ export default {
     flex-direction: column;
     justify-content: space-between;
 }
+
+    .tags{
+    margin: 10px 0 10px 20px;
+    }
 .songInfo {
     font-size: 16pt;
     font-weight: bold;
@@ -187,6 +281,7 @@ export default {
 .songDesc {
     margin-bottom: 35px;
     margin-left: 20px;
+    margin-top: 20px;
 }
 .timestamp {
     margin: 10px 0 10px 20px;
@@ -237,6 +332,16 @@ export default {
 
 .userInfo p:hover {
     color: #D34084;
+}
+.tags {
+    display: flex;
+}
+.tags li {
+    margin-right: 10px;
+}
+.tags li:hover {
+    color: #D34084;
+    cursor: pointer;
 }
 
 </style>

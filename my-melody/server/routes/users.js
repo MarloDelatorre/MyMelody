@@ -8,7 +8,13 @@ router.route('/')
     // get all users
     .get((req, res) => {
         User.find({})
-        .populate('savedSongs')
+        .populate({
+                path: 'savedSongs',
+                populate: {
+                    path: 'track',
+                    model: 'Track'
+                }
+            })
         .exec((err, users) => {
             if (err) res.send(err);
             else res.jsonp(users);
@@ -33,7 +39,13 @@ router.route('/:username')
     .get((req, res) => {
         User.findOne(
             {username: req.params.username})
-            .populate('savedSongs')
+            .populate({
+                path: 'savedSongs',
+                populate: {
+                    path: 'track',
+                    model: 'Track'
+                }
+            })
             .exec((err, user) => {
                 if (err) res.send(err);
                 else {

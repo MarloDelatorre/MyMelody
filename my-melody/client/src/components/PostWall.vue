@@ -1,16 +1,16 @@
 <template>
   <div class="container-fluid">
-      <div>
-          <input class="search-box" v-model="query" placeholder="Filter by tag"/><button class="search-btn" v-on:click="search"><icon class="searchIcon" name="search"></icon></button>
+      <div class="dad">
+          <input class="search-box" v-on:keyup.enter="search" v-model="query" placeholder="Filter by artist, track, or tag"/><button class="search-btn" v-on:click="search"><icon class="searchIcon" name="search"></icon></button>
       </div>
-      <div class="table-row">
+      <div v-if="!this.filtered" class="table-row">
             <div class="wrapper attributes">
               <div class="wrapper title-comment-module-reporter">
                 <div class="wrapper title-comment">
                     <ul class="list">
                         <li v-for="post in this.postArray">
                           <div class="card">
-                            <img v-bind:src="post.track.albumArt">
+                            <playable-album-art :artUrl="post.track.albumArt" :audioUrl="post.track.audio"></playable-album-art>
                             <p>{{post.track.title}} - {{post.track.artist}}</p>
                           </div>
                         </li>
@@ -19,67 +19,106 @@
               </div>
             </div>
         </div>
+        <div v-else class="table-row">
+              <div class="wrapper attributes">
+                <div class="wrapper title-comment-module-reporter">
+                  <div class="wrapper title-comment">
+                      <ul class="list">
+                          <li v-for="post in this.filteredArray">
+                            <div class="card">
+                              <playable-album-art :artUrl="post.track.albumArt" :audioUrl="post.track.audio"></playable-album-art>
+                              <p>{{post.track.title}} - {{post.track.artist}}</p>
+                            </div>
+                          </li>
+                      </ul>
+                  </div>
+                </div>
+              </div>
+          </div>
     </div>
 </template>
 
 <script>
 import Icon from 'vue-awesome/components/Icon';
+import PlayableAlbumArt from '@/components/PlayableAlbumArt.vue'
 
     export default {
         name: 'PostWall',
         components: {
             Icon,
+            PlayableAlbumArt
+        },
+        props: {
+            user: String
         },
         data: function() {
             return {
                 query: null,
-                postArray: this.$store.getters.posts,
+                filtered: false,
+                filteredArray: [],
+                // postArray: [],
+                // pageUpdate: this.$store.getters.update,
+            }
+        },
+        computed: {
+            postArray() {
+                // console.log(this.$store.getters.posts);
+                return this.$store.getters.posts;
+            }
+        },
+        watch: {
+            pageUpdate: function() {
+                    console.log("fuck u pranav");
+                    this.$store.commit('setUpdate', false);
             }
         },
         methods: {
             filterMethod(post) {
-                console.log(post);
-                console.log(post.tags);
-                var s = post.tags.includes(this.query);
-                console.log(s);
-                if (s) {
-                    return post;
+                if (this.query.startsWith("#")) {
+                    var s = post.tags.includes(this.query);
+                    if (s) {
+                        return post;
+                    }
+                    else {
+                        return null;
+                    }
                 }
                 else {
-                    return null;
+                    // console.log(post.track.title.toLowerCase().includes(this.query));
+                    // console.log(post.track.artist.toLowerCase().includes(this.query));
+
+                    var s = post.track.title.toLowerCase().includes(this.query) || post.track.artist.toLowerCase().includes(this.query);
+                    if (s) {
+                        return post;
+                    }
+                    else {
+                        return null;
+                    }
                 }
-                // var s = post.tags.includes(this.query);
-                // if(s) {
-                //     return post;
-                // } else {
-                //     return null;
-                // }
             },
             search() {
-                console.log(this.query);
-                if(this.query !== null && this.query !== '') {
+                if (this.query !== null && this.query !== '') {
                     //var newList = this.user.savedSongs.filter(song => song.title.length > 7);
 
                     var newList = this.$store.getters.posts.filter(posts => this.filterMethod(posts));
-                    console.log(newList);
-                    this.postArray = newList;
+                    this.filteredArray = newList;
+                    this.filtered = true;
                 }
                 else {
-                    this.postArray = this.$store.getters.posts;
+                    this.filtered = false;
                 }
             },
         },
         created: function() {
-            this.$store.dispatch('getUserPosts', this.$store.getters.currentUser.username)
-            .then(() => {
-                //console.log(this.$store.getters.posts);
+            this.$store.dispatch('getUserPosts', this.user)
+            .then((res) => {
                 var date_sort_desc = function (post1, post2) {
                   if (post1.posted > post2.posted) return -1;
                     if (post1.posted < post2.posted) return 1;
                     return 0;
                 };
-                //console.log(this.$store.getters.posts);
                 this.$store.getters.posts.sort(date_sort_desc);
+                // this.postArray = this.$store.getters.posts;
             })
         }
     }
@@ -94,6 +133,12 @@ import Icon from 'vue-awesome/components/Icon';
  * Basic styles, good for a large display. Everything fits in
  * one row, no wrapping. All text based cells grow equally.
  */
+
+ .dad {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+ }
  .searchIcon svg {
      color: #fff;
  }
@@ -103,6 +148,7 @@ import Icon from 'vue-awesome/components/Icon';
      border-bottom-left-radius: 20px;
      padding: 0 15px;
      height: 30px;
+     width: 150px;
      margin: 10px 0;
      background-color: #0C1012;
      color: #FFFFFF;
@@ -115,45 +161,47 @@ import Icon from 'vue-awesome/components/Icon';
      color: #fff;
      height: 34px;
      padding: 0 12px;
-     margin-top: -2px;
      vertical-align: middle;
+     cursor: pointer;
  }
 
 .card {
-  width: 300px;
+  width: 250px;
   height: 350px;
   background-color: #1A2226;
   text-align: center;
 }
 .card img {
-  width: 300px;
-  height: 300px;
+  width: 250px;
+  height: 250px;
 
 }
 .list {
     display: flex;
     flex-direction: row;
 }
-.card {
+
+.list li {
+    margin: 10px;
 }
+
 .card p {
   color: white;
   margin-top: 14px;
-    font-size: 18px;
+  font-size: 18px;
   font-weight: bold;
 }
 .container-fluid {
     margin: 0 auto;
-    width: 930px;
+    width: 840px;
 }
 .table-row {
   display: flex;
   display: -webkit-flex;
   flex-direction: row;
   -webkit-flex-direction: row;
-  flex-wrap: no-wrap;
-  -webkit-flex-wrap: no-wrap;
-  width: 800px;
+  flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
   padding-left: 15px;
   padding-right: 15px;
 }
@@ -163,6 +211,12 @@ import Icon from 'vue-awesome/components/Icon';
   flex-direction: row;
   -webkit-flex-direction: row;
 }
+.list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
 .column {
   flex-grow: 0;
   overflow: hidden;

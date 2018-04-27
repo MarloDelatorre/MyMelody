@@ -5,7 +5,7 @@ let postSchema = new Schema({
     username: {type: String, required: true},
     track: {type: Schema.Types.ObjectId, ref: 'Track'},
     caption: {type: String, default: ''},
-    posted: {type: String, default: new Date().toISOString()},
+    posted: {type: Date, default: Date.now},
     tags: [{type: String}],
 }, {versionKey: false});
 

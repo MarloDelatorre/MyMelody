@@ -2,7 +2,7 @@
 
   <div class="container-fluid" style="margin-top: 10px">
       <div class="filter">
-      <input class="search-box" v-model="query" placeholder="Filter"/><button class="search-btn" v-on:click="search"><icon class="searchIcon" name="search"></icon></button>
+      <input v-on:keyup.enter="search" class="search-box" v-model="query" placeholder="Filter"/><button class="search-btn" v-on:click="search"><icon class="searchIcon" name="search"></icon></button>
       <button v-if="query!==null" class="search-btn" v-on:click="reset">Clear</button>
     </div>
   <div class="table-row header">
@@ -15,7 +15,6 @@
         </div>
         <div class="wrapper module-reporter">
           <div class="column module">ALBUM</div>
-          <div class="column reporter">USER</div>
         </div>
       </div>
     </div>
@@ -24,20 +23,20 @@
   </div>
 
   <ul>
-      <li v-for="track in this.songArray" class="list">
+      <li v-for="post in this.songArray" class="list">
           <div class="table-row children">
 
             <div class="wrapper attributes">
               <div class="wrapper title-comment-module-reporter">
                 <div class="wrapper title-comment">
-                  <div class="column title">{{track.title}}</div>
-                  <div class="column comment">{{track.artist}}</div>
+                  <div class="column title">{{post.track.title}}</div>
+                  <div class="column comment">{{post.track.artist}}</div>
                 </div>
                 <div class="wrapper module-reporter">
                   <div class="column module">
-                      <img v-bind:src="track.albumArt"/>
+                        <playable-album-art :artUrl="post.track.albumArt" :audioUrl="post.track.audio"></playable-album-art>
                    </div>
-                  <div class="column reporter">username?</div>
+                  <div class="column reporter">{{post.username}}</div>
                 </div>
               </div>
             </div>
@@ -51,6 +50,7 @@
 import NavBarStandard from '../components/NavBarStandard.vue';
 import axios from 'axios';
 import Icon from 'vue-awesome/components/Icon';
+import PlayableAlbumArt from '@/components/PlayableAlbumArt.vue'
 
     export default {
         name: 'SavedSongs',
@@ -58,6 +58,7 @@ import Icon from 'vue-awesome/components/Icon';
         components: {
             Icon,
             NavBarStandard,
+            PlayableAlbumArt
         },
         data: function() {
             return {
@@ -71,12 +72,26 @@ import Icon from 'vue-awesome/components/Icon';
                 console.log(this.user);
             },
             filterMethod(value) {
-                console.log(value);
-                var s = value.title.toLowerCase();
-                if(s.includes(this.query)) {
-                    return value;
-                } else {
+                if (this.query.startsWith("#")) {
+                    var s = value.tags;
+                    for(var i = 0; i < s.length; i++) {
+                        if (s[i].includes(this.query)) {
+                            return value;
+                        }
+                    }
                     return null;
+                }
+                else {
+                // console.log(post.track.title.toLowerCase().includes(this.query));
+                // console.log(post.track.artist.toLowerCase().includes(this.query));
+
+                    var s = value.track.title.toLowerCase().includes(this.query) || value.track.artist.toLowerCase().includes(this.query);
+                    if (s) {
+                        return value;
+                    }
+                    else {
+                        return null;
+                    }
                 }
             },
             search() {
@@ -224,6 +239,15 @@ import Icon from 'vue-awesome/components/Icon';
     border: 1px solid #d34084;
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
+    background-color: #d34084;
+    color: #fff;
+    height: 34px;
+    padding: 0 12px;
+    vertical-align: middle;
+}
+.search-btn-clear {
+    border: 1px solid #d34084;
+    border-radius: 20px;
     background-color: #d34084;
     color: #fff;
     height: 34px;

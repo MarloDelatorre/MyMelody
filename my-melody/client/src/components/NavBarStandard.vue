@@ -19,7 +19,7 @@
             <router-link class="iconMenu" :to="{name: 'profile', params: {user: this.$store.getters.currentUser}}">
                 <icon class="icons" name="user"></icon>
             </router-link>
-            <div class="iconMenu" @click="dialog = 'search-dialog'">
+            <div class="iconMenu" @click="dialog = 'post-wrapper'">
                 <icon class="icons" name="clone"></icon>
             </div>
             <div class="iconMenu" @click="logout">
@@ -167,6 +167,7 @@ export default {
         display: flex;
         justify-content: space-around;
         align-items: center;
+        cursor: pointer;
     }
 
     .iconMenuMiniContainer {
@@ -182,7 +183,7 @@ export default {
         color: #D34084;
     }
 
-    @media (max-width:900px) {
+    /* @media (max-width:900px) {
         .iconMenuContainer {
             display: none;
         }
@@ -191,5 +192,5 @@ export default {
             display: flex;
         }
 
-    }
+    } */
 </style>

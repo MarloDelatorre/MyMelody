@@ -21,6 +21,7 @@ export default new Vuex.Store({
         currentUser: {},
         baseApiUrl: 'http://localhost:8888',
         posts: [],
+        update: false,
         loggedIn: devMode
     },
     mutations: {
@@ -38,6 +39,9 @@ export default new Vuex.Store({
         },
         setUser(state, user) {
             state.currentUser = user;
+        },
+        setUpdate(state, update) {
+            state.update = update;
         },
         setLoggedIn(state, loggedIn) {
             state.loggedIn = loggedIn;
@@ -115,6 +119,21 @@ export default new Vuex.Store({
             context.commit('setLoggedIn', true);
             context.commit('setUser', user)
         },
+        editTag(context, data) {
+            console.log(data);
+            const encoded = encodeURIComponent(data.tag);
+            return axios.put(`${context.getters.baseApiUrl}/api/tags/${encoded}`,
+            {
+                posts: data.posts
+            })
+            .then(res => {
+                return res.data;
+            })
+            .catch(err => console.log(err));
+        },
+        logout(context, username) {
+            context.commit('setLoggedIn', false);
+        },
         editFollowers(context, data) {
             return axios.put(`${context.getters.baseApiUrl}/api/users/${data.username}`,
                 {
@@ -153,12 +172,14 @@ export default new Vuex.Store({
             .catch(err => console.error(err));
         },
         getTag(context, data) {
-            return axios.get(`${context.getters.baseApiUrl}/api/tags/${data}`)
+            const encoded = encodeURIComponent(data);
+            return axios.get(`${context.getters.baseApiUrl}/api/tags/${encoded}`)
             .then(res => {
                 return res.data;
             })
             .catch(err => console.log(err));
         },
+<<<<<<< HEAD
         isLoggedIn(context, data) {
             return axios.get(`${context.getters.baseApiUrl}/api/auth/loggedIn`)
             .then(res => {
@@ -177,6 +198,17 @@ export default new Vuex.Store({
                     context.commit('setUser', {})
                     return res.data
                 }
+=======
+        addTag(context, data) {
+            console.log(data);
+            return axios.post(`${context.getters.baseApiUrl}/api/tags/`,
+            {
+                tag: data.tag,
+                posts: data.posts,
+            })
+            .then(res => {
+                return res.data;
+>>>>>>> master
             })
             .catch(err => console.log(err));
         }
@@ -199,6 +231,9 @@ export default new Vuex.Store({
         },
         baseApiUrl(state) {
             return state.baseApiUrl;
+        },
+        update(state) {
+            return state.update;
         },
         loggedIn(state) {
             return state.loggedIn;

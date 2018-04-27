@@ -17,23 +17,44 @@ router.route('/')
     })
     // save new post
     .post((req, res) => {
-        var newTrack = new Track({ _id: new mongoose.Types.ObjectId()});
-        Object.assign(newTrack, req.body.track);
+        var newTrack;
+        Track.findOne(
+            {trackId: req.body.track.trackId},
+            function(err, track) {
+                if (err) res.send(err);
+                if (!track) {
+                    newTrack = new Track({ _id: new mongoose.Types.ObjectId()});
+                    Object.assign(newTrack, req.body.track);
+                    newTrack.save(err => {
+                        if (err) res.send(err);
+                        else {
+                            var newPost = new Post({
+                                username: req.body.username,
+                                track: newTrack._id,
+                                caption: req.body.caption,
+                                tags: req.body.tags
+                            });
 
-        newTrack.save(err => {
-            if (err) res.send(err);
-            else {
-                var newPost = new Post({
-                    username: req.body.username,
-                    track: newTrack._id,
-                    caption: req.body.caption,
-                    tags: req.body.tags
-                });
+                            newPost.save((err2, post) => {
+                                if (err2) res.send(err2);
+                                else res.jsonp(post);
+                            });
+                        }
+                    })
+                }
+                else {
+                    newTrack = track;
+                    var newPost = new Post({
+                        username: req.body.username,
+                        track: newTrack._id,
+                        caption: req.body.caption,
+                        tags: req.body.tags
+                    });
 
-                newPost.save((err2, post) => {
-                    if (err2) res.send(err2);
-                    else res.jsonp(post);
-                });
+                    newPost.save((err2, post) => {
+                        if (err2) res.send(err2);
+                        else res.jsonp(post);
+                })
             }
         })
    })

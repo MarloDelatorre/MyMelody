@@ -6,6 +6,7 @@ let trackSchema = new Schema({
     title: {type: String, required: true},
     artist: {type: String, required: true},
     albumArt: {type: String, required: true},
+    audio: {type: String, required: true},
     service: {type: String, default: 'manual'},
 }, {versionKey: false});
 

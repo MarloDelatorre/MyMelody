@@ -11,7 +11,7 @@
 
           <div class="modal-body">
             <div name="body">
-                <component :is="component"></component>
+                <component @hide="$emit('hide')" :is="component"></component>
             </div>
           </div>
 
@@ -26,7 +26,7 @@ import Followers from "./Followers.vue";
 import Following from "./Following.vue";
 import SearchDialog from './SearchDialog';
 import AddPostDialog from './AddPostDialog';
-
+import PostWrapper from './PostWrapper';
 export default {
   name: "modal",
   props: {
@@ -37,7 +37,8 @@ export default {
     Followers,
     Following,
     SearchDialog,
-    AddPostDialog
+    AddPostDialog,
+    PostWrapper
   }
 };
 </script>
@@ -62,9 +63,10 @@ export default {
         vertical-align: middle;
     }
     .modal-container {
-        max-height: 1000px;
+        max-height: 800px;
         width: 1000px;
         margin: 0px auto;
+        margin-top: 80px;
         padding: 20px 30px;
         background-color: #1A2226;
         border-radius: 2px;

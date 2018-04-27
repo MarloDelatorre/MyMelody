@@ -3,7 +3,11 @@
             <track-card :title="track.title" :artist="track.artist" :albumArt="track.albumArt"/>
             <div class="caption">
                 <textarea v-model="caption" placeholder="Add a caption..."></textarea>
+<<<<<<< HEAD
                 <textarea v-model="tags" placeholder="Add tags separated by a space, ex. #edm #electronic etc..."></textarea>
+=======
+                <input v-model="tags" class="tags" placeholder="Add tags separated by spaces..."></input>
+>>>>>>> master
                 <div>
                     <button v-on:click="back">Back</button>
                     <button v-on:click="addPost">Add Post</button>
@@ -14,6 +18,10 @@
 
 <script>
 import TrackCard from './TrackCard.vue';
+import Icon from 'vue-awesome/components/Icon';
+import PostWall from './PostWall.vue';
+import Vue from 'vue';
+
 import axios from 'axios';
 
 export default {
@@ -21,7 +29,14 @@ export default {
     data: function() {
         return {
             caption: null,
+<<<<<<< HEAD
             tags: null
+=======
+            tags: '',
+            tagArray: [],
+            uniqueArray: [],
+            post: null,
+>>>>>>> master
         }
     },
     computed: {
@@ -30,20 +45,61 @@ export default {
         }
     },
     methods: {
+        tagStuff(tag) {
+            this.$store.dispatch('getTag', tag)
+            .then(res2 => {
+                console.log('result', res2);
+                console.log('tag:', tag)
+                if (res2 === null) {
+                    var newArray = [];
+                    newArray.push(this.post);
+                    this.$store.dispatch('addTag', {tag: tag, posts: newArray})
+                    .then(res3 => {
+                        console.log('add tag:', res3);
+                    })
+                    .catch(err => console.error(err));
+                }
+                else {
+                    var newPosts = res2.posts.concat(this.post);
+                    this.$store.dispatch('editTag', {tag: res2.tag, posts: newPosts})
+                    .then(res3 => {})
+                    .catch(err => console.error(err));
+                }
+            })
+            .catch(err => console.error(err));
+        },
         addPost() {
-            const encoded = encodeURIComponent(this.tags);
-            var tagArray = encoded.split(" ");
-            console.log(tagArray);
-            console.log({track: this.$store.getters.selectedTrack, caption: this.caption})
-            axios.post(`${this.$store.getters.baseApiUrl}/posts/`, {
-                username: this.$store.getters.currentUser,
+            // console.log({track: this.$store.getters.selectedTrack, caption: this.caption})
+            this.tagArray = this.tags.split(" ");
+            for (var tag in this.tagArray) {
+                if (this.tagArray[tag].substring(0, 1) !== '#') {
+                    this.tagArray[tag] = '#' + this.tagArray[tag];
+                }
+            }
+            this.uniqueArray = this.tagArray.filter(function(item, pos, self) {
+                return self.indexOf(item) == pos;
+            })
+            axios.post(`${this.$store.getters.baseApiUrl}/api/posts/`, {
+                username: this.$store.getters.currentUser.username,
                 caption: this.caption,
                 track: this.track,
-                tags: tagArray,
+                tags: this.uniqueArray,
             }).then(res => {
-                console.log(res);
-                this.$store.dispatch('getPosts', this.$store.getters.currentUser);
+                this.post = res.data;
+                for (var i = this.uniqueArray.length-1; i >= 0; i--) {
+                    this.tagStuff(this.uniqueArray[i]);
+                }
+
                 this.$store.commit('postModalState', null);
+                this.$emit('hide');
+
+                var newPostArray = this.$store.getters.posts;
+                // console.log("res data", res.data);
+                var newPost = res.data;
+                newPost.track = this.track;
+                newPostArray.unshift(res.data);
+                this.$store.commit('setPosts', newPostArray);
+
             }).catch(err => console.error(err));
         },
         back() {
@@ -51,7 +107,9 @@ export default {
         },
     },
     components: {
-        TrackCard
+        TrackCard,
+        Icon,
+        PostWall
     }
 }
 </script>
@@ -72,6 +130,12 @@ export default {
     .caption textarea {
         width: 300px;
         height: 150px;
+        resize: none;
+    }
+
+    .tags {
+        height: 50px;
+        width: 300px;
         resize: none;
     }
 
