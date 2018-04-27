@@ -16,6 +16,7 @@
 import TrackCard from './TrackCard.vue';
 import Icon from 'vue-awesome/components/Icon';
 import PostWall from './PostWall.vue';
+import Vue from 'vue';
 
 import axios from 'axios';
 
@@ -51,9 +52,16 @@ export default {
                 track: this.track,
                 tags: uniqueArray,
             }).then(res => {
-                console.log(res);
                 this.$store.commit('postModalState', null);
                 this.$emit('hide');
+
+                var newPostArray = this.$store.getters.posts;
+                console.log("res data", res.data);
+                var newPost = res.data;
+                newPost.track = this.track;
+                newPostArray.unshift(res.data);
+                this.$store.commit('setPosts', newPostArray);
+
             }).catch(err => console.error(err));
         },
         back() {
