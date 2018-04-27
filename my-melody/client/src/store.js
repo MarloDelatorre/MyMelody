@@ -21,6 +21,7 @@ export default new Vuex.Store({
         currentUser: {},
         baseApiUrl: 'http://localhost:8888',
         posts: [],
+        update: false,
         loggedIn: devMode
     },
     mutations: {
@@ -38,6 +39,9 @@ export default new Vuex.Store({
         },
         setUser(state, user) {
             state.currentUser = user;
+        },
+        setUpdate(state, update) {
+            state.update = update;
         },
         setLoggedIn(state, loggedIn) {
             state.loggedIn = loggedIn;
@@ -177,6 +181,9 @@ export default new Vuex.Store({
         },
         baseApiUrl(state) {
             return state.baseApiUrl;
+        },
+        update(state) {
+            return state.update;
         },
         loggedIn(state) {
             return state.loggedIn;

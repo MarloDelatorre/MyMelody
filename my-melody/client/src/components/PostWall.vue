@@ -38,7 +38,20 @@ import PlayableAlbumArt from '@/components/PlayableAlbumArt.vue'
         data: function() {
             return {
                 query: null,
-                postArray: [],
+                // postArray: [],
+                // pageUpdate: this.$store.getters.update,
+            }
+        },
+        computed: {
+            postArray() {
+                console.log(this.$store.getters.posts);
+                return this.$store.getters.posts;
+            }
+        },
+        watch: {
+            pageUpdate: function() {
+                    console.log("fuck u pranav");
+                    this.$store.commit('setUpdate', false);
             }
         },
         methods: {
@@ -66,15 +79,15 @@ import PlayableAlbumArt from '@/components/PlayableAlbumArt.vue'
                 }
             },
             search() {
-                if(this.query !== null && this.query !== '') {
-                    //var newList = this.user.savedSongs.filter(song => song.title.length > 7);
-
-                    var newList = this.$store.getters.posts.filter(posts => this.filterMethod(posts));
-                    this.postArray = newList;
-                }
-                else {
-                    this.postArray = this.$store.getters.posts;
-                }
+                // if(this.query !== null && this.query !== '') {
+                //     //var newList = this.user.savedSongs.filter(song => song.title.length > 7);
+                //
+                //     var newList = this.$store.getters.posts.filter(posts => this.filterMethod(posts));
+                //     this.postArray = newList;
+                // }
+                // else {
+                //     this.postArray = this.$store.getters.posts;
+                // }
             },
         },
         created: function() {
@@ -86,7 +99,7 @@ import PlayableAlbumArt from '@/components/PlayableAlbumArt.vue'
                     return 0;
                 };
                 this.$store.getters.posts.sort(date_sort_desc);
-                this.postArray = this.$store.getters.posts;
+                // this.postArray = this.$store.getters.posts;
             })
         }
     }
