@@ -35,7 +35,7 @@
                 </div>
                 <div class="wrapper module-reporter">
                   <div class="column module">
-                      <img v-bind:src="track.albumArt"/>
+                        <playable-album-art :artUrl="track.albumArt" :audioUrl="track.audio"></playable-album-art>
                    </div>
                   <div class="column reporter">username?</div>
                 </div>
@@ -51,6 +51,7 @@
 import NavBarStandard from '../components/NavBarStandard.vue';
 import axios from 'axios';
 import Icon from 'vue-awesome/components/Icon';
+import PlayableAlbumArt from '@/components/PlayableAlbumArt.vue'
 
     export default {
         name: 'SavedSongs',
@@ -58,6 +59,7 @@ import Icon from 'vue-awesome/components/Icon';
         components: {
             Icon,
             NavBarStandard,
+            PlayableAlbumArt
         },
         data: function() {
             return {

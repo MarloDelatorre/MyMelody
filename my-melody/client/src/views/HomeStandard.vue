@@ -29,7 +29,7 @@
                                 </div>
                             </div>
                             <div class="image">
-                                <img v-bind:src="post.track.albumArt">
+                                <playable-album-art :artUrl="post.track.albumArt" :audioUrl="post.track.audio"></playable-album-art>
                             </div>
                             <div class="bottomInfo">
                                 <div class="songInfo">
@@ -63,6 +63,7 @@
 import NavBarStandard from '@/components/NavBarStandard.vue'
 import Icon from 'vue-awesome/components/Icon'
 import dateFormat from 'dateformat'
+import PlayableAlbumArt from '@/components/PlayableAlbumArt.vue'
 
 export default {
     name: 'home',
@@ -118,7 +119,8 @@ export default {
     },
     components: {
         NavBarStandard,
-        Icon
+        Icon,
+        PlayableAlbumArt
     },
     methods: {
         saveSong(track) {

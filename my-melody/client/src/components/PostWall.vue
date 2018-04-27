@@ -10,7 +10,7 @@
                     <ul class="list">
                         <li v-for="post in this.postArray">
                           <div class="card">
-                            <img v-bind:src="post.track.albumArt">
+                            <playable-album-art :artUrl="post.track.albumArt" :audioUrl="post.track.audio"></playable-album-art>
                             <p>{{post.track.title}} - {{post.track.artist}}</p>
                           </div>
                         </li>
@@ -24,11 +24,13 @@
 
 <script>
 import Icon from 'vue-awesome/components/Icon';
+import PlayableAlbumArt from '@/components/PlayableAlbumArt.vue'
 
     export default {
         name: 'PostWall',
         components: {
             Icon,
+            PlayableAlbumArt
         },
         data: function() {
             return {
