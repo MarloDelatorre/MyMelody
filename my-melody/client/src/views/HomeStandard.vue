@@ -8,7 +8,7 @@
         </div>
         <div v-else>
             <div class="filterWrap">
-                <input class="search-box" v-model="query" placeholder="Filter by artist, track, or tag"/><button class="search-btn" v-on:click="search"><icon class="searchIcon" name="search"></icon></button>
+                <input class="search-box" v-on:keyup.enter="search" v-model="query" placeholder="Filter by artist, track, or tag"/><button class="search-btn" v-on:click="search"><icon class="searchIcon" name="search"></icon></button>
             </div>
             <div v-if="this.posts.includes('nothing')" class="whiteText">
                 No posts were found.
@@ -270,6 +270,7 @@ export default {
 .songDesc {
     margin-bottom: 35px;
     margin-left: 20px;
+    margin-top: 20px;
 }
 .timestamp {
     margin: 10px 0 10px 20px;

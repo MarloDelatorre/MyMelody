@@ -1,8 +1,8 @@
 <template>
     <div class="container">
-        <input class="search-box" v-model="query" placeholder="Search"/><button class="search-btn" v-on:click="search"><icon class="searchIcon" name="search"></icon></button>
+        <input class="search-box"  v-on:keyup.enter="search" v-model="query" placeholder="Search"/><button class="search-btn" v-on:click="search"><icon class="searchIcon" name="search"></icon></button>
         <div class="results">
-            <p v-if="!tracks">Search for a song or artist.</p>
+            <p class="text" v-if="!tracks">Search for a song or artist.</p>
             <div v-if="noResults" class="noresults">
                 <p>No results found.</p>
             </div>
@@ -13,7 +13,8 @@
                 </div>
             </transition-group>
         </div>
-        <button class="continue" v-on:click="commit" :disabled="!selectedTrack">Continue</button>
+        <button v-if="this.selectedTrack === null" class="continueOne">Continue</button>
+        <button v-else class="continue" v-on:click="commit" :disabled="!selectedTrack">Continue</button>
     </div>
 </template>
 
@@ -72,7 +73,9 @@ export default {
         height: 30px;
         margin: 10px 0;
     }
-
+    .text {
+        color: white;
+    }
    .search-btn {
        border: 1px solid #d34084;
        border-top-right-radius: 20px;
@@ -83,12 +86,14 @@ export default {
        padding: 0 12px;
        vertical-align: middle;
     }
-
+    .search-btn:hover {
+        cursor: pointer;
+    }
     .results {
         display: flex;
         flex-wrap: wrap;
         justify-content: flex-start;
-        height: 600px;
+        height: 400px;
         width: 100%;
         overflow-x: hidden;
         overflow-y: auto;
@@ -113,13 +118,13 @@ export default {
     }
 
     .result {
+        color: #fff;
         margin: 15px;
     }
 
     .searchIcon svg {
         color: #fff;
     }
-
     .select {
         padding: 8px 30px;
         border: 1px solid #d34084;
@@ -128,8 +133,19 @@ export default {
         color: #fff;
         float: right;
     }
-
+    .select:hover{
+        cursor: pointer;
+    }
     .continue {
+        padding: 10px 30px;
+        margin: 10px 0;
+        border: 1px solid #d34084;
+        border-radius: 25px;
+        background-color: #d34084;
+        color: #fff;
+        float: right;
+    }
+    .continueOne {
         padding: 10px 30px;
         margin: 10px 0;
         border: 1px solid #d34084;
@@ -137,5 +153,8 @@ export default {
         background-color: #fff;
         color: #d34084;
         float: right;
+    }
+    .continue:hover {
+        cursor: pointer;
     }
 </style>

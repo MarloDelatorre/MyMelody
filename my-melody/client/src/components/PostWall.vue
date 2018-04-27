@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
       <div class="dad">
-          <input class="search-box" v-model="query" placeholder="Filter by artist, track, or tag"/><button class="search-btn" v-on:click="search"><icon class="searchIcon" name="search"></icon></button>
+          <input class="search-box" v-on:keyup.enter="search" v-model="query" placeholder="Filter by artist, track, or tag"/><button class="search-btn" v-on:click="search"><icon class="searchIcon" name="search"></icon></button>
       </div>
       <div class="table-row">
             <div class="wrapper attributes">
