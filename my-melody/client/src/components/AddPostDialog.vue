@@ -36,7 +36,7 @@ export default {
     },
     methods: {
         addPost() {
-            console.log({track: this.$store.getters.selectedTrack, caption: this.caption})
+            // console.log({track: this.$store.getters.selectedTrack, caption: this.caption})
             this.tagArray = this.tags.split(" ");
             for (var tag in this.tagArray) {
                 if (this.tagArray[tag].substring(0, 1) !== '#') {
@@ -56,7 +56,7 @@ export default {
                 this.$emit('hide');
 
                 var newPostArray = this.$store.getters.posts;
-                console.log("res data", res.data);
+                // console.log("res data", res.data);
                 var newPost = res.data;
                 newPost.track = this.track;
                 newPostArray.unshift(res.data);

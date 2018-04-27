@@ -3,7 +3,7 @@
       <div class="dad">
           <input class="search-box" v-model="query" placeholder="Filter by artist, track, or tag"/><button class="search-btn" v-on:click="search"><icon class="searchIcon" name="search"></icon></button>
       </div>
-      <div class="table-row">
+      <div v-if="!this.filtered" class="table-row">
             <div class="wrapper attributes">
               <div class="wrapper title-comment-module-reporter">
                 <div class="wrapper title-comment">
@@ -19,6 +19,22 @@
               </div>
             </div>
         </div>
+        <div v-else class="table-row">
+              <div class="wrapper attributes">
+                <div class="wrapper title-comment-module-reporter">
+                  <div class="wrapper title-comment">
+                      <ul class="list">
+                          <li v-for="post in this.filteredArray">
+                            <div class="card">
+                              <playable-album-art :artUrl="post.track.albumArt" :audioUrl="post.track.audio"></playable-album-art>
+                              <p>{{post.track.title}} - {{post.track.artist}}</p>
+                            </div>
+                          </li>
+                      </ul>
+                  </div>
+                </div>
+              </div>
+          </div>
     </div>
 </template>
 
@@ -38,13 +54,15 @@ import PlayableAlbumArt from '@/components/PlayableAlbumArt.vue'
         data: function() {
             return {
                 query: null,
+                filtered: false,
+                filteredArray: [],
                 // postArray: [],
                 // pageUpdate: this.$store.getters.update,
             }
         },
         computed: {
             postArray() {
-                console.log(this.$store.getters.posts);
+                // console.log(this.$store.getters.posts);
                 return this.$store.getters.posts;
             }
         },
@@ -79,15 +97,16 @@ import PlayableAlbumArt from '@/components/PlayableAlbumArt.vue'
                 }
             },
             search() {
-                // if(this.query !== null && this.query !== '') {
-                //     //var newList = this.user.savedSongs.filter(song => song.title.length > 7);
-                //
-                //     var newList = this.$store.getters.posts.filter(posts => this.filterMethod(posts));
-                //     this.postArray = newList;
-                // }
-                // else {
-                //     this.postArray = this.$store.getters.posts;
-                // }
+                if (this.query !== null && this.query !== '') {
+                    //var newList = this.user.savedSongs.filter(song => song.title.length > 7);
+
+                    var newList = this.$store.getters.posts.filter(posts => this.filterMethod(posts));
+                    this.filteredArray = newList;
+                    this.filtered = true;
+                }
+                else {
+                    this.filtered = false;
+                }
             },
         },
         created: function() {

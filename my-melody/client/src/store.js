@@ -6,7 +6,7 @@ Vue.use(Vuex)
 
 // REMEMBER TO TURN THIS OFF
 // WHEN PUSHING TO PRODUCTION
-const devMode = false;
+const devMode = true;
 
 // DEFAULT TEST USER
 const testUsername = "default";
