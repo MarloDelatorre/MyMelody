@@ -15,6 +15,7 @@
 <script>
 import TrackCard from './TrackCard.vue';
 import Icon from 'vue-awesome/components/Icon';
+import PostWall from './PostWall.vue';
 
 import axios from 'axios';
 
@@ -61,7 +62,8 @@ export default {
     },
     components: {
         TrackCard,
-        Icon
+        Icon,
+        PostWall
     }
 }
 </script>

@@ -38,6 +38,12 @@ import PlayableAlbumArt from '@/components/PlayableAlbumArt.vue'
         data: function() {
             return {
                 query: null,
+                temp: this.$store.getters.posts,
+            }
+        },
+        watch: {
+            temp: function() {
+                console.log("hello");
             }
         },
         computed: {
