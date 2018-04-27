@@ -2,7 +2,7 @@
 
   <div class="container-fluid" style="margin-top: 10px">
       <div class="filter">
-      <input class="search-box" v-model="query" placeholder="Filter"/><button class="search-btn" v-on:click="search"><icon class="searchIcon" name="search"></icon></button>
+      <input class="search-box" v-model="query" placeholder="Filter by artist, track, or tag"/><button class="search-btn" v-on:click="search"><icon class="searchIcon" name="search"></icon></button>
       <button v-if="query!==null" class="search-btn-clear" v-on:click="reset">Clear</button>
     </div>
   <div class="table-row header">
@@ -74,13 +74,13 @@ import PlayableAlbumArt from '@/components/PlayableAlbumArt.vue'
             },
             filterMethod(value) {
                 if (this.query.startsWith("#")) {
-                var s = value.tags.includes(this.query);
-                    if (s) {
-                        return value;
+                    var s = value.tags;
+                    for(var i = 0; i < s.length; i++) {
+                        if (s[i].includes(this.query)) {
+                            return value;
+                        }
                     }
-                    else {
-                        return null;
-                    }
+                    return null;
                 }
                 else {
                 // console.log(post.track.title.toLowerCase().includes(this.query));

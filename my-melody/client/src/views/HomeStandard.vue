@@ -145,14 +145,14 @@ export default {
         },
         filterMethod(post) {
             if (this.query.startsWith("#")) {
-                console.log("hi");
-                var s = post.tags.includes(this.query);
-                if (s) {
-                    return post;
+                var s = post.tags;
+                for(var i = 0; i < s.length; i++) {
+                    console.log(s[i]);
+                    if(s[i].includes(this.query)) {
+                        return post;
+                    }
                 }
-                else {
-                    return null;
-                }
+                return null;
             }
             else {
                 // console.log(post.track.title.toLowerCase().includes(this.query));
