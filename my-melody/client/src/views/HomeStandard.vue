@@ -122,7 +122,6 @@ export default {
                     return 0;
                 };
                 this.posts.sort(date_sort_desc);
-                console.log(this.posts);
             }
             this.allPosts = this.posts;
         }));

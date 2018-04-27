@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var User = require('../models/user');
 
 module.exports = function(passport) {
   router.post('/login', function(req, res, next) {
@@ -50,10 +51,30 @@ module.exports = function(passport) {
         res.jsonp({loggedIn: false})
     }
     else {
-        res.jsonp({
-            loggedIn: true,
-            user: req.user
+        User.findOne({ 'username' :  req.user.username })
+        .populate({
+            path: 'savedSongs',
+            populate: {
+                path: 'track',
+                model: 'Track'
+            }
         })
+        .exec(function(err, user) {
+                // In case of any error, return using the done method
+                if (err)
+                    return done(err);
+                // Username does not exist, log the error and redirect back
+                if (!user){
+                    return done(null, false, {message: 'User Not found.'});
+                }
+                // User and password both match, return user from done method
+                // which will be treated like success
+                res.jsonp({
+                    loggedIn: true,
+                    user: user
+                });
+            }
+        );
     }
  })
 

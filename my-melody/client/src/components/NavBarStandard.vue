@@ -66,7 +66,6 @@ export default {
             }
         },
         search() {
-            console.log(this.searchText);
             // console.log(this.searchText.length);
             this.users = [];
             if (this.searchText.length > 0) {

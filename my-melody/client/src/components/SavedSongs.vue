@@ -64,7 +64,7 @@ import PlayableAlbumArt from '@/components/PlayableAlbumArt.vue'
             return {
                 fullName: this.user.firstName + ' ' + this.user.lastName,
                 query: null,
-                songArray: this.user.savedSongs
+                songArray: this.$store.getters.currentUser.savedSongs
             }
         },
         methods: {
@@ -95,8 +95,7 @@ import PlayableAlbumArt from '@/components/PlayableAlbumArt.vue'
                 }
             },
             search() {
-                console.log(this.user.savedSongs.length);
-                console.log(this.query);
+                console.log(this.user);
                 if(this.query !== '') {
                     //var newList = this.user.savedSongs.filter(song => song.title.length > 7);
                     var newList = this.user.savedSongs.filter(song => this.filterMethod(song));
@@ -134,7 +133,7 @@ import PlayableAlbumArt from '@/components/PlayableAlbumArt.vue'
     .filter {
         text-align: right;
         margin-right: 10px;
-        
+
     }
 
 .table-row {
