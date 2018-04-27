@@ -19,7 +19,7 @@ export default new Vuex.Store({
         postModalState: null,
         postModalOpen: false,
         currentUser: {},
-        baseApiUrl: 'http://localhost:8888',
+        baseApiUrl: 'https://mymelody.herokuapp.com',
         posts: [],
         update: false,
         loggedIn: devMode
