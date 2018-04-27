@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid">
-      <div>
+      <div class="dad">
           <input class="search-box" v-model="query" placeholder="Filter by artist, track, or tag"/><button class="search-btn" v-on:click="search"><icon class="searchIcon" name="search"></icon></button>
       </div>
       <div class="table-row">
@@ -102,6 +102,11 @@ import PlayableAlbumArt from '@/components/PlayableAlbumArt.vue'
  * Basic styles, good for a large display. Everything fits in
  * one row, no wrapping. All text based cells grow equally.
  */
+ .dad {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+ }
  .searchIcon svg {
      color: #fff;
  }
@@ -124,7 +129,6 @@ import PlayableAlbumArt from '@/components/PlayableAlbumArt.vue'
      color: #fff;
      height: 34px;
      padding: 0 12px;
-     margin-top: -2px;
      vertical-align: middle;
      cursor: pointer;
  }
