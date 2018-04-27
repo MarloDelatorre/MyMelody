@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid">
-      <div>
+      <div class="dad">
           <input class="search-box" v-model="query" placeholder="Filter by artist, track, or tag"/><button class="search-btn" v-on:click="search"><icon class="searchIcon" name="search"></icon></button>
       </div>
       <div class="table-row">
@@ -31,6 +31,9 @@ import PlayableAlbumArt from '@/components/PlayableAlbumArt.vue'
         components: {
             Icon,
             PlayableAlbumArt
+        },
+        props: {
+            user: String
         },
         data: function() {
             return {
@@ -79,9 +82,9 @@ import PlayableAlbumArt from '@/components/PlayableAlbumArt.vue'
             },
         },
         created: function() {
-            this.$store.dispatch('getUserPosts', this.$store.getters.currentUser.username)
-            .then(() => {
-                //console.log(this.$store.getters.posts);
+            this.$store.dispatch('getUserPosts', this.user)
+            .then((res) => {
+                console.log(res);
                 var date_sort_desc = function (post1, post2) {
                   if (post1.posted > post2.posted) return -1;
                     if (post1.posted < post2.posted) return 1;
@@ -103,6 +106,11 @@ import PlayableAlbumArt from '@/components/PlayableAlbumArt.vue'
  * Basic styles, good for a large display. Everything fits in
  * one row, no wrapping. All text based cells grow equally.
  */
+ .dad {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+ }
  .searchIcon svg {
      color: #fff;
  }
@@ -125,32 +133,34 @@ import PlayableAlbumArt from '@/components/PlayableAlbumArt.vue'
      color: #fff;
      height: 34px;
      padding: 0 12px;
-     margin-top: -2px;
      vertical-align: middle;
      cursor: pointer;
  }
 
 .card {
-  width: 300px;
+  width: 250px;
   height: 350px;
   background-color: #1A2226;
   text-align: center;
 }
 .card img {
-  width: 300px;
-  height: 300px;
+  width: 250px;
+  height: 250px;
 
 }
 .list {
     display: flex;
     flex-direction: row;
 }
-.card {
+
+.list li {
+    margin: 10px;
 }
+
 .card p {
   color: white;
   margin-top: 14px;
-    font-size: 18px;
+  font-size: 18px;
   font-weight: bold;
 }
 .container-fluid {
@@ -162,9 +172,9 @@ import PlayableAlbumArt from '@/components/PlayableAlbumArt.vue'
   display: -webkit-flex;
   flex-direction: row;
   -webkit-flex-direction: row;
-  flex-wrap: no-wrap;
-  -webkit-flex-wrap: no-wrap;
-  width: 800px;
+  flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  width: 900px;
   padding-left: 15px;
   padding-right: 15px;
 }
@@ -174,6 +184,12 @@ import PlayableAlbumArt from '@/components/PlayableAlbumArt.vue'
   flex-direction: row;
   -webkit-flex-direction: row;
 }
+.list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
 .column {
   flex-grow: 0;
   overflow: hidden;

@@ -213,6 +213,7 @@ export default {
     height: 34px;
     padding: 0 12px;
     margin-top: -2px;
+    cursor: pointer;
     vertical-align: middle;
 }
 .whiteText {

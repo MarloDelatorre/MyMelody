@@ -15,7 +15,6 @@
         </div>
         <div class="wrapper module-reporter">
           <div class="column module">ALBUM</div>
-          <div class="column reporter">USER</div>
         </div>
       </div>
     </div>
@@ -37,7 +36,6 @@
                   <div class="column module">
                         <playable-album-art :artUrl="track.albumArt" :audioUrl="track.audio"></playable-album-art>
                    </div>
-                  <div class="column reporter">username?</div>
                 </div>
               </div>
             </div>

@@ -159,6 +159,7 @@ export default {
         display: flex;
         justify-content: space-around;
         align-items: center;
+        cursor: pointer;
     }
 
     .iconMenuMiniContainer {
@@ -174,7 +175,7 @@ export default {
         color: #D34084;
     }
 
-    @media (max-width:900px) {
+    /* @media (max-width:900px) {
         .iconMenuContainer {
             display: none;
         }
@@ -183,5 +184,5 @@ export default {
             display: flex;
         }
 
-    }
+    } */
 </style>
