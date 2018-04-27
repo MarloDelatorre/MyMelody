@@ -26,13 +26,14 @@ export default {
     }
     img {
         width: 100%;
-        margin-bottom: 10px;
+
     }
     h1 {
-        font-size: 1.2em;
+        font-size: 18px;
         font-weight: bold;
+        color: white;
     }
     h2 {
-        margin-bottom: 10px;
+        color: white;
     }
 </style>

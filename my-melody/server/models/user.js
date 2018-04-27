@@ -9,7 +9,7 @@ let userSchema = new Schema({
     description: {type: String, default: 'This is your description.'},
     followers: [{type: Schema.Types.Mixed}],
     following: [{type: String}],
-    savedSongs: [{type: Schema.Types.ObjectId, ref: 'Track'}]
+    savedSongs: [{type: Schema.Types.ObjectId, ref: 'Post'}]
 
 }, {versionKey: false});
 

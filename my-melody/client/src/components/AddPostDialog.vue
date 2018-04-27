@@ -15,6 +15,8 @@
 <script>
 import TrackCard from './TrackCard.vue';
 import Icon from 'vue-awesome/components/Icon';
+import PostWall from './PostWall.vue';
+import Vue from 'vue';
 
 import axios from 'axios';
 
@@ -59,7 +61,7 @@ export default {
             .catch(err => console.error(err));
         },
         addPost() {
-            console.log({track: this.$store.getters.selectedTrack, caption: this.caption})
+            // console.log({track: this.$store.getters.selectedTrack, caption: this.caption})
             this.tagArray = this.tags.split(" ");
             for (var tag in this.tagArray) {
                 if (this.tagArray[tag].substring(0, 1) !== '#') {
@@ -82,6 +84,14 @@ export default {
 
                 this.$store.commit('postModalState', null);
                 this.$emit('hide');
+
+                var newPostArray = this.$store.getters.posts;
+                // console.log("res data", res.data);
+                var newPost = res.data;
+                newPost.track = this.track;
+                newPostArray.unshift(res.data);
+                this.$store.commit('setPosts', newPostArray);
+
             }).catch(err => console.error(err));
         },
         back() {
@@ -90,7 +100,8 @@ export default {
     },
     components: {
         TrackCard,
-        Icon
+        Icon,
+        PostWall
     }
 }
 </script>
