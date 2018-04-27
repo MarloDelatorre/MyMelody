@@ -15,7 +15,6 @@
         </div>
         <div class="wrapper module-reporter">
           <div class="column module">ALBUM</div>
-          <div class="column reporter">USER</div>
         </div>
       </div>
     </div>

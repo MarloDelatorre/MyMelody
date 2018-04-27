@@ -6,7 +6,7 @@ var Track = require('../models/track');
 var router = express.Router();
 
 router.route('/')
-    // get all all posts 
+    // get all all posts
     .get((req, res) => {
         Post.find({})
             .populate('track')
@@ -15,24 +15,44 @@ router.route('/')
                 else res.jsonp(posts);
             });
     })
-    // save new post 
+    // save new post
     .post((req, res) => {
-        var newTrack = new Track({ _id: new mongoose.Types.ObjectId()});
-        Object.assign(newTrack, req.body.track);
+        var newTrack;
+        Track.findOne(
+            {trackId: req.body.track.trackId},
+            function(err, track) {
+                if (err) res.send(err);
+                if (!track) {
+                    newTrack = new Track({ _id: new mongoose.Types.ObjectId()});
+                    Object.assign(newTrack, req.body.track);
+                    newTrack.save(err => {
+                        if (err) res.send(err);
+                        else {
+                            var newPost = new Post({
+                                username: req.body.username,
+                                track: newTrack._id,
+                                caption: req.body.caption
+                            });
 
-        newTrack.save(err => {
-            if (err) res.send(err);
-            else {
-                var newPost = new Post({
-                    username: req.body.username,
-                    track: newTrack._id,
-                    caption: req.body.caption 
-                });
-                
-                newPost.save((err2, post) => {
-                    if (err2) res.send(err2);
-                    else res.jsonp(post);
-                });
+                            newPost.save((err2, post) => {
+                                if (err2) res.send(err2);
+                                else res.jsonp(post);
+                            });
+                        }
+                    })
+                }
+                else {
+                    newTrack = track;
+                    var newPost = new Post({
+                        username: req.body.username,
+                        track: newTrack._id,
+                        caption: req.body.caption
+                    });
+
+                    newPost.save((err2, post) => {
+                        if (err2) res.send(err2);
+                        else res.jsonp(post);
+                })
             }
         })
    })

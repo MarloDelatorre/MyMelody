@@ -19,7 +19,7 @@
         <button class="button" @click="openTab = 'posts'" autofocus>{{ homeMessage.posts }}</button>
     </div>
     <div v-if="openTab === 'posts'">
-        <PostWall />
+        <PostWall :user="$route.params.username"/>
     </div>
     <div class="background">
     </div>
