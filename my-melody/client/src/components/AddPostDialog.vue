@@ -3,6 +3,7 @@
             <track-card :title="track.title" :artist="track.artist" :albumArt="track.albumArt"/>
             <div class="caption">
                 <textarea v-model="caption" placeholder="Add a caption..."></textarea>
+                <input v-model="tags" class="tags" placeholder="Add tags separated by spaces..."></input>
                 <div>
                     <button v-on:click="back">Back</button>
                     <button v-on:click="addPost">Add Post</button>
@@ -21,7 +22,9 @@ export default {
     name: 'add-post-dialog',
     data: function() {
         return {
-            caption: null
+            caption: null,
+            tags: '',
+            tagArray: [],
         }
     },
     computed: {
@@ -32,10 +35,20 @@ export default {
     methods: {
         addPost() {
             console.log({track: this.$store.getters.selectedTrack, caption: this.caption})
+            this.tagArray = this.tags.split(" ");
+            for (var tag in this.tagArray) {
+                if (this.tagArray[tag].substring(0, 1) !== '#') {
+                    this.tagArray[tag] = '#' + this.tagArray[tag];
+                }
+            }
+            var uniqueArray = this.tagArray.filter(function(item, pos, self) {
+                return self.indexOf(item) == pos;
+            })
             axios.post(`${this.$store.getters.baseApiUrl}/api/posts/`, {
-                username: this.$store.getters.currentUser,
+                username: this.$store.getters.currentUser.username,
                 caption: this.caption,
-                track: this.track
+                track: this.track,
+                tags: uniqueArray,
             }).then(res => {
                 console.log(res);
                 this.$store.commit('postModalState', null);
@@ -63,7 +76,7 @@ export default {
     }
 
     .caption {
-        margin-left: 15px; 
+        margin-left: 15px;
     }
 
     .caption textarea {
@@ -72,10 +85,16 @@ export default {
         resize: none;
     }
 
+    .tags {
+        height: 50px;
+        width: 300px;
+        resize: none;
+    }
+
     .caption button {
         box-sizing: border-box;
         width: 150px;
-        padding: 7px 0; 
+        padding: 7px 0;
         border: 1px solid #d34084;
         border-radius: 25px;
         background-color: #d34084;

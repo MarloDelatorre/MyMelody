@@ -35,7 +35,11 @@ import PlayableAlbumArt from '@/components/PlayableAlbumArt.vue'
         data: function() {
             return {
                 query: null,
-                postArray: this.$store.getters.posts,
+            }
+        },
+        computed: {
+            postArray: function() {
+                return this.$store.getters.posts;
             }
         },
         methods: {
